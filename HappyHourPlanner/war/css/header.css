@@ -1,0 +1,109 @@
+body.landing #header {
+    background-color: transparent;
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+#header {
+    background-color: #383b43;
+    color: #ffffff;
+    cursor: default;
+    font-size: 1.0em;
+    height: 6em;
+    line-height: 6em;
+    width: 100%;
+    z-index: 10000;
+}
+
+#header h1 {
+    color: #ffffff;
+    height: inherit;
+    left: 3em;
+    font-size: .8em;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+    font-weight: 700;
+    position: absolute;
+}
+
+#header nav {
+    height: inherit;
+    line-height: inherit;
+    position: absolute;
+    right: 3em;
+    vertical-align: middle;
+}
+
+#header nav > ul {
+    list-style: outside none none;
+    margin: 0;
+    padding-left: 0;
+}
+
+#header nav > ul {
+    list-style: outside none none;
+}
+
+#header nav > ul > li:first-child {
+    margin-left: 0;
+}
+
+#header nav > ul > li {
+    border-radius: 4px;
+    display: inline-block;
+    margin-left: 2em;
+    padding-left: 0;
+}
+
+body.landing #header nav a {
+    color: rgba(255, 255, 255, 0.5);
+}
+#header nav > ul > li a {
+    color: #cdced0;
+    font: 16px;
+    display: inline-block;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out 0s;
+}
+
+#header nav > ul > li .button {
+    background-color: #fff;
+    color: #444 !important;
+    height: 1.5em;
+    line-height: 1.5em;
+    margin-bottom: 0;
+    padding: 0 1em;
+    font-size: 12px;
+    position: relative;
+    top: -0.075em;
+    vertical-align: middle;
+}
+
+body.landing #header nav a {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+#header nav > ul > li a {
+    color: #cdced0;
+    display: inline-block;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out 0s;
+}
+
+.sign-out-button {
+    -moz-appearance: none;
+    background-color: #3cadd4;
+    border: 0 none;
+    border-radius: 30px;
+    color: #ffffff !important;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    padding: 0 2em;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out 0s, color 0.2s ease-in-out 0s;
+    white-space: nowrap;
+}

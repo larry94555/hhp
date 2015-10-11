@@ -14,8 +14,12 @@ public class Constant {
 	public static final int ACTIVATION_KEY_LENGTH = 40;
 	
 	// Verify Email
-	public static final String VERIFY_EMAIL_SUBJECT = "Please confirm your email address";
+	public static final String VERIFY_EMAIL_SUBJECT = "[Happy Hour Planner] Please confirm your email address";
 	public static final String VERIFY_EMAIL_TEXT_FILE = "/WEB-INF/resources/verifyEmail.txt";
+	
+	public static final String STATUS = "currentStatus";
+	public static final String BAD_ACTIVATION_CODE = "badActivationCode";
+	public static final String JUST_ACTIVATED = "justActiviated";
 	
 	public static final String VERIFY_EMAIL_HTML_FILE = "/WEB-INF/resources/verifyEmail.html";
 	

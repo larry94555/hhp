@@ -55,8 +55,7 @@ public class SavedSessionHandler {
 		
 		if (savedSession != null) {
 			savedSession.setSessionAttributes(session);
-			EM.get().persist(savedSession);
-			EM.commit();
+			persist(savedSession);
 			return savedSession.getSessionId();
 		}
 		else {
@@ -65,9 +64,13 @@ public class SavedSessionHandler {
 		
 		// generate sessionId
 		savedSession = new SavedSession(session,username);
+		persist(savedSession);
+		return savedSession.getSessionId();
+	}
+	
+	private static void persist(final SavedSession savedSession) {
 		EM.get().persist(savedSession);
 		EM.commit();
-		return savedSession.getSessionId();
 	}
 
 }

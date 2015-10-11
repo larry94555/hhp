@@ -8,10 +8,12 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import com.happyhourplanner.common.Constant;
 import com.happyhourplanner.common.Util;
 import com.happyhourplanner.model.EM;
 import com.happyhourplanner.model.EMF;
 import com.happyhourplanner.model.Passwords;
+import com.happyhourplanner.model.SavedSession;
 import com.happyhourplanner.model.User;
 
 public class UserAccountHandler {
@@ -30,9 +32,9 @@ public class UserAccountHandler {
 	
 	public static String getActivationKey(final String username) {
 		User user = find(username);
-		user.setActivationKey(Util.generateActivationKey());
+		user.setActivationCode(Util.generateActivationKey());
 		persist(user);
-		return user.getActivationKey();
+		return user.getActivationCode();
 	}
 	
 	public static User find(final String username) {
@@ -58,6 +60,48 @@ public class UserAccountHandler {
 		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
 		cq.select(qb.count(cq.from(User.class)));
 		return EM.get().createQuery(cq).getSingleResult().intValue();		
+		
+	}
+	
+	private static User getUserByActivationCode(final String activationCode) {
+		
+		Query query = EM.get().createQuery("SELECT u FROM User u WHERE u.activationCode = :activationCode");
+		query.setParameter("activationCode", activationCode);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+				
+		@SuppressWarnings("unchecked")
+		List<User> results = (List<User>)query.getResultList();
+		
+		_log.info("Found: " + results.size() + " result(s).");
+		
+		if (results.size() == 1) {
+			return results.get(0);
+		}
+		
+		
+		return null;
+	}
+	
+	public static void activateUser(final String activationCode,User user) {
+		
+		if (user == null) {
+			// in this case, retrieve use using activation code
+			user = getUserByActivationCode(activationCode);
+		}
+		
+		// if user context, then check user and persist
+		if (user != null && !user.isVerified()) {
+			if (user.getActivationCode().equals(activationCode)) {				
+				user.setVerifiedFlag(true);
+				user.setCurrentState(1);
+				persist(user);
+				
+			}
+
+		}
+		
+		// else, do nothing.
 		
 	}
 

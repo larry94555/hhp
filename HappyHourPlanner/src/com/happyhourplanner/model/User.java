@@ -24,7 +24,7 @@ public class User {
 	
 	private boolean changePassword;
 	
-	private String activationKey;
+	private String activationCode;
 	
 	public byte[] getSalt() { return salt; }
 	
@@ -41,7 +41,7 @@ public class User {
 		this.firstTimeUser = true;
 		this.changePassword = false;
 		this.currentState = 0;
-		this.activationKey="";
+		this.activationCode="";
 	}
 	
 	public boolean isDisabled() { return disabled; }
@@ -72,12 +72,12 @@ public class User {
 		return Passwords.isExpectedPassword(password.toCharArray(), getSalt(), getHash());
 	}
 	
-	public String getActivationKey() {
-		return activationKey;
+	public String getActivationCode() {
+		return activationCode;
 	}
 	
-	public void setActivationKey(final String activationKey) {
-		this.activationKey = activationKey;
+	public void setActivationCode(final String activationCode) {
+		this.activationCode = activationCode;
 	}
 	
 	public int getCurrentState() { return currentState; }

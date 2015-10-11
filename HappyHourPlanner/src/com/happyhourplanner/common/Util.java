@@ -13,8 +13,10 @@ import java.util.Map;
 
 import com.happyhourplanner.controller.LogInServlet;
 import com.happyhourplanner.controller.SavedSessionHandler;
+import com.happyhourplanner.controller.UserAccountHandler;
 import com.happyhourplanner.model.Passwords;
 import com.happyhourplanner.model.ResponseBean;
+import com.happyhourplanner.model.User;
 
 public class Util {
 	
@@ -28,6 +30,32 @@ public class Util {
 	
 	public static String generateActivationKey() {
 		return Passwords.generateRandomPassword(Constant.ACTIVATION_KEY_LENGTH);
+	}
+	
+	public static User checkForUser(final HttpServletRequest req,final HttpServletResponse resp) {
+		
+		final HttpSession session = req.getSession();
+		String username = (String)session.getAttribute(Constant.USERNAME);
+		
+		if (username == null) {
+			// check cookie only if no session context
+			Util.updateSessionIfCookie(req);
+			username = (String)session.getAttribute(Constant.USERNAME);
+		}
+		
+		if (username != null) {
+			final User user = UserAccountHandler.find(username);
+			if (user == null) {
+				// in this case, do a sign out.
+				session.invalidate();
+		    	Util.removeSessionCookie(resp);
+			}
+			return user;
+		}
+		else {
+			return null;
+		}
+		
 	}
 	
 	public static String getCookieValue(final HttpServletRequest request, final String name) {

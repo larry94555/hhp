@@ -11,21 +11,9 @@
 <%@ page import="javax.servlet.http.HttpSession" %>
 
 <% 
-	String username = (String)session.getAttribute("username");
-	if (username == null) {
-		// check cookie only if no session context
-		Util.updateSessionIfCookie(request);
-		username = (String)session.getAttribute("username");
-	}
-	
-	if (username != null) {
-		User user = UserAccountHandler.find(username);
-		if (user == null) {
-			// in this case, do a sign out.
-			request.getSession().invalidate();
-	    	Util.removeSessionCookie(response);
-		}
-		else if (user.isFirstTime()) {
+	final User user = Util.checkForUser(request,response);
+	if (user != null) {
+		if (user.isFirstTime()) {
 			// forward to wizard.jsp
 			pageContext.forward("/member/wizard.jsp");
 		}
@@ -34,7 +22,6 @@
 			pageContext.forward("/member/member.jsp");
 		}
 	}
-
 %>
 <html>
 	<head>

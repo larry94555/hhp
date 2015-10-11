@@ -1,4 +1,26 @@
 <!DOCTYPE html>
+<%@ page import="com.happyhourplanner.controller.UserAccountHandler" %>
+<%@ page import="com.happyhourplanner.model.User" %>
+<%@ page import="com.happyhourplanner.common.Util" %>
+<%@ page import="java.util.List" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
+
+<% 
+	final User user = Util.checkForUser(request,response);
+	if (user == null) {
+		// in this case, do a sign out.
+		request.getSession().invalidate();
+	    Util.removeSessionCookie(response);
+	    pageContext.forward("/");
+	}
+	else if (user.isFirstTime()) {
+		// forward to wizard.jsp
+		pageContext.forward("/member/wizard.jsp");
+	}
+
+%>
+
+
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -22,17 +44,11 @@
     </head>
     <body class="landing">
         
-        <% boolean loggedIn = (session.getAttribute("username") != null); %>
-        
         <jsp:include page="header.jsp" flush="true" />
         
 		<section id="banner">
 			<h2><strong>Happy Hour Planner</strong></h2>
 			<ul class="actions">
-				<% if (!loggedIn) { %>
-					<li><a href="#login-box" class="button special login-window">Log In</a></li>
-					<li><a href="#login-box" class="button special signup-window">Sign Up</a></li>
-				<% } %>
 			</ul>
 		</section>
 		

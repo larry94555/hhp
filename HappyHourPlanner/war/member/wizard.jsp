@@ -6,26 +6,16 @@
 <%@ page import="javax.servlet.http.HttpSession" %>
 
 <% 
-	String username = (String)session.getAttribute("username");
-	if (username == null) {
-		// check cookie only if no session context
-		Util.updateSessionIfCookie(request);
-		username = (String)session.getAttribute("username");
+	final User user = Util.checkForUser(request,response);
+	if (user == null) {
+		// in this case, do a sign out.
+		request.getSession().invalidate();
+	    Util.removeSessionCookie(response);
+	    pageContext.forward("/");
 	}
-	
-	User user=null;
-	if (username != null) {
-		user = UserAccountHandler.find(username);
-		if (user == null) {
-			// in this case, do a sign out.
-			request.getSession().invalidate();
-	    	Util.removeSessionCookie(response);
-	    	pageContext.forward("/");
-		}
-		else if (!user.isFirstTime()) {
-			// forward to wizard.jsp
-			pageContext.forward("/member/member.jsp");
-		}
+	else if (!user.isFirstTime()) {
+		// forward to wizard.jsp
+		pageContext.forward("/member/member.jsp");
 	}
 
 %>
@@ -94,11 +84,15 @@
 
             <div id="wizard">
                 <h2>Verify Email Account</h2>
-                <section>
+                <section>	
+                
                 	<p>We&apos;ve sent you an email containing a link that will allow you to verify your email account.</p>
                 	<p>Please check your spam folder if the email doesn&apos;t appear within a few minutes.</p>
                 	<p>Click <a href="#" id="resendverify">here</a> to resend the email.</p>
-                    
+                
+                	<p>Thanks for verifying your email.  Welcome to Happy Hour Planner!</p>
+                	<p>Click <a href=#">here</a> to continue.</p>
+                
                     <div class="messagepop pop">
   						<form method="post" id="new_message" action="/messages">
     						<p><label for="email">Your email address</label><input type="text" size="30" name="email" id="email" /></p>

@@ -6,24 +6,22 @@
 
 <% 
 	// check for cookie
-	Util.updateSessionIfCookie(request);
-
-	boolean loggedIn = (session.getAttribute("username") != null); 
+	final User user = Util.checkForUser(request,response);
 %>
 
 		<!-- Header -->
 		<header id="header">
 			<h1>
 				<a href="#" id="hello-user">
-					<% if (loggedIn) { %>
-						<%= session.getAttribute("username") %>
+					<% if (user != null) { %>
+						<%= user.getUserName() %>
 					<% } %>
 				</a>
 			</h1>
 			<nav id="nav">
 				<ul>
 					<li>
-						<% if (loggedIn) { %>
+						<% if (user == null) { %>
 							<a href="#" class="sign-out-button special button">Sign Out</a>
 						<% } %>
 					</li>

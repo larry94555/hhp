@@ -6,13 +6,8 @@
 
 <% 
 
-	String username = (String)session.getAttribute("username");
-	if (username == null) {
-		// check cookie only if no session context
-		Util.updateSessionIfCookie(request);
-		username = (String)session.getAttribute("username");
-	}
-	if (username == null || !username.equalsIgnoreCase("larry.freeman@gmail.com")) {
+	final User user = Util.checkForUser(request,response);
+	if (user == null || !user.getUserName().equalsIgnoreCase("larry.freeman@gmail.com")) {
 		response.sendRedirect("/");
 		return;
 	}

@@ -45,6 +45,7 @@ $(document).ready(function() {
 	    	'margin-left' : -popMargLeft
 	    });
 	    
+	    // set the current value
 	    $('#edit-table-message').hide();
 	    $('#edit-table-username').text($(this).children('.row_email').text());
 	    $('#edit-table-verified').val($(this).children('.row_verified').text());
@@ -52,6 +53,7 @@ $(document).ready(function() {
 	    $('#edit-table-change-password').val($(this).children('.row_change_password').text());
 	    $('#edit-table-first-time').val($(this).children('.row_first_time_user').text());
 	    $("#edit-table-current-state").val($(this).children('.row_current_state').attr("data-value"));
+	    $("#edit-table-email-text-only").val($(this).children('.row_email_text_only').text());
 	    $('#edit-table-delete').val('no');
 	    
 	    //alert("test: value = " + $(this).children('.row_current_state').attr("data-value"));
@@ -84,6 +86,7 @@ $(document).ready(function() {
 				changePassword:$('#edit-table-change-password').val(),
 				firstTimeUser:$('#edit-table-first-time').val(),
 				currentState:$('#edit-table-current-state').val(),
+				emailTextOnly:$('#edit-table-email-text-only').val(),
 				delete: $('#edit-table-delete').val()
 			},
 			dataType: "text"

@@ -53,6 +53,7 @@
             		<th>Change Password</th>
             		<th>First Time User</th>
             		<th>Current State</th>
+            		<th>Email Text Only</th>
         		</tr>
     		</thead>
     		<tbody>
@@ -73,6 +74,7 @@
             		<td class="row_change_password"><%= each.needToChangePwd() %></td>
             		<td class="row_first_time_user"><%= each.isFirstTime() %></td>
             		<td class="row_current_state" data-value="<%= each.getCurrentState() %>"><%= each.getCurrentStateAsString() %></td>
+            		<td class="row_email_text_only"><%= each.emailTextOnly() %></td>
         		</tr>
     			
     			
@@ -127,6 +129,13 @@
         					<option value="4">status</option>
         					<option value="5">date</option>
         					<option value="6">undefined</option>
+        				</select>
+        			</label>
+        			<label class="user-email-text-only" id="user-email-text-only-label">
+        				<span>Email Text Only</span>
+        				<select id="edit-table-email-text-only" name="user-email-text-only">
+        					<option value="true">true</option>
+        					<option value="false">false</option>
         				</select>
         			</label>
         			<label class="user-delete" id="user-delete-label">

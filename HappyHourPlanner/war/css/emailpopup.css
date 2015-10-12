@@ -29,3 +29,8 @@ a.selected {
   margin: 8px 0;
   padding-bottom: 8px;
 }
+
+div#contact-list-id {
+  padding-left: 2.5%;
+}
+

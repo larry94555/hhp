@@ -87,8 +87,8 @@
                 
                 <% if (user.isVerified()) { %>
                 
-                	<p>Your account has already been activated.  Welcome to Happy Hour Planner!</p>
-                	<p>Click <a href="#">here</a> to continue.</p>
+                	<p>Your account has already been activated.</p>
+                	<p>Click <a id="stepOne-continue" href="#">here</a> to continue.</p>
                 	
                 <% } else if (status == null || !status.equals(Constant.BAD_ACTIVATION_CODE)) { %>	
                 
@@ -141,11 +141,12 @@
                     
                     <p>The next step is to add the emails of your contacts.</p>
                     <p>There are two ways to add emails:</p>
-                    <ul>
-                    	<li>Forward emails that include your contacts in the to-field or cc-field.</li>
-                    	<li>Add emails directly as the list.</li>
-                    </ul>
-                    
+                    <div id="contact-list-id">
+                    	<ul>
+                    		<li>Forward emails that include your contacts in the to-field or cc-field.</li>
+                    		<li>Add emails directly as the list.</li>
+                    	</ul>
+                    </div>
                 </section>
 
                 <h2>Set Your Availability and Preferences</h2>

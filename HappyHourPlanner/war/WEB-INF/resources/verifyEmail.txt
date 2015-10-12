@@ -1,5 +1,15 @@
-Welcome to HappyHourPlanner.Com!
+Welcome to Happy Hour Planner!
+
 
 Thanks very much for signing up.  
 
-To complete the sign up, please reply to this email.
+
+You can activate your account by clicking the following url:
+
+	http://happyhourplanner.com/activate/${activationKey}
+
+or by replying to this email.
+
+
+
+If you did sign up for http://happyhourplanner.com, please ignore this email.

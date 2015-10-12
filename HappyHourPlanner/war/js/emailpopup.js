@@ -14,6 +14,12 @@ $(function() {
 	    }
 	    return false;
 	  });
+	  
+	  $('body').on('click','a#stepOne-continue', function() {
+		  
+		  $('#wizard-t-1').click();
+		  
+	  });
 
 	  $('.close').on('click', function() {
 	    deselect($('#contact'));

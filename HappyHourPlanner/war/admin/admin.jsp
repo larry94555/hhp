@@ -60,19 +60,19 @@
     		
     			List<User> users = UserAccountHandler.getAllUsers(0,count);
     			int i=0;
-    			for (User user : users) { 
+    			for (User each : users) { 
     				i++;
     			
     			%>
     			
     			<tr>
             		<td class="row_id"><%= i %></td>
-            		<td class="row_email"><%= user.getUserName() %></td>
-            		<td class="row_verified"><%= user.isVerified() %></td>
-            		<td class="row_disabled"><%= user.isDisabled() %></td>
-            		<td class="row_change_password"><%= user.needToChangePwd() %></td>
-            		<td class="row_first_time_user"><%= user.isFirstTime() %></td>
-            		<td class="row_current_state" data-value="<%= user.getCurrentState() %>"><%= user.getCurrentStateAsString() %></td>
+            		<td class="row_email"><%= each.getUserName() %></td>
+            		<td class="row_verified"><%= each.isVerified() %></td>
+            		<td class="row_disabled"><%= each.isDisabled() %></td>
+            		<td class="row_change_password"><%= each.needToChangePwd() %></td>
+            		<td class="row_first_time_user"><%= each.isFirstTime() %></td>
+            		<td class="row_current_state" data-value="<%= each.getCurrentState() %>"><%= each.getCurrentStateAsString() %></td>
         		</tr>
     			
     			

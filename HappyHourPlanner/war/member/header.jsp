@@ -21,7 +21,7 @@
 			<nav id="nav">
 				<ul>
 					<li>
-						<% if (user == null) { %>
+						<% if (user != null) { %>
 							<a href="#" class="sign-out-button special button">Sign Out</a>
 						<% } %>
 					</li>

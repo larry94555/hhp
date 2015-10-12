@@ -2,6 +2,7 @@
 <%@ page import="com.happyhourplanner.controller.UserAccountHandler" %>
 <%@ page import="com.happyhourplanner.model.User" %>
 <%@ page import="com.happyhourplanner.common.Util" %>
+<%@ page import="com.happyhourplanner.common.Constant" %>
 <%@ page import="java.util.List" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 
@@ -17,7 +18,11 @@
 		// forward to wizard.jsp
 		pageContext.forward("/member/member.jsp");
 	}
-
+	
+	final String status = (String)session.getAttribute(Constant.STATUS);
+	
+	final int currentState =  user.getCurrentState();
+	
 %>
 
 
@@ -46,17 +51,11 @@
     </head>
     <body class="landing">
         
-        <% boolean loggedIn = (session.getAttribute("username") != null); %>
-        
         <jsp:include page="header.jsp" flush="true" />
         
 		<section id="banner">
 			<h2><strong>Happy Hour Planner</strong></h2>
 			<ul class="actions">
-				<% if (!loggedIn) { %>
-					<li><a href="#login-box" class="button special login-window">Log In</a></li>
-					<li><a href="#login-box" class="button special signup-window">Sign Up</a></li>
-				<% } %>
 			</ul>
 		</section>
 		
@@ -74,7 +73,7 @@
                         headerTag: "h2",
                         bodyTag: "section",
                         enableKeyNavigation: false,
-                        startIndex: <%= user.getCurrentState() %>,
+                        startIndex: <%= currentState %>,
                         enablePagination: false,
                         transitionEffect: "slideLeft",
                         stepsOrientation: "vertical"
@@ -84,7 +83,14 @@
 
             <div id="wizard">
                 <h2>Verify Email Account</h2>
-                <section>	
+                <section>
+                
+                <% if (user.isVerified()) { %>
+                
+                	<p>Your account has already been activated.  Welcome to Happy Hour Planner!</p>
+                	<p>Click <a href="#">here</a> to continue.</p>
+                	
+                <% } else if (status == null || !status.equals(Constant.BAD_ACTIVATION_CODE)) { %>	
                 
                 	<p>We&apos;ve sent you an email containing a link that will allow you to verify your email account.</p>
                 	<p>Please check your spam folder if the email doesn&apos;t appear within a few minutes.</p>
@@ -92,6 +98,24 @@
                 
                 	<p>Thanks for verifying your email.  Welcome to Happy Hour Planner!</p>
                 	<p>Click <a href=#">here</a> to continue.</p>
+                
+                <% } else { %>
+                
+                	<p>The activation code you selected was old. A more recent one was sent.</p>
+                	<p>Click <a href="#" id="resendverify">here</a> to resend the email.</p>
+                
+                	<p>Thanks for verifying your email.  Welcome to Happy Hour Planner!</p>
+                	<p>Click <a href=#">here</a> to continue.</p>
+                
+                
+                <% 
+                
+                	session.removeAttribute(Constant.STATUS);
+                
+                	} 
+                	
+                %>
+                
                 
                     <div class="messagepop pop">
   						<form method="post" id="new_message" action="/messages">
@@ -107,12 +131,21 @@
 
                 <h2>Create Contact List</h2>
                 <section>
-                    <p>Donec mi sapien, hendrerit nec egestas a, rutrum vitae dolor. Nullam venenatis diam ac ligula elementum pellentesque. 
-                        In lobortis sollicitudin felis non eleifend. Morbi tristique tellus est, sed tempor elit. Morbi varius, nulla quis condimentum 
-                        dictum, nisi elit condimentum magna, nec venenatis urna quam in nisi. Integer hendrerit sapien a diam adipiscing consectetur. 
-                        In euismod augue ullamcorper leo dignissim quis elementum arcu porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                        Vestibulum leo velit, blandit ac tempor nec, ultrices id diam. Donec metus lacus, rhoncus sagittis iaculis nec, malesuada a diam. 
-                        Donec non pulvinar urna. Aliquam id velit lacus.</p>
+                
+                	<% if (status != null && status.equals(Constant.JUST_ACTIVATED)) { %>
+                
+                    <p>Thanks for confirming your email address!</p>
+                   
+                    
+                    <% } %>
+                    
+                    <p>The next step is to add the emails of your contacts.</p>
+                    <p>There are two ways to add emails:</p>
+                    <ul>
+                    	<li>Forward emails that include your contacts in the to-field or cc-field.</li>
+                    	<li>Add emails directly as the list.</li>
+                    </ul>
+                    
                 </section>
 
                 <h2>Set Your Availability and Preferences</h2>

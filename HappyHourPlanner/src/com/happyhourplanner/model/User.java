@@ -26,6 +26,8 @@ public class User {
 	
 	private String activationCode;
 	
+	private boolean emailTextOnly; // for testing purposes only
+	
 	public byte[] getSalt() { return salt; }
 	
 	public byte[] getHash() { return hash; }
@@ -42,6 +44,7 @@ public class User {
 		this.changePassword = false;
 		this.currentState = 0;
 		this.activationCode="";
+		this.emailTextOnly = false;
 	}
 	
 	public boolean isDisabled() { return disabled; }
@@ -51,6 +54,8 @@ public class User {
 	public boolean needToChangePwd() { return changePassword; }
 	
 	public boolean isFirstTime() { return firstTimeUser; }
+	
+	public boolean emailTextOnly() { return this.emailTextOnly; }
 	
 	public void setVerifiedFlag(final boolean verified) {
 		this.verified=verified;
@@ -66,6 +71,10 @@ public class User {
 	
 	public void setFirstTimeUser(final boolean firstTimeFlag) {
 		this.firstTimeUser=firstTimeFlag;
+	}
+	
+	public void setEmailTextOnly(final boolean flag) {
+		this.emailTextOnly = flag;
 	}
 	
 	public boolean checkPassword(final String password) {

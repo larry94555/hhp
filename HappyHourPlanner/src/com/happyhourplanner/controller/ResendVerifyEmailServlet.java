@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.happyhourplanner.common.Constant;
 import com.happyhourplanner.model.ResponseBean;
+import com.happyhourplanner.model.User;
 
 public class ResendVerifyEmailServlet extends HttpServlet {
 	
@@ -35,6 +36,10 @@ public static final Logger _log = Logger.getLogger(ResendVerifyEmailServlet.clas
 	    
 	    propertyMap.put(Constant.ACTIVATION_KEY,UserAccountHandler.getActivationKey(username));
 	    
+	    User user = UserAccountHandler.find(username);
+	    
+	    final String html_file_path = (user.emailTextOnly()) ? null : Constant.VERIFY_EMAIL_HTML_FILE;
+	    
 	    
 	 // send out email
     	try {
@@ -44,7 +49,7 @@ public static final Logger _log = Logger.getLogger(ResendVerifyEmailServlet.clas
 					"larry.freeman@gmail.com", 
 					Constant.VERIFY_EMAIL_SUBJECT, 
 					Constant.VERIFY_EMAIL_TEXT_FILE, 
-					Constant.VERIFY_EMAIL_HTML_FILE,
+					html_file_path,
 					propertyMap);
 			
 			_log.info("Mail sent without issue");

@@ -101,6 +101,14 @@ public class UpdateUserServlet extends HttpServlet {
 	    catch(NumberFormatException e) {
 	    	// in this case, make no change.
 	    }
+	    
+	    String emailTextOnly = req.getParameter("emailTextOnly");
+	    if (emailTextOnly.equals("true")) {
+	    	user.setEmailTextOnly(true);
+	    }
+	    else if (emailTextOnly.equals("false")) {
+	    	user.setEmailTextOnly(false);
+	    }
 	    	    
 	    EM.get().persist(user);
 	    EM.commit();

@@ -41,7 +41,7 @@ public class Mailer {
 		Message msg = new MimeMessage(session);
 		
 		String textBody = FileRetriever.getContent(servletContext, textBodyFile);
-		String htmlBody = FileRetriever.getContent(servletContext, htmlBodyFile);
+		String htmlBody = (htmlBodyFile == null) ? "" : FileRetriever.getContent(servletContext, htmlBodyFile); 
 		
 		for (String key : propertyMap.keySet()) {
 			textBody = textBody.replaceAll("\\$\\{"+key+"}", propertyMap.get(key));
@@ -57,9 +57,11 @@ public class Mailer {
 		textPart.setContent(textBody,"text/plain");
 		multipart.addBodyPart(textPart);
 		
-		MimeBodyPart htmlPart = new MimeBodyPart();
-		htmlPart.setContent(htmlBody,"text/html");
-		multipart.addBodyPart(htmlPart);
+		if (!htmlBody.isEmpty()) {
+			MimeBodyPart htmlPart = new MimeBodyPart();
+			htmlPart.setContent(htmlBody,"text/html");
+			multipart.addBodyPart(htmlPart);
+		}
 		
 		msg.setContent(multipart);
 		

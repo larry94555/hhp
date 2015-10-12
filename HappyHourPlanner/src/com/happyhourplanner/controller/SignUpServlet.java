@@ -35,6 +35,8 @@ public class SignUpServlet extends HttpServlet {
 	    
 	    _log.info("Entering SignUpServlet: username = " + username);
 	    
+	    final User user = UserAccountHandler.find(username);
+	    
 	    PrintWriter out = resp.getWriter();
 	    
 	    // validate before trying to add
@@ -44,11 +46,10 @@ public class SignUpServlet extends HttpServlet {
 	    else if (!UserAccountHandler.checkIfValidEmailAddress(username)) {
 	    	ResponseBean.println(out,Constant.EMAIL_ADDRESS_NOT_VALID);
 	    }
-	    else if (UserAccountHandler.exists(username)) {
+	    else if (user != null) {
 	    	
 	    	_log.info("UserAccountHandler.exists");
 	    	
-	    	User user = UserAccountHandler.find(username);
 	    	if (user.isDisabled()) {
 	    		ResponseBean.println(out, Constant.ACCOUNT_DISABLED);
 	    	}

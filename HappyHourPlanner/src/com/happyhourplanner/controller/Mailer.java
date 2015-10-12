@@ -18,6 +18,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.servlet.ServletContext;
 
+import com.google.apphosting.utils.config.ClientDeployYamlMaker.Request;
+
 public class Mailer {
 	
 	public static final Logger _log = Logger.getLogger(Mailer.class.getName());

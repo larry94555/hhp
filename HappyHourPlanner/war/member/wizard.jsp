@@ -142,7 +142,11 @@
                     
                     <% } %>
                     
-                    <p>The next step is to add the emails of your contacts.</p>
+                    <p>The next step is to add your contacts:  click the "add" button.</p>
+                    
+                    <button class='slider-button' title='add a contact.'>add</button>
+                    <button class='slider-button' title='forward an email'>forward</button>
+                    <button class='slider-button' title='copy and paste a list'>paste list</button> 
                     
                     <div id="slider">
 					  <div class="slider-content">

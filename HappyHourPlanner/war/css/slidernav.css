@@ -21,3 +21,18 @@
 .slider .down { border-bottom: none; border-top: 8px solid #fff; top: -5px; }
 .slider .slide-up, .slider .slide-down { height: 20px; background: #333; text-align: center; cursor: pointer; float: right; width: 100%; position: relative; }
 .slider-content a { text-decoration: none; }
+.slider-button {  
+	border: 1px solid #d3d3d3;
+	color: #555555;
+	font-family: Verdana,Arial,sans-serif;
+	padding: 0;
+	font: 11px;
+	padding-bottom: 3px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 3px;
+	margin-left: 5px;
+	margin-bottom: 5px;
+	background-color: #dadada;
+	border-radius: 10px;
+ }

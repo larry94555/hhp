@@ -423,10 +423,49 @@
 
                 <h2>Set Your Availability and Preferences</h2>
                 <section>
-                    <p>Morbi ornare tellus at elit ultrices id dignissim lorem elementum. Sed eget nisl at justo condimentum dapibus. Fusce eros justo, 
-                        pellentesque non euismod ac, rutrum sed quam. Ut non mi tortor. Vestibulum eleifend varius ullamcorper. Aliquam erat volutpat. 
-                        Donec diam massa, porta vel dictum sit amet, iaculis ac massa. Sed elementum dui commodo lectus sollicitudin in auctor mauris 
-                        venenatis.</p>
+                	<p>Please answer a few questions:<p>
+                    <p>Who do you want to invite:
+                    	<select>
+                    		<option>-Select-</option>
+                    		<option>Entire Contact List</option>
+                    		<option>Group List</option>
+                    	</select>
+                    </p>
+                    <p>Which Group List:
+                    	<select>
+                    		<option>-Select-</option>
+                    		<option>Group A</option>
+                    		<option>Group B</option>
+                    		<option>Create New Group</option>
+                    	</select>
+                    </p>
+                    <p>Location?
+                    	<select>
+                    		<option>-Select-</option>
+                    		<option>Specify a Place</option>
+                    		<option>Let's Vote</option>
+                    		<option>Specify a Zip Code</option>
+                    	</select>
+                    </p>
+                    <p>When?
+                    	<select>
+                    		<option>-Select-</option>
+                    		<option>Let's Vote</option>
+                    		<option>Any Evening</option>
+                    		<option>Specify a Time</option>
+                    		<option>Specific Day of Week</option>
+                    		<option>Specific Date</option>
+                    	</select>
+                    </p>
+                    <p>Place?
+                    	<select>
+                    		<option>-Select-</option>
+                    		<option>Let's Vote</option>
+                    		<option>Recommended</option>
+                    		<option>List of Places</option>
+                    		<option>Specific Place</option>
+                    	</select>
+                    </p>
                 </section>
 
                 <h2>Send Out Invite</h2>

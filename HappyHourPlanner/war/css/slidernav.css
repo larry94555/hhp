@@ -4,7 +4,15 @@
  *  Released under the MIT, BSD, and GPL Licenses.
  *  More information: http://devgrow.com/slidernav
  */
-.slider { width: 300px; min-height: 250px; display: block; position: relative; background: #fff; overflow: hidden; }
+.slider {
+	margin-left: 400px;
+	width: 300px; 
+	min-height: 250px; 
+	display: block; 
+	position: relative; 
+	background: #fff; 
+	overflow: hidden; 
+}
 .slider ul { list-style: none; }
 .slider-content { float: left; width: 100%; display: block; overflow: auto; min-height: 250px; }
 .slider-content ul { float: left; width: 100%; display: block; position: relative; }
@@ -28,11 +36,26 @@
 	padding: 0;
 	font: 11px;
 	padding-bottom: 3px;
-	padding-left: 3px;
-	padding-right: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
 	padding-top: 3px;
-	margin-left: 5px;
+	margin-left: 0px;
 	margin-bottom: 5px;
+	margin-top: 30;
 	background-color: #dadada;
-	border-radius: 10px;
+	border-radius: 5px;
  }
+ 
+.add-contact-list-area {
+	position: absolute;
+}
+
+#add-contacts {
+	width: 320px;
+	height: 510px;
+	background: url(http://i.stack.imgur.com/ynxjD.png) repeat-y;
+ 	font: normal 12px verdana;
+ 	line-height: 25px;
+ 	padding: 2px 10px;
+ 	border: solid 1px #ddd;
+}

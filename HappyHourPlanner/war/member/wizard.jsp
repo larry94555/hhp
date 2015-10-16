@@ -142,12 +142,15 @@
                     
                     <% } %>
                     
-                    <p>The next step is to add your contacts:  click the "add" button.</p>
+                    <p>The next step is to add your contacts to the yellow page and click 'add'.</p>
+                    <p>When you have at least 1 contacts, click <a href='#'>here</a> to continue.</p>
                     
-                    <button class='slider-button' title='add a contact.'>add</button>
-                    <button class='slider-button' title='forward an email'>forward</button>
-                    <button class='slider-button' title='copy and paste a list'>paste list</button> 
-                    
+                    <div class="add-contact-list-area">
+                    	<button class='slider-button' title='add a contact.'>add</button>
+                    	<button class='slider-button' title='forward an email'>email the contact</button>
+                    	<button class='slider-button' title='edit existing list'>edit list</button> 
+					  	<textarea id="add-contacts" placeholder="George Washington George@FirstPres.gov"></textarea>
+					</div>
                     <div id="slider">
 					  <div class="slider-content">
 					    <ul>
@@ -413,8 +416,8 @@
 							</li>
 					    </ul>
 					  </div>
+					 
 					</div>
-                    
                     
                 </section>
 

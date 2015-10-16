@@ -53,8 +53,12 @@
 #add-contacts {
 	width: 320px;
 	height: 510px;
-	background: url(http://i.stack.imgur.com/ynxjD.png) repeat-y;
- 	font: normal 12px verdana;
+	font-size: 12px;
+}
+
+.yellow-page {
+	background: url(../images/yellowpage.png) repeat-y;
+	font: normal 12px verdana;
  	line-height: 25px;
  	padding: 2px 10px;
  	border: solid 1px #ddd;

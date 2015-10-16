@@ -80,7 +80,7 @@
                         transitionEffect: "slideLeft",
                         stepsOrientation: "vertical"
                     });
-                    $('#slider').sliderNav();
+                    $('#slider').sliderNav({height:'500'});
                 });
             </script>
 
@@ -149,7 +149,7 @@
                     	<button class='slider-button' title='add a contact.'>add</button>
                     	<button class='slider-button' title='forward an email'>email the contact</button>
                     	<button class='slider-button' title='edit existing list'>edit list</button> 
-					  	<textarea id="add-contacts" placeholder="George Washington George@FirstPres.gov"></textarea>
+					  	<textarea id="add-contacts" class="yellow-page" placeholder="George Washington George@FirstPres.gov"></textarea>
 					</div>
                     <div id="slider">
 					  <div class="slider-content">
@@ -424,21 +424,6 @@
                 <h2>Set Your Availability and Preferences</h2>
                 <section>
                 	<p>Please answer a few questions:<p>
-                    <p>Who do you want to invite:
-                    	<select>
-                    		<option>-Select-</option>
-                    		<option>Entire Contact List</option>
-                    		<option>Group List</option>
-                    	</select>
-                    </p>
-                    <p>Which Group List:
-                    	<select>
-                    		<option>-Select-</option>
-                    		<option>Group A</option>
-                    		<option>Group B</option>
-                    		<option>Create New Group</option>
-                    	</select>
-                    </p>
                     <p>Location?
                     	<select>
                     		<option>-Select-</option>
@@ -470,9 +455,24 @@
 
                 <h2>Send Out Invite</h2>
                 <section>
-                    <p>Quisque at sem turpis, id sagittis diam. Suspendisse malesuada eros posuere mauris vehicula vulputate. Aliquam sed sem tortor. 
-                        Quisque sed felis ut mauris feugiat iaculis nec ac lectus. Sed consequat vestibulum purus, imperdiet varius est pellentesque vitae. 
-                        Suspendisse consequat cursus eros, vitae tempus enim euismod non. Nullam ut commodo tortor.</p>
+                	<p>Here is the invite -- make any changes you like:</p>
+                	<textarea class="yellow-page"></textarea>
+                    <p>Who do you want to invite:
+                    	<select>
+                    		<option>-Select-</option>
+                    		<option>Entire Contact List</option>
+                    		<option>Group List</option>
+                    	</select>
+                    </p>
+                    <p>Which Group List:
+                    	<select>
+                    		<option>-Select-</option>
+                    		<option>Group A</option>
+                    		<option>Group B</option>
+                    		<option>Create New Group</option>
+                    	</select>
+                    </p>
+                    
                 </section>
                 <h2>Check Out Status</h2>
                 <section>

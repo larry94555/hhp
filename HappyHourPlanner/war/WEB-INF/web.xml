@@ -56,12 +56,28 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
  		<url-pattern>/resendVerify</url-pattern>
  	</servlet-mapping>
  	<servlet>
+ 		<servlet-name>resetpasswordhandler</servlet-name>
+ 		<servlet-class>com.happyhourplanner.controller.ForgotServlet</servlet-class>
+ 	</servlet>
+ 	<servlet-mapping>
+ 		<servlet-name>resetpasswordhandler</servlet-name>
+ 		<url-pattern>/forgot</url-pattern>
+ 	</servlet-mapping>
+ 	<servlet>
  		<servlet-name>activationhandler</servlet-name>
  		<servlet-class>com.happyhourplanner.controller.ActivationCodeHandlerServlet</servlet-class>
  	</servlet>
  	<servlet-mapping>
  		<servlet-name>activationhandler</servlet-name>
  		<url-pattern>/activate/*</url-pattern>
+ 	</servlet-mapping>
+ 	<servlet>
+ 		<servlet-name>passwordresethandler</servlet-name>
+ 		<servlet-class>com.happyhourplanner.controller.ResetPasswordHandlerServlet</servlet-class>
+ 	</servlet>
+ 	<servlet-mapping>
+ 		<servlet-name>passwordresethandler</servlet-name>
+ 		<url-pattern>/reset/*</url-pattern>
  	</servlet-mapping>
 	<security-constraint>
  		<web-resource-collection>

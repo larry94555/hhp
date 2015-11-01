@@ -65,11 +65,10 @@ $(document).ready(function() {
 			
 		
 	});
-		
 	
-	$('a.login-window').click(function() {
-	    
-	    //Getting the variable's value from a link 
+	var do_login = function() {
+		
+		//Getting the variable's value from a link 
 	    var loginBox = $(this).attr('href');
 
 	    //Fade in the Popup
@@ -91,12 +90,15 @@ $(document).ready(function() {
 	    // Add the mask to body
 	    $('body').append('<div id="mask"></div>');
 	    $('#mask').fadeIn(300);
+	    $('#nav').append('<div id="mask2"></div>');
+	    $('#mask2').fadeIn(300);
 	    
 	    return false;
-	});
+		
+	};
 	
-	$('a.signup-window').click(function() {
-	    
+	var do_signup = function() {
+		
 	    //Getting the variable's value from a link 
 	    var loginBox = $(this).attr('href');
 
@@ -119,8 +121,85 @@ $(document).ready(function() {
 	    // Add the mask to body
 	    $('body').append('<div id="mask"></div>');
 	    $('#mask').fadeIn(300);
+	    $('#nav').append('<div id="mask2"></div>');
+	    $('#mask2').fadeIn(300);
 	    
-	    return false;
+	    return false;		
+	};
+	
+	var alreadyClickedLoginMessage=false;
+	
+	$('a.login-window').click(do_login);
+	$('a.sign-in-button').click(do_login);
+	$('a.sign-up-button').click(do_signup);
+	$('a.sign-up-window').click(do_signup);
+	$('#login-message').click(function() {
+		
+		if ($('#login-message').text() !== 'Forgot your password?') {
+			return false;
+		}
+		
+		
+		if ($.trim($('#username').val()) === '') {
+			$('#error-message').hide();
+			$('#error-message').text("Email address required.");
+			$('#error-message').show();
+			return false;
+		}
+		
+		if (validateEmail($.trim($('#username').val())) === false) {
+			$('#error-message').hide();
+			$('#error-message').text("Email address is not valid.");
+			$('#error-message').show();
+			return false;
+		}
+		
+		if (!alreadyClickedLoginMessage) {
+			alreadyClickedLoginMessage = true;
+			
+			$('#error-message').html("&nbsp;");
+			
+			var forgot = $.ajax({
+				url: "/forgot",
+				type: "POST",
+				data: { user: $('#username').val() },
+				dataType: "json"
+			});
+			
+			forgot.done(function(data) {
+				
+				//alert("data = " + data);
+				//alert("data.msg = " + data.msg);
+				//alert("data.sessionId = " + data.sessionId);
+				//alert("data.cookieName = " + data.cookieName);
+				//$('#password').val('');	
+				if ($.trim(data.msg) === "resent") {
+					
+					location.reload();
+					alreadyClickedLoginMessage=false;
+				}
+				else {
+					
+					$('#login-message').hide();
+					$('#login-message').text(data.msg);
+					$('#login-message').show();
+					
+					alreadyClickedLoginMessage=false;
+	
+				}
+	
+			});
+	
+			forgot.fail(function(jqXHR, textStatus) {
+				$('login-message').text("System is down...please try again later.");
+				alreadyClickedLoginMessage=false;
+				//alert( "Request failed: " + textStatus );
+			});
+			
+			
+		}
+		
+		
 	});
 	
 	var alreadyClicked=false;
@@ -132,45 +211,47 @@ $(document).ready(function() {
 		}
 		
 		if ($.trim($('#username').val()) === '') {
-			$('#login-message').hide();
-			$('#login-message').text("Email address required.");
-			$('#login-message').show();
+			$('#error-message').hide();
+			$('#error-message').text("Email address required.");
+			$('#error-message').show();
 			return false;
 		}
 		
 		if (validateEmail($.trim($('#username').val())) === false) {
-			$('#login-message').hide();
-			$('#login-message').text("Email address is not valid.");
-			$('#login-message').show();
+			$('#error-message').hide();
+			$('#error-message').text("Email address is not valid.");
+			$('#error-message').show();
 			return false;
 		}
 		
 		if ($.trim($('#password').val()) == '') {
-			$('#login-message').hide();
-			$('#login-message').text("Password required.");
-			$('#login-message').show();
+			$('#error-message').hide();
+			$('#error-message').text("Password required.");
+			$('#error-message').show();
 			return false;
 		}
 		
 		if ($('#the-button-text').text() === 'sign up') {
 			
 			if ($.trim($('#password2').val()) == '') {
-				$('#login-message').hide();
-				$('#login-message').text("Password re-enter required.");
-				$('#login-message').show();
+				$('#error-message').hide();
+				$('#error-message').text("Password re-enter required.");
+				$('#error-message').show();
 				return false;
 			}
 			
 			if ($.trim($('#password').val()) !== $.trim($('#password2').val())) {
-				$('#login-message').hide();
-				$('#login-message').text("Passwords don't match.");
-				$('#login-message').show();
+				$('#error-message').hide();
+				$('#error-message').text("Passwords don't match.");
+				$('#error-message').show();
 				return false;
 			}
 			
 			alreadyClicked=true;
 			
 			$('#login-message').hide();
+			
+			$('#error-message').html("&nbsp;");
 			
 			var signUp = $.ajax({
 				url: "/signup",
@@ -226,6 +307,7 @@ $(document).ready(function() {
 			alreadyClicked=true;
 			
 			$('#login-message').hide();
+			$('#error-message').html("&nbsp;");
 			
 			var login = $.ajax({
 				url: "/login",
@@ -345,6 +427,8 @@ $('form.login-window').click(function() {
     // Add the mask to body
     $('body').append('<div id="mask"></div>');
     $('#mask').fadeIn(300);
+    $('#nav').append('<div id="mask2"></div>');
+    $('#mask2').fadeIn(300);
     
     return false;
 });
@@ -355,7 +439,14 @@ $('form.login-window').click(function() {
 $('body').on('click', 'a.close',function() { 
   $('#mask, .login-popup').fadeOut(300, function() {
     $('#mask').remove();  
-});
-return false;    
+    $('#mask2').remove();
+  });
+  $('#login-message').text();
+  $('#error-message').html("&nbsp;");
+  $('#username').val("");
+  $('#password').val("");
+  $('#password2').val("");
+  return false;    
 }); 
+
 });

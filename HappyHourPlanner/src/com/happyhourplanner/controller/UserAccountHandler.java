@@ -37,6 +37,13 @@ public class UserAccountHandler {
 		return user.getActivationCode();
 	}
 	
+	public static String getPasswordResetKey(final String username) {
+		User user = find(username);
+		user.setPasswordResetCode(Util.generateActivationKey());
+		persist(user);
+		return user.getPasswordResetCode();
+	}
+	
 	public static User find(final String username) {
 		
 		return EM.get().find(User.class, username);
@@ -83,6 +90,25 @@ public class UserAccountHandler {
 		return null;
 	}
 	
+	private static User getUserByPasswordResetCode(final String passwordResetCode) {
+		Query query = EM.get().createQuery("SELECT u FROM User u WHERE u.passwordResetCode = :passwordResetCode");
+		query.setParameter("passwordResetCode", passwordResetCode);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+				
+		@SuppressWarnings("unchecked")
+		List<User> results = (List<User>)query.getResultList();
+		
+		_log.info("Found: " + results.size() + " result(s).");
+		
+		if (results.size() == 1) {
+			return results.get(0);
+		}
+		
+		
+		return null;
+	}
+	
 	public static void activateUser(final String activationCode,User user) {
 		
 		if (user == null) {
@@ -103,6 +129,18 @@ public class UserAccountHandler {
 		
 		// else, do nothing.
 		
+	}
+	
+	public static boolean resetPassword(final String passwordResetCode,User user) {
+		if (user == null) {
+			user = getUserByPasswordResetCode(passwordResetCode);
+		}
+		
+		if (user != null && user.getPasswordResetCode().equals(passwordResetCode)) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	

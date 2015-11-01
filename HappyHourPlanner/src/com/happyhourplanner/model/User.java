@@ -26,6 +26,8 @@ public class User {
 	
 	private String activationCode;
 	
+	private String passwordResetCode;
+	
 	private boolean emailTextOnly; // for testing purposes only
 	
 	public byte[] getSalt() { return salt; }
@@ -44,6 +46,7 @@ public class User {
 		this.changePassword = false;
 		this.currentState = 0;
 		this.activationCode="";
+		this.passwordResetCode="";
 		this.emailTextOnly = false;
 	}
 	
@@ -87,6 +90,14 @@ public class User {
 	
 	public void setActivationCode(final String activationCode) {
 		this.activationCode = activationCode;
+	}
+	
+	public String getPasswordResetCode() {
+		return passwordResetCode;
+	}
+	
+	public void setPasswordResetCode(final String passwordResetCode) {
+		this.passwordResetCode = passwordResetCode;
 	}
 	
 	public int getCurrentState() { return currentState; }

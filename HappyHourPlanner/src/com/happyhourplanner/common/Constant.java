@@ -13,15 +13,24 @@ public class Constant {
 	public static final String ACTIVATION_KEY = "activationKey";
 	public static final int ACTIVATION_KEY_LENGTH = 40;
 	
+	public static final String PASSWORD_RESET_KEY = "passwordResetKey";
+	public static final int PASSWORD_RESET_KEY_LENGTH = 40;
+	
 	// Verify Email
 	public static final String VERIFY_EMAIL_SUBJECT = "[Happy Hour Planner] Please confirm your email address";
+	public static final String RESET_PASSWORD_EMAIL_SUBJECT = "[Happy Hour Planner] A request was made to reset your password";
+	
 	public static final String VERIFY_EMAIL_TEXT_FILE = "/WEB-INF/resources/verifyEmail.txt";
+	public static final String RESET_PASSWORD_EMAIL_TEXT_FILE = "/WEB-INF/resources/resetPasswordEmail.txt";
 	
 	public static final String STATUS = "currentStatus";
 	public static final String BAD_ACTIVATION_CODE = "badActivationCode";
+	public static final String BAD_PASSWORD_RESET_CODE = "badPasswordResetCode";
 	public static final String JUST_ACTIVATED = "justActiviated";
+	public static final String PASSWORD_RESENT = "passwordResent";
 	
 	public static final String VERIFY_EMAIL_HTML_FILE = "/WEB-INF/resources/verifyEmail.html";
+	public static final String RESET_PASSWORD_EMAIL_HTML_FILE = "/WEB-INF/resources/resetPasswordEmail.html";
 	
 	// Attributes
 	public static final Map<String,String> EMPTY_MAP = new HashMap<String,String>();
@@ -49,5 +58,7 @@ public class Constant {
 	public static final String PROBLEM_OCCURRED = "A problem occurred.  Please try again later.";
 	
 	public static final String NEED_TO_VERIFY = "An email has been sent.  Please click the link to verify your account";
+	
+	public static final String LINK_SENT_TO_USER = "An email has been sent.";
 
 }

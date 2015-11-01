@@ -1,0 +1,26 @@
+body {
+	font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+	font-size: 14px;
+}
+
+.ui-widget {
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+label {
+    color: #333;
+    height: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    text-align: right;
+    margin-right:15px;
+    float:left;
+}
+input {
+    height: 20px;
+    border: 1px solid #000;
+    margin-top: 10px;
+    padding-left: 10px;
+}

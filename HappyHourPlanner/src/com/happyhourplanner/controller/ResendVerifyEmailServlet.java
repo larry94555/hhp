@@ -2,6 +2,7 @@ package com.happyhourplanner.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -52,7 +53,11 @@ public static final Logger _log = Logger.getLogger(ResendVerifyEmailServlet.clas
 					html_file_path,
 					propertyMap);
 			
-			_log.info("Mail sent without issue");
+			Date currDate = new Date();
+			_log.info("resend servlet: currDate = " + currDate.getTime());
+			req.getSession().setAttribute("verify_resend",currDate);
+			
+			
 			
 			ResponseBean.println(out, Constant.NEED_TO_VERIFY);
 			

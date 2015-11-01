@@ -40,6 +40,7 @@
 		<link rel="stylesheet" href="../css/standard.css" />
         <link rel="stylesheet" href="../css/normalize.css">
         <link rel="stylesheet" href="../querystep/css/main.css">
+        <link rel="stylesheet" href="../css/login.css" />
         <link rel="stylesheet" href="../querystep/css/jquery.steps.css">
         <link rel="stylesheet" href="../css/header.css" />
         <link rel="stylesheet" type="text/css" href="../css/emailpopup.css">

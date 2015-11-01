@@ -31,18 +31,17 @@
 		<!--[if lte IE 8]><script src="../js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="../css/standard.css" />
 		<link rel="stylesheet" href="../css/login.css" />
+		<link rel="stylesheet" href="../css/header.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="../css/ie9.css" /><![endif]-->
 	</head>
-	<body>
+	<body class="landing">
+	
+		<jsp:include page="header.jsp" flush="true" />
 
 		<!-- Banner -->
 			<section id="banner">
 				<h2><strong>Happy Hour Planner</strong></h2>
 				<p>An easier way to organize Happy Hours</p>
-				<ul class="actions">
-					<li><a href="#login-box" class="button special login-window">Log In</a></li>
-					<li><a href="#login-box" class="button special signup-window">Sign Up</a></li>
-				</ul>
 			</section>
 
 		<!-- One -->
@@ -95,30 +94,6 @@
 					</form>
 				</div>
 			</section>
-			
-			<div id="login-box" class="login-popup">
-				<a href="#" class="close"><img src="../images/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>
-  				<form method="post" class="signin" action="#">
-        			<fieldset class="textbox">
-        				<label class="username">
-        					<span>email address</span>
-        					<input id="username" name="username" value="" type="text" autocomplete="on" placeholder="Username">
-        				</label>
-        				<label class="password">
-        					<span>Password</span>
-        					<input id="password" name="password" value="" type="password" placeholder="Password">
-        				</label>
-        				<label class="password" id="password2-label">
-        					<span>Re-enter Password</span>
-        					<input id="password2" name="password2" value="" type="password" placeholder="Password">
-        				</label>
-        				<button class="submit button-login" id='the-button-text' type="button">Sign up</button>
-        				<p>
-        					<a class="forgot" href="#" id='login-message'>Forgot your password?</a>
-        				</p>        
-        			</fieldset>
-  				</form>
-			</div>
 			
 		<!-- Footer -->
 			<footer id="footer">

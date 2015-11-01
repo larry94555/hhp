@@ -28,11 +28,11 @@
 		<title>Happy Hour Planner</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="../js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="../css/standard.css" />
-		<link rel="stylesheet" href="../css/login.css" />
-		<link rel="stylesheet" href="../css/header.css" />
-		<!--[if lte IE 9]><link rel="stylesheet" href="../css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><script src="/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/css/standard.css" />
+		<link rel="stylesheet" href="/css/login.css" />
+		<link rel="stylesheet" href="/css/header.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="/css/ie9.css" /><![endif]-->
 	</head>
 	<body class="landing">
 	
@@ -103,12 +103,12 @@
 			</footer>
 
 		<!-- Scripts -->
-			<script src="../js/jquery.min.js"></script>
-			<script src="../js/skel.min.js"></script>
-			<script src="../js/util.js"></script>
-			<!--[if lte IE 8]><script src="../js/ie/respond.min.js"></script><![endif]-->
-			<script src="../js/main.js"></script>
-			<script src="../js/login.js"></script>
+			<script src="/js/jquery.min.js"></script>
+			<script src="/js/skel.min.js"></script>
+			<script src="/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/js/main.js"></script>
+			<script src="/js/login.js"></script>
 
 	</body>
 </html>

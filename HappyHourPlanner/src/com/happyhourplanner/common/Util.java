@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.util.Map;
+import java.util.Date;
 
 import com.happyhourplanner.controller.LogInServlet;
 import com.happyhourplanner.controller.SavedSessionHandler;
@@ -30,6 +31,23 @@ public class Util {
 	
 	public static String generateActivationKey() {
 		return Passwords.generateRandomPassword(Constant.ACTIVATION_KEY_LENGTH);
+	}
+	
+	public static boolean checkDateInMinutes(Date date, int minutes) {
+		
+		if (date != null) {
+			Date currDate = new Date();
+			if (currDate.getTime() - date.getTime() < 30*60*1000) {
+				_log.info("diff = " + (currDate.getTime() - date.getTime()));
+				return true;
+			}
+		}
+		else {
+			_log.info("date was null");
+		}
+		
+		return false;
+		
 	}
 	
 	public static User checkForUser(final HttpServletRequest req,final HttpServletResponse resp) {

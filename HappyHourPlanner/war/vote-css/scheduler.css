@@ -1,0 +1,38 @@
+
+//.content_wrapper{width:500px;margin-right:auto;margin-left:auto;}
+//h3{color: #979797;border-bottom: 1px dotted #DDD;font-family: "Trebuchet MS";}
+
+/*voting style */
+//.voting_wrapper {display:inline-block;margin-left: 20px;}
+.day-column-class .voting_wrapper { margin-top: 40px; margin-left: 20px; display:none; }
+.day-column-class .voting_wrapper .up_votes {display: none;}
+.day-column-class .voting_wrapper .down_votes {display: none;}
+.voting_wrapper { margin-top: 40px; margin-left: 20px; display:none; }
+.voting_wrapper .down_button {background: url(../images/thumbs2.png) no-repeat 0px -16px; float: left;height: 14px;width: 16px;cursor:pointer;margin-top: 3px;}
+.voting_wrapper .down_button:hover {background: url(../images/thumbs.png) no-repeat;}
+.voting_wrapper .up_button {background: url(../images/thumbs.png) no-repeat -16px -16px;float: left;height: 14px;width: 16px;cursor:pointer;}
+.voting_wrapper .up_button:hover{background: url(../images/thumbs.png) no-repeat -16px 0px;;}
+.voting_btn{float:left;margin-right:5px;}
+.voting_btn span{font-size: 11px;float: left;margin-left: 3px;}
+
+.column-class {
+	text-align: center;
+	font-size: 15px;
+}
+
+.slick-column-name {
+	font-size: 12px;
+}
+
+.day-div {
+	font-size: 15px;
+}
+
+.day-column-class {
+	font-weight: bold;
+	background: rgb(230,230,230);
+}
+
+.column-class:hover > div.voting_wrapper{
+	display: block;
+}

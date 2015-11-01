@@ -78,11 +78,23 @@
                 	<p>Your account has already been activated.</p>
                 	<p>Click <a id="stepOne-continue" href="#">here</a> to continue.</p>
                 	
-                <% } else if (status == null || !status.equals(Constant.BAD_ACTIVATION_CODE)) { %>	
+                <% } else if (status == null) { %>	
+              
+                	
+                	<% if (Util.checkDateInMinutes((java.util.Date)session.getAttribute("verify_resend"),30)) { %>
                 
+                	<p>We&apos;ve resent the email containing a link that will verify your email account.</p>
+                	<p>Please check your spam folder if the email doesn&apos;t appear within a few minutes.</p>
+                
+                	<% } else { %>
+                	
                 	<p>We&apos;ve sent you an email containing a link that will allow you to verify your email account.</p>
                 	<p>Please check your spam folder if the email doesn&apos;t appear within a few minutes.</p>
                 	<p>Click <a href="#" id="resendverify">here</a> to resend the email.</p>
+                	
+                	<% } %>
+                
+                <% } else if (!status.equals(Constant.BAD_ACTIVATION_CODE)) { %>
                 
                 	<p>Thanks for verifying your email.  Welcome to Happy Hour Planner!</p>
                 	<p>Click <a href=#">here</a> to continue.</p>

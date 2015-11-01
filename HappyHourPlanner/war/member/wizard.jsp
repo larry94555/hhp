@@ -14,10 +14,10 @@
 	    Util.removeSessionCookie(response);
 	    pageContext.forward("/");
 	}
-	else if (!user.isFirstTime()) {
-		// forward to wizard.jsp
-		pageContext.forward("/member/member.jsp");
-	}
+//	else if (!user.isFirstTime()) {
+//		// forward to wizard.jsp
+//		pageContext.forward("/member/member.jsp");
+//	}
 	
 	final String status = (String)session.getAttribute(Constant.STATUS);
 	
@@ -36,7 +36,7 @@
         <title>Happy Hour Planner</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <!--[if lte IE 8]><script src="../js/ie/html5shiv.js"></script><![endif]-->
+        <!--[if lte IE 8]><script src="/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="/css/standard.css" />
         <link rel="stylesheet" href="/css/normalize.css">
         <link rel="stylesheet" href="/querystep/css/main.css">
@@ -54,7 +54,7 @@
     </head>
     <body class="landing">
         
-        <jsp:include page="header.jsp" flush="true" />
+        <jsp:include page="header.jsp" />
         
 		<section id="banner">
 			<h2><strong>Happy Hour Planner</strong></h2>

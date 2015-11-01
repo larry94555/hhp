@@ -45,11 +45,11 @@ public class Constant {
 	
 	// Error messages
 	
-	public static final String ACCOUNT_DISABLED = "Account is disabled.  Contact customer service.";
+	public static final String ACCOUNT_DISABLED = "Account is disabled.";
 	
-	public static final String ACCOUNT_EXISTS = "Account already exists. Click here to recover password.";
+	public static final String ACCOUNT_EXISTS = "Account already exists.";
 	
-	public static final String ACCOUNT_NOT_EXIST = "Account doesn't exist.  Is the email correct?";
+	public static final String ACCOUNT_NOT_EXIST = "Account doesn't exist.";
 	
 	public static final String EMAIL_ADDRESS_NOT_VALID = "Email address is not valid.";
 

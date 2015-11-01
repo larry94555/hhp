@@ -12,6 +12,20 @@
     z-index: 999;
 }
 
+#mask2 {
+	display: none;
+    background: #000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    z-index: 999;	
+	
+}
+
 a.forgot {
 	color: #00c6ff;
     text-decoration: none;
@@ -79,7 +93,6 @@ form.signin .textbox input {
     -webkit-border-radius: 3px;
     font: 13px Arial, Helvetica, sans-serif;
     padding: 6px 6px 4px;
-    width: 200px;
 }
 
 form.signin input:-moz-placeholder {
@@ -112,9 +125,19 @@ form.signin input::-webkit-input-placeholder {
 }
 
 #username, #password, #password2 {
-	width: 214px;
+	width: 200px;
 }
 
 .button-login:hover {
     background: #ddd;
+}
+
+span#error-message {
+	color: white;
+	font-weight: bold;
+}
+
+span#login-message {
+	width: 100px;
+}
 }

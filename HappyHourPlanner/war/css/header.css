@@ -92,7 +92,7 @@ body.landing #header nav a {
     transition: color 0.2s ease-in-out 0s;
 }
 
-.sign-out-button {
+.sign-out-button, .sign-in-button, .sign-up-button {
     -moz-appearance: none;
     background-color: #3cadd4;
     border: 0 none;

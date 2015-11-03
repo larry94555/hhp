@@ -7,12 +7,19 @@ function deselect(e) {
 $(function() {
 	  $('body').on('click','a#contact', function() {
 	    if($(this).hasClass('selected')) {
-	      deselect($(this));               
+	      deselect($(this));
+	      $('#contact').text("Contact Us")
 	    } else {
 	      $(this).addClass('selected');
 	      $('.pop').slideFadeToggle();
+	      $('#contact').text("Cancel");
 	    }
 	    return false;
+	  });
+	  
+	  $('body').on('click','input#comment_submit', function() {
+		 //alert("click");
+		 return false;
 	  });
 	  
 	  $('body').on('click','a#stepOne-continue', function() {
@@ -43,9 +50,10 @@ $(function() {
 			});
 			
 			resendVerifyEmail.done(function(data) {
-				
-					//location.reload();
+			
 					alreadySent=false;
+					
+					location.reload();
 				
 	
 			});

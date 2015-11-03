@@ -119,13 +119,13 @@
                 
                     <div class="messagepop pop">
   						<form method="post" id="new_message" action="/messages">
-    						<p><label for="email">Your email address</label><input type="text" size="30" name="email" id="email" /></p>
-    						<p><label for="body">Message</label><textarea rows="6" name="body" id="body" cols="35"></textarea></p>
-    						<p><input type="submit" value="Send Message" name="commit" id="message_submit"/> or <a class="close" href="/">Cancel</a></p>
+    						<p><label for="email">Your email address</label><input type="text" name="email-contact" id="email-contact" /></p>
+    						<p><label for="body">Message</label><textarea rows="6" name="contact-body" id="contact-body"></textarea></p>
+    						<p><input type="submit" value="Send Message" name="comment_submit" id="comment_submit"/></p>
   						</form>
 					</div>
 					
-					<a href="#" id="contact">Contact Us</a>
+					<a href="#" id="contact" class="special button">Contact Us</a>
                     
                 </section>
 

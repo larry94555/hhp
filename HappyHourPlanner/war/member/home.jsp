@@ -13,14 +13,14 @@
 <% 
 	final User user = Util.checkForUser(request,response);
 	if (user != null) {
-		if (user.isFirstTime()) {
+		//if (user.isFirstTime()) {
 			// forward to wizard.jsp
 			pageContext.forward("/member/wizard.jsp");
-		}
-		else {
+		//}
+		//else {
 			// forward to member.jsp
-			pageContext.forward("/member/member.jsp");
-		}
+			//pageContext.forward("/member/member.jsp");
+		//}
 	}
 %>
 <html>

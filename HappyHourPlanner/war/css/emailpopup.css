@@ -4,12 +4,24 @@ a.selected {
   z-index:100;
 }
 
+#email-contact {
+	width: 360px;
+}
+
+#contact-body {
+	width: 360px;
+}
+
+#contact {
+	width: 120px;
+}
+
 .messagepop {
   background-color:#FFFFFF;
   border:1px solid #999999;
   cursor:default;
   display:none;
-  margin-top: 15px;
+  margin-top: 45px;
   position:absolute;
   text-align:left;
   width:394px;

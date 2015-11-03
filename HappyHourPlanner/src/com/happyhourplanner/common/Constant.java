@@ -29,7 +29,8 @@ public class Constant {
 	public static final String JUST_ACTIVATED = "justActiviated";
 	public static final String PASSWORD_RESENT = "passwordResent";
 	
-	public static final String VERIFY_EMAIL_HTML_FILE = "/WEB-INF/resources/verifyEmail.html";
+	public static final String VERIFY_EMAIL_HTML_FILE = "/WEB-INF/resources/testEmail.html";
+	//public static final String VERIFY_EMAIL_HTML_FILE = "/WEB-INF/resources/verifyEmail.html";
 	public static final String RESET_PASSWORD_EMAIL_HTML_FILE = "/WEB-INF/resources/resetPasswordEmail.html";
 	
 	// Attributes
@@ -55,9 +56,9 @@ public class Constant {
 
 	public static final String PASSWORDS_DONT_MATCH = "Passwords don't match.";
 	
-	public static final String PROBLEM_OCCURRED = "A problem occurred.  Please try again later.";
+	public static final String PROBLEM_OCCURRED = "A problem occurred.";
 	
-	public static final String NEED_TO_VERIFY = "An email has been sent.  Please click the link to verify your account";
+	public static final String NEED_TO_VERIFY = "An email has been sent.";
 	
 	public static final String LINK_SENT_TO_USER = "An email has been sent.";
 

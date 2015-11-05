@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ page import="com.happyhourplanner.controller.UserAccountHandler" %>
 <%@ page import="com.happyhourplanner.model.User" %>
+<%@ page import="com.happyhourplanner.model.Contact" %>
 <%@ page import="com.happyhourplanner.common.Util" %>
 <%@ page import="com.happyhourplanner.common.Constant" %>
 <%@ page import="java.util.List" %>
@@ -14,10 +15,6 @@
 	    Util.removeSessionCookie(response);
 	    pageContext.forward("/");
 	}
-//	else if (!user.isFirstTime()) {
-//		// forward to wizard.jsp
-//		pageContext.forward("/member/member.jsp");
-//	}
 	
 	final String status = (String)session.getAttribute(Constant.STATUS);
 	
@@ -45,12 +42,21 @@
         <link rel="stylesheet" href="/css/header.css" />
         <link rel="stylesheet" type="text/css" href="/css/emailpopup.css">
         <link rel="stylesheet" href="/css/slidernav.css" />
+        <link href="/css/prettify.css" rel="stylesheet">
+    	<link href="/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    	<link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="/css/font-awesome.css" rel="stylesheet">
         <script src="/querystep/lib/modernizr-2.6.2.min.js"></script>
         <script src="/querystep/lib/jquery-1.9.1.min.js"></script>
         <script src="/querystep/lib/jquery.cookie-1.3.1.js"></script>
         <script src="/querystep/lib/jquery.steps.js"></script>
         <script src="/js/slidernav.js"></script>
-        <script type="text/javascript" language="javascript" src="/js/emailpopup.js"></script>		
+        <script type="text/javascript" language="javascript" src="/js/emailpopup.js"></script>     
+    	<script src="/js/bootstrap.min.js"></script>
+    	<script src="/js/prettify.js"></script>
+		<link href="/css/edittableindex.css" rel="stylesheet">
+    	<script src="/js/mindmup-editabletable.js"></script>
+    	<link href="/css/contact-list.css" rel="stylesheet">		
     </head>
     <body class="landing">
         
@@ -146,272 +152,47 @@
                     	<button class='slider-button' title='add a contact.'>add</button>
                     	<button class='slider-button' title='forward an email'>email the contact</button>
                     	<button class='slider-button' title='edit existing list'>edit list</button> 
-					  	<textarea id="add-contacts" class="yellow-page" placeholder="George Washington George@FirstPres.gov"></textarea>
+					  	 <table id="mainTable" class="table table-striped">
+            				<thead><tr><th>Name</th><th>Email Address</th></tr></thead>
+            				<tbody>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+            				</tbody>
+          				</table>
 					</div>
                     <div id="slider">
 					  <div class="slider-content">
-					    <ul>
-					      <li id="a"><a name="a" class="title">A</a>
+					  	<ul>
+					  
+					  <% for (String a : Util.getAlphabet()) { %>   
+					  
+					  	<li id="<%= a.toLowerCase() %>"><a name="<%= a.toLowerCase() %>" class="title"><%= a.toUpperCase() %></a>
 					        <ul>
-					          <li><a href="/">Adam</a></li>
-							  <li><a href="/">Alex</a></li>
-							  <li><a href="/">Ali</a></li>
-							  <li><a href="/">Apple</a></li>
-							  <li><a href="/">Arthur</a></li>
-							  <li><a href="/">Ashley</a></li>
+					        
+					        <% for (Contact contact : UserAccountHandler.getContactSubList(user,a)) { %>
+					        
+					        	<li><a href="/"><%= contact.getName() %></a></li>
+					        
+					        <% } %>
+					        
 					        </ul>
-					      </li>
-					      <li id="b"><a name="b" class="title">B</a>
-					        <ul>
-					          <li><a href="/">Barry</a></li>
-							  <li><a href="/">Becky</a></li>
-							  <li><a href="/">Biff</a></li>
-							  <li><a href="/">Billy</a></li>
-							  <li><a href="/">Bozarking</a></li>
-							  <li><a href="/">Bryan</a></li>
-					        </ul>
-					      </li>
-						  <li id="c"><a name="c" class="title">c</a>
-						         <ul>
-									<li><a href="/">Calista</a></li>
-									<li><a href="/">Cathy</a></li>
-									<li><a href="/">Chris</a></li>
-									<li><a href="/">Cinderella</a></li>
-									<li><a href="/">Corky</a></li>
-									<li><a href="/">Cypher</a></li>
-								</ul>
-							</li>
-							<li id="d"><a name="d" class="title">d</a>
-								<ul>
-									<li><a href="/">damien</a></li>
-									<li><a href="/">danny</a></li>
-									<li><a href="/">denver</a></li>
-									<li><a href="/">devon</a></li>
-									<li><a href="/">doug</a></li>
-									<li><a href="/">dustin</a></li>
-								</ul>
-							</li>
-							<li id="e"><a name="e" class="title">E</a>
-								<ul>
-									<li><a href="/">Barry</a></li>
-									<li><a href="/">Becky</a></li>
-									<li><a href="/">Biff</a></li>
-									<li><a href="/">Billy</a></li>
-									<li><a href="/">Bozarking</a></li>
-									<li><a href="/">Bryan</a></li>
-								</ul>
-							</li>
-							<li id="f"><a name="f" class="title">f</a>
-								<ul>
-									<li><a href="/">Calista</a></li>
-									<li><a href="/">Cathy</a></li>
-									<li><a href="/">Chris</a></li>
-									<li><a href="/">Cinderella</a></li>
-									<li><a href="/">Corky</a></li>
-									<li><a href="/">Cypher</a></li>
-								</ul>
-							</li>
-							<li id="g"><a name="g" class="title">g</a>
-								<ul>
-									<li><a href="/">damien</a></li>
-									<li><a href="/">danny</a></li>
-									<li><a href="/">denver</a></li>
-									<li><a href="/">devon</a></li>
-									<li><a href="/">doug</a></li>
-									<li><a href="/">dustin</a></li>
-								</ul>
-							</li>
-							<li id="h"><a name="h" class="title">h</a>
-								<ul>
-									<li><a href="/">Barry</a></li>
-									<li><a href="/">Becky</a></li>
-									<li><a href="/">Biff</a></li>
-									<li><a href="/">Billy</a></li>
-									<li><a href="/">Bozarking</a></li>
-									<li><a href="/">Bryan</a></li>
-								</ul>
-							</li>
-							<li id="i"><a name="i" class="title">i</a>
-								<ul>
-									<li><a href="/">Calista</a></li>
-									<li><a href="/">Cathy</a></li>
-									<li><a href="/">Chris</a></li>
-									<li><a href="/">Cinderella</a></li>
-									<li><a href="/">Corky</a></li>
-									<li><a href="/">Cypher</a></li>
-								</ul>
-							</li>
-							<li id="j"><a name="j" class="title">j</a>
-								<ul>
-									<li><a href="/">damien</a></li>
-									<li><a href="/">danny</a></li>
-									<li><a href="/">denver</a></li>
-									<li><a href="/">devon</a></li>
-									<li><a href="/">doug</a></li>
-									<li><a href="/">dustin</a></li>
-								</ul>
-							</li>
-							<li id="k"><a name="k" class="title">k</a>
-								<ul>
-									<li><a href="/">Barry</a></li>
-									<li><a href="/">Becky</a></li>
-									<li><a href="/">Biff</a></li>
-									<li><a href="/">Billy</a></li>
-									<li><a href="/">Bozarking</a></li>
-									<li><a href="/">Bryan</a></li>
-								</ul>
-							</li>
-							<li id="l"><a name="l" class="title">l</a>
-								<ul>
-									<li><a href="/">Calista</a></li>
-									<li><a href="/">Cathy</a></li>
-									<li><a href="/">Chris</a></li>
-									<li><a href="/">Cinderella</a></li>
-									<li><a href="/">Corky</a></li>
-									<li><a href="/">Cypher</a></li>
-								</ul>
-							</li>
-							<li id="m"><a name="m" class="title">m</a>
-								<ul>
-									<li><a href="/">damien</a></li>
-									<li><a href="/">danny</a></li>
-									<li><a href="/">denver</a></li>
-									<li><a href="/">devon</a></li>
-									<li><a href="/">doug</a></li>
-									<li><a href="/">dustin</a></li>
-								</ul>
-							</li>
-							<li id="n"><a name="n" class="title">n</a>
-								<ul>
-									<li><a href="/">damien</a></li>
-									<li><a href="/">danny</a></li>
-									<li><a href="/">denver</a></li>
-									<li><a href="/">devon</a></li>
-									<li><a href="/">doug</a></li>
-									<li><a href="/">dustin</a></li>
-								</ul>
-							</li>
-							<li id="o"><a name="o" class="title">o</a>
-								<ul>
-									<li><a href="/">damien</a></li>
-									<li><a href="/">danny</a></li>
-									<li><a href="/">denver</a></li>
-									<li><a href="/">devon</a></li>
-									<li><a href="/">doug</a></li>
-									<li><a href="/">dustin</a></li>
-								</ul>
-							</li>
-							<li id="p"><a name="p" class="title">p</a>
-								<ul>
-									<li><a href="/">Barry</a></li>
-									<li><a href="/">Becky</a></li>
-									<li><a href="/">Biff</a></li>
-									<li><a href="/">Billy</a></li>
-									<li><a href="/">Bozarking</a></li>
-									<li><a href="/">Bryan</a></li>
-								</ul>
-							</li>
-							<li id="q"><a name="q" class="title">q</a>
-								<ul>
-									<li><a href="/">Calista</a></li>
-									<li><a href="/">Cathy</a></li>
-									<li><a href="/">Chris</a></li>
-									<li><a href="/">Cinderella</a></li>
-									<li><a href="/">Corky</a></li>
-									<li><a href="/">Cypher</a></li>
-								</ul>
-							</li>
-							<li id="r"><a name="r" class="title">r</a>
-								<ul>
-									<li><a href="/">damien</a></li>
-									<li><a href="/">danny</a></li>
-									<li><a href="/">denver</a></li>
-									<li><a href="/">devon</a></li>
-									<li><a href="/">doug</a></li>
-									<li><a href="/">dustin</a></li>
-								</ul>
-							</li>
-							<li id="s"><a name="s" class="title">s</a>
-								<ul>
-									<li><a href="/">Barry</a></li>
-									<li><a href="/">Becky</a></li>
-									<li><a href="/">Biff</a></li>
-									<li><a href="/">Billy</a></li>
-									<li><a href="/">Bozarking</a></li>
-									<li><a href="/">Bryan</a></li>
-								</ul>
-							</li>
-							<li id="t"><a name="t" class="title">t</a>
-								<ul>
-									<li><a href="/">Calista</a></li>
-									<li><a href="/">Cathy</a></li>
-									<li><a href="/">Chris</a></li>
-									<li><a href="/">Cinderella</a></li>
-									<li><a href="/">Corky</a></li>
-									<li><a href="/">Cypher</a></li>
-								</ul>
-							</li>
-							<li id="u"><a name="u" class="title">u</a>
-								<ul>
-									<li><a href="/">damien</a></li>
-									<li><a href="/">danny</a></li>
-									<li><a href="/">denver</a></li>
-									<li><a href="/">devon</a></li>
-									<li><a href="/">doug</a></li>
-									<li><a href="/">dustin</a></li>
-								</ul>
-							</li>
-							<li id="v"><a name="v" class="title">v</a>
-								<ul>
-									<li><a href="/">Barry</a></li>
-									<li><a href="/">Becky</a></li>
-									<li><a href="/">Biff</a></li>
-									<li><a href="/">Billy</a></li>
-									<li><a href="/">Bozarking</a></li>
-									<li><a href="/">Bryan</a></li>
-								</ul>
-							</li>
-							<li id="w"><a name="w" class="title">w</a>
-								<ul>
-									<li><a href="/">Calista</a></li>
-									<li><a href="/">Cathy</a></li>
-									<li><a href="/">Chris</a></li>
-									<li><a href="/">Cinderella</a></li>
-									<li><a href="/">Corky</a></li>
-									<li><a href="/">Cypher</a></li>
-								</ul>
-							</li>
-							<li id="x"><a name="x" class="title">x</a>
-								<ul>
-									<li><a href="/">damien</a></li>
-									<li><a href="/">danny</a></li>
-									<li><a href="/">denver</a></li>
-									<li><a href="/">devon</a></li>
-									<li><a href="/">doug</a></li>
-									<li><a href="/">dustin</a></li>
-								</ul>
-							</li>
-							<li id="y"><a name="y" class="title">y</a>
-								<ul>
-									<li><a href="/">damien</a></li>
-									<li><a href="/">danny</a></li>
-									<li><a href="/">denver</a></li>
-									<li><a href="/">devon</a></li>
-									<li><a href="/">doug</a></li>
-									<li><a href="/">dustin</a></li>
-								</ul>
-							</li>
-							<li id="z"><a name="z" class="title">z</a>
-								<ul>
-									<li><a href="/">damien</a></li>
-									<li><a href="/">danny</a></li>
-									<li><a href="/">denver</a></li>
-									<li><a href="/">devon</a></li>
-									<li><a href="/">doug</a></li>
-									<li><a href="/">dustin</a></li>
-								</ul>
-							</li>
-					    </ul>
+					    </li>
+					  
+					  <% } %>
+					  
+					  	
+					  	</ul>
 					  </div>
 					 
 					</div>
@@ -543,6 +324,13 @@
 			        stepsOrientation: "vertical"
 			    });
 			    $('#slider').sliderNav({height:'500'});
+			    $('#mainTable').editableTableWidget().find('td:first').focus();
+  				$('#textAreaEditor').editableTableWidget({editor: $('<textarea>')});
+  				$('#mainTable td').on('mouseover', function() {
+					//alert('Here: ' + $(this).html());
+					$(this).focus();
+				});
+  				window.prettyPrint && prettyPrint();
 			});
 		</script>
         

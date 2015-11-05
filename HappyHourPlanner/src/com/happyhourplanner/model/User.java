@@ -1,5 +1,9 @@
 package com.happyhourplanner.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -30,6 +34,10 @@ public class User {
 	
 	private boolean emailTextOnly; // for testing purposes only
 	
+	@ElementCollection
+	private List<Contact> contacts;	
+	
+	
 	public byte[] getSalt() { return salt; }
 	
 	public byte[] getHash() { return hash; }
@@ -48,6 +56,7 @@ public class User {
 		this.activationCode="";
 		this.passwordResetCode="";
 		this.emailTextOnly = false;
+		this.contacts = new ArrayList<Contact>();
 	}
 	
 	public boolean isDisabled() { return disabled; }
@@ -117,4 +126,6 @@ public class User {
 	public void setCurrentState(final int newState) {
 		this.currentState = newState;
 	}
+	
+	public List<Contact> getContacts() { return contacts; }
 }

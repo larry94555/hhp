@@ -1,5 +1,6 @@
 package com.happyhourplanner.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -10,6 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import com.happyhourplanner.common.Constant;
 import com.happyhourplanner.common.Util;
+import com.happyhourplanner.model.Contact;
 import com.happyhourplanner.model.EM;
 import com.happyhourplanner.model.EMF;
 import com.happyhourplanner.model.Passwords;
@@ -181,6 +183,26 @@ public class UserAccountHandler {
 	private static void persist(final User user) {
 		EM.get().persist(user);
 		EM.commit();
+	}
+	
+	public static List<Contact> getContactSubList(User user,String letter) {
+		
+		ArrayList<Contact> list = new ArrayList<Contact>();
+		
+		if (user != null) {
+		
+			for (Contact contact : user.getContacts()) {
+				
+				if (contact.getName().startsWith(letter)) {
+					list.add(contact);
+				}
+				
+			}
+		
+		}
+		
+		return list;
+		
 	}
 
 }

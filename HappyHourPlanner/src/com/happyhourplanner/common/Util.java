@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.util.Map;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Collections;
+import java.util.List;
 
 import com.happyhourplanner.controller.LogInServlet;
 import com.happyhourplanner.controller.SavedSessionHandler;
@@ -27,6 +31,11 @@ public class Util {
 	
 	public static void log(String message) {
 		_log.info(message);
+	}
+	
+	public static List<String> getAlphabet() {
+		return Collections.unmodifiableList(Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V",
+		        "W","X","Y","Z"));
 	}
 	
 	public static String generateActivationKey() {

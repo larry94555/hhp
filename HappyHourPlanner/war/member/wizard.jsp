@@ -149,9 +149,9 @@
                     <p>When you have at least 1 contacts, click <a href='#'>here</a> to continue.</p>
                     
                     <div class="add-contact-list-area">
-                    	<button class='slider-button' title='add a contact.'>add</button>
-                    	<button class='slider-button' title='forward an email'>email the contact</button>
-                    	<button class='slider-button' title='edit existing list'>edit list</button> 
+                    	<button id='add-contact-button' class='slider-button' title='add a contact.'>add</button>
+                    	<button id='email-contact-button' class='slider-button' title='forward an email'>email the contact</button>
+                    	<button id='edit-contact-button' class='slider-button' title='edit existing list'>edit list</button> 
 					  	 <table id="mainTable" class="table table-striped">
             				<thead><tr><th>Name</th><th>Email Address</th></tr></thead>
             				<tbody>
@@ -199,7 +199,7 @@
                     
                 </section>
 
-                <h2>Set Your Availability and Preferences</h2>
+                <h2>Set Your Availability</h2>
                 <section>
                 	<p>Please answer a few questions:<p>
                     <p>Location?
@@ -312,6 +312,7 @@
 		<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
 		<script src="/js/main.js"></script>
 		<script src="/js/login.js"></script>
+		<script src="/js/wizard.js"></script>
 		<script>
 			$(function () {
 			    $("#wizard").steps({

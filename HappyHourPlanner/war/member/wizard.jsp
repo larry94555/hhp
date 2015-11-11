@@ -55,7 +55,8 @@
     	<script src="/js/bootstrap.min.js"></script>
     	<script src="/js/prettify.js"></script>
 		<link href="/css/edittableindex.css" rel="stylesheet">
-    	<script src="/js/mindmup-editabletable.js"></script>
+		<script src="/js/contact-input.js"></script>
+    	<script src="/js/mindmup-rewrite-editabletable.js"></script>
     	<link href="/css/contact-list.css" rel="stylesheet">		
     </head>
     <body class="landing">
@@ -152,22 +153,14 @@
                     	<button id='add-contact-button' class='slider-button' title='add a contact.'>add</button>
                     	<button id='email-contact-button' class='slider-button' title='forward an email'>email the contact</button>
                     	<button id='edit-contact-button' class='slider-button' title='edit existing list'>edit list</button> 
-					  	 <table id="mainTable" class="table table-striped">
+					  	<table id="mainTable" class="table table-striped">
             				<thead><tr><th>Name</th><th>Email Address</th></tr></thead>
             				<tbody>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-              					<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+            					<% for (int i=0; i < 13; i++) { %>
+            					
+              					<tr><td class='contact-name'>&nbsp;</td><td class='contact-email'>&nbsp;</td></tr>
+              					
+              					<% } %>
             				</tbody>
           				</table>
 					</div>
@@ -325,11 +318,10 @@
 			        stepsOrientation: "vertical"
 			    });
 			    $('#slider').sliderNav({height:'500'});
-			    $('#mainTable').editableTableWidget().find('td:first').focus();
+			    $('#mainTable').editableTableWidget().contactInput().find('td:first').focus();
   				$('#textAreaEditor').editableTableWidget({editor: $('<textarea>')});
   				$('#mainTable td').on('mouseover', function() {
-					//alert('Here: ' + $(this).html());
-					$(this).focus();
+					if ($.trim($(this).text()).length===0 && $(this).prop('tabindex')===0) $(this).focus();
 				});
   				window.prettyPrint && prettyPrint();
 			});

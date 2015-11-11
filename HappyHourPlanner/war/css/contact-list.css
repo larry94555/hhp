@@ -2,6 +2,19 @@
 	border-color: white;
 	border-width: 2px;
 	border-style: solid;
-	width: 375px;
+	width: 376px;
 	
+}
+
+#mainTable td {
+	width: 187px;
+}
+
+.add-contact-list-area input {
+	width: 187px;
+}
+
+.add-contact-list-area td {
+	max-width: 187px;
+	overflow: hidden;
 }

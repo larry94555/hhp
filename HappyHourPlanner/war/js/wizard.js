@@ -23,16 +23,17 @@ $('body').on('click','button#add-contact-button',function() {
 		var addToContacts = $.ajax({
 			url: "/contacts",
 			type: "POST",
-			data: { list: list },
+			data: { 'list': list },
 			dataType: "json"
 		});
 		addToContacts.done(function(data) {
-			// remove the values from the table
+			// add entries to contact list
+			document.reload();
 			
 		});
 		
 		addToContacts.fail(function(jqXHR, textStatus) {
-			
+			// not clear how to handle failures.
 		});
 	}
 });

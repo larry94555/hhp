@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.gson.Gson;
 import com.happyhourplanner.controller.LogInServlet;
 import com.happyhourplanner.controller.SavedSessionHandler;
 import com.happyhourplanner.controller.UserAccountHandler;
@@ -27,10 +28,16 @@ public class Util {
 	
 	public static final Logger _log = Logger.getLogger(Util.class.getName());
 	
+	private static final Gson GSON_INSTANCE = new Gson();
+	
 	private Util() {}
 	
 	public static void log(String message) {
 		_log.info(message);
+	}
+	
+	public static Gson getGson() {
+		return GSON_INSTANCE;
 	}
 	
 	public static List<String> getAlphabet() {

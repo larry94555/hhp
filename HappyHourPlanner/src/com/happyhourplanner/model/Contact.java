@@ -2,16 +2,16 @@ package com.happyhourplanner.model;
 
 public class Contact {
 
-	private String emailAddress;
+	private String email;
 	
 	private String name;
 	
 	
-	public Contact(final String emailAddress, final String name) {
-		this.emailAddress = emailAddress;
+	public Contact(final String email, final String name) {
+		this.email = email;
 		this.name = name;
 	}
 	
 	public String getName() { return name; }
-	public String getEmailAddress() { return emailAddress; }
+	public String getEmail() { return email; }
 }

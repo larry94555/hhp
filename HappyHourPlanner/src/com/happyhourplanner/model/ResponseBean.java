@@ -4,10 +4,11 @@ import java.io.PrintWriter;
 
 import com.google.gson.Gson;
 import com.happyhourplanner.common.Constant;
+import com.happyhourplanner.common.Util;
 
 public class ResponseBean {
 	
-	private static Gson gson = new Gson();
+	private final static Gson _gson = Util.getGson();
 	
 	private final String msg;
 	private final String sessionId; 
@@ -20,7 +21,7 @@ public class ResponseBean {
 	}
 	
 	public String getJson() {
-		return gson.toJson(this);
+		return _gson.toJson(this);
 	}
 	
 	public static void println(PrintWriter out,String msg) {

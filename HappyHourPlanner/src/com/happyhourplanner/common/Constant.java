@@ -61,5 +61,12 @@ public class Constant {
 	public static final String NEED_TO_VERIFY = "An email has been sent.";
 	
 	public static final String LINK_SENT_TO_USER = "An email has been sent.";
+	
+	public static final String CONTACTS_ADDED = "Contacts added.";
+	
+	// contacts stored as <email>@@<name>
+	public static final int NAME_PART=1;
+	public static final int EMAIL_PART=0;
+	
 
 }

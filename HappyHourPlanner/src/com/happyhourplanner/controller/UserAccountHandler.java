@@ -1,5 +1,6 @@
 package com.happyhourplanner.controller;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -8,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.servlet.http.HttpServletRequest;
 
 import com.happyhourplanner.common.Constant;
 import com.happyhourplanner.common.Util;
@@ -15,6 +17,7 @@ import com.happyhourplanner.model.Contact;
 import com.happyhourplanner.model.EM;
 import com.happyhourplanner.model.EMF;
 import com.happyhourplanner.model.Passwords;
+import com.happyhourplanner.model.ResponseBean;
 import com.happyhourplanner.model.SavedSession;
 import com.happyhourplanner.model.User;
 
@@ -185,6 +188,34 @@ public class UserAccountHandler {
 		EM.commit();
 	}
 	
+	public static User validateUser(final String username, final PrintWriter out) {
+		
+		// verify that email address is valid
+		if (!UserAccountHandler.checkIfValidEmailAddress(username)) {
+	    	ResponseBean.println(out,Constant.EMAIL_ADDRESS_NOT_VALID);
+	    	return null;
+	    }
+		
+		if (!UserAccountHandler.exists(username)) {
+			ResponseBean.println(out, Constant.ACCOUNT_NOT_EXIST);
+			return null;
+		}
+		
+		final User user = UserAccountHandler.find(username);
+		if (user.isDisabled()) {
+    		ResponseBean.println(out, Constant.ACCOUNT_DISABLED);
+    		return null;
+    	}
+		
+		if (!user.isVerified()) {
+    		ResponseBean.println(out, Constant.NEED_TO_VERIFY);
+    		return null;
+    	}
+		
+		
+		return user;
+	}
+	
 	public static List<Contact> getContactSubList(User user,String letter) {
 		
 		ArrayList<Contact> list = new ArrayList<Contact>();
@@ -192,6 +223,7 @@ public class UserAccountHandler {
 		if (user != null) {
 		
 			for (Contact contact : user.getContacts()) {
+			
 				
 				if (contact.getName().startsWith(letter)) {
 					list.add(contact);
@@ -202,6 +234,19 @@ public class UserAccountHandler {
 		}
 		
 		return list;
+		
+	}
+	
+	public static void addContactList(final User user,final Contact[] contacts) {
+		
+		if (user != null) {
+			for (Contact contact : contacts) {
+				user.addContact(contact.getEmail(),contact.getName());
+			}
+			if (contacts.length > 0) {
+				persist(user);
+			}
+		}
 		
 	}
 

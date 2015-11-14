@@ -43,7 +43,8 @@
         <link rel="stylesheet" type="text/css" href="/css/emailpopup.css">
         <link rel="stylesheet" href="/css/slidernav.css" />
         <link href="/css/prettify.css" rel="stylesheet">
-    	<link href="/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+    	<!-- <link href="/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> -->
     	<link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link href="/css/font-awesome.css" rel="stylesheet">
         <script src="/querystep/lib/modernizr-2.6.2.min.js"></script>
@@ -150,6 +151,7 @@
                     <p>When you have at least 1 contacts, click <a href='#'>here</a> to continue.</p>
                     
                     <div class="add-contact-list-area">
+                    
                     	<button id='add-contact-button' class='slider-button' title='add a contact.'>add</button>
                     	<button id='email-contact-button' class='slider-button' title='forward an email'>email the contact</button>
                     	<button id='edit-contact-button' class='slider-button' title='edit existing list'>edit list</button> 
@@ -166,24 +168,10 @@
 					</div>
                     <div id="slider">
 					  <div class="slider-content">
-					  	<ul>
+					  	<ul id='slider-contact-list'>
 					  
-					  <% for (String a : Util.getAlphabet()) { %>   
-					  
-					  	<li id="<%= a.toLowerCase() %>"><a name="<%= a.toLowerCase() %>" class="title"><%= a.toUpperCase() %></a>
-					        <ul>
-					        
-					        <% for (Contact contact : UserAccountHandler.getContactSubList(user,a)) { %>
-					        
-					        	<li><a href="/"><%= contact.getName() %></a></li>
-					        
-					        <% } %>
-					        
-					        </ul>
-					    </li>
-					  
-					  <% } %>
-					  
+					  <%= UserAccountHandler.generateContactListHtml(user) %>   
+					    
 					  	
 					  	</ul>
 					  </div>

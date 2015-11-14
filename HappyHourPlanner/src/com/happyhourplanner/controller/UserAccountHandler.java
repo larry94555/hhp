@@ -4,6 +4,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -216,9 +218,45 @@ public class UserAccountHandler {
 		return user;
 	}
 	
-	public static List<Contact> getContactSubList(User user,String letter) {
+	public static String generateContactListHtml(final User user) {
+		StringBuilder html = new StringBuilder();
 		
-		ArrayList<Contact> list = new ArrayList<Contact>();
+		// build the new contact list and send it out.
+		for (String a : Util.getAlphabet()) {
+			Map<String,Contact> contactMap = getContactSubList(user,a);
+			if (contactMap.size() > 0) {
+				html.append("<li id='")
+					.append(a.toLowerCase())
+					.append("'><a name='")
+					.append(a.toLowerCase())
+					.append("' class='title'>")
+					.append(a.toUpperCase())
+					.append("</a>")
+		        	.append("<ul>");
+				
+				for (String name : contactMap.keySet()) { 
+
+					
+					html.append("<li><a href='#'>")
+						.append("<span class='glyphicon glyphicon-remove-circle remove-indicator'></span> ")
+						.append(name)
+						.append("</a></li>");
+						
+				
+				}
+				
+				html.append("</ul></li>");
+				
+			}
+			
+		}
+		
+		return html.toString();
+	}
+	
+	public static Map<String,Contact> getContactSubList(User user,String letter) {
+		
+		Map<String,Contact> map= new TreeMap<String,Contact>();
 		
 		if (user != null) {
 		
@@ -226,14 +264,14 @@ public class UserAccountHandler {
 			
 				
 				if (contact.getName().startsWith(letter)) {
-					list.add(contact);
+					map.put(contact.getName(),contact);
 				}
 				
 			}
 		
 		}
 		
-		return list;
+		return map;
 		
 	}
 	

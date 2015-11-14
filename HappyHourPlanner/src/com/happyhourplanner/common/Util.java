@@ -36,9 +36,9 @@ public class Util {
 		_log.info(message);
 	}
 	
-	public static Gson getGson() {
-		return GSON_INSTANCE;
-	}
+//	public static Gson getGson() {
+//		return GSON_INSTANCE;
+//	}
 	
 	public static List<String> getAlphabet() {
 		return Collections.unmodifiableList(Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V",

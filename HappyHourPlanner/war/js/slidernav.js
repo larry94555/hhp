@@ -14,17 +14,17 @@ $.fn.sliderNav = function(options) {
 	if(o.height) height = o.height;
 	$('.slider-content, .slider-nav', slider).css('height',height);
 	if(o.debug) $(slider).append('<div id="debug">Scroll Offset: <span>0</span></div>');
-	$('.slider-nav a', slider).on(opts.event, function(event){
-		var target = $(this).attr('alt');
-		var cOffset = $('.slider-content', slider).offset().top;
-		var tOffset = $('.slider-content '+target, slider).offset().top;
-		var height = $('.slider-nav', slider).height(); if(o.height) height = o.height;
-		var pScroll = (tOffset - cOffset) - height/8;
-		$('.slider-content li', slider).removeClass('selected');
-		$(target).addClass('selected');
-		$('.slider-content', slider).stop().animate({scrollTop: '+=' + pScroll + 'px'});
-		if(o.debug) $('#debug span', slider).html(tOffset);
-	});
+//	$('.slider-nav a', slider).on(opts.event, function(event){
+//		var target = $(this).attr('alt');
+//		var cOffset = $('.slider-content', slider).offset().top;
+//		var tOffset = $('.slider-content '+target, slider).offset().top;
+//		var height = $('.slider-nav', slider).height(); if(o.height) height = o.height;
+//		var pScroll = (tOffset - cOffset) - height/8;
+//		$('.slider-content li', slider).removeClass('selected');
+//		$(target).addClass('selected');
+//		$('.slider-content', slider).stop().animate({scrollTop: '+=' + pScroll + 'px'});
+//		if(o.debug) $('#debug span', slider).html(tOffset);
+//	});
 	if(o.arrows){
 		$('.slider-nav',slider).css('top','20px');
 		$(slider).prepend('<div class="slide-up end"><span class="arrow up"></span></div>');

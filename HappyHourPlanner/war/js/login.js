@@ -93,6 +93,8 @@ $(document).ready(function() {
 	    $('#nav').append('<div id="mask2"></div>');
 	    $('#mask2').fadeIn(300);
 	    
+	    $('#username').focus();
+	    
 	    return false;
 		
 	};

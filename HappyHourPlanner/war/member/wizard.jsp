@@ -148,7 +148,7 @@
                     <% } %>
                     
                     <p>The next step is to add your contacts to the table below and click 'add'.</p>
-                    <p>You need at least 1 contact.<span id='contact-continue'> When done, click <a href='#'>here</a> to continue.</span></p>
+                    <p>You need at least 1 contact.<span id='contact-continue'> When done, click <a id='stepTwo-continue' href='#'>here</a> to continue.</span></p>
                     
                     <div class="add-contact-list-area">
                     
@@ -181,7 +181,7 @@
                     
                 </section>
 
-                <h2>Set Your Availability</h2>
+                <h2>Set Your Preferences</h2>
                 <section>
                 	<p>Please answer a few questions:<p>
                     <p>Location?
@@ -308,11 +308,13 @@
 			    });
 			    $('#slider').sliderNav({height:'500'});
 			    $('#mainTable').editableTableWidget().contactInput().find('td:first').focus();
-  				$('#textAreaEditor').editableTableWidget({editor: $('<textarea>')});
   				$('#mainTable td').on('mouseover', function() {
 					if ($.trim($(this).text()).length===0 && $(this).prop('tabindex')===0) $(this).focus();
 				});
   				window.prettyPrint && prettyPrint();
+  				if (<%= currentState %> > 1) {
+  					$('#contact-continue').css('visibility','visible');
+  				}
 			});
 		</script>
         

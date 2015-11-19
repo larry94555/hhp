@@ -1,13 +1,16 @@
 package com.happyhourplanner.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.happyhourplanner.common.Constant;
 
@@ -38,10 +41,6 @@ public class User {
 	
 	private boolean emailTextOnly; // for testing purposes only
 	
-	@ElementCollection
-	private Set<String> contacts;	
-	
-	
 	public byte[] getSalt() { return salt; }
 	
 	public byte[] getHash() { return hash; }
@@ -60,7 +59,6 @@ public class User {
 		this.activationCode="";
 		this.passwordResetCode="";
 		this.emailTextOnly = false;
-		this.contacts = new HashSet<String>();
 	}
 	
 	public boolean isDisabled() { return disabled; }
@@ -131,25 +129,4 @@ public class User {
 		this.currentState = newState;
 	}
 	
-	private Set<String> getContactsAsString() { return contacts; }
-	
-	public List<Contact> getContacts() {
-		List<Contact> list = new ArrayList<Contact>();
-		for (String contact : contacts) {
-			String[] parts = contact.split("@@");
-			list.add(new Contact(parts[Constant.EMAIL_PART],parts[Constant.NAME_PART]));
-		}
-		return list;
-	}
-	
-	
-	private void addContact(final String contact) {
-		if (!contacts.contains(contact)) {
-			contacts.add(contact);
-		}
-	}
-	
-	public void addContact(final String email,final String name) {
-		contacts.add(new StringBuilder(email).append("@@").append(name).toString());
-	}
 }

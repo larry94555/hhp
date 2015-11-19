@@ -51,7 +51,7 @@ public class ContactListHandlerServlet extends HttpServlet {
 				}
 				else {
 					_log.info("There are " + contacts.length + " contact(s) added");
-					UserAccountHandler.addContactList(user, contacts);
+					ContactHandler.addContactList(user, contacts);
 					ResponseBean.println(out, Constant.CONTACTS_ADDED,"NA",UserAccountHandler.generateContactListHtml(user));
 				}
 				

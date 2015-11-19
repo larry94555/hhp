@@ -219,7 +219,7 @@ public class UserAccountHandler {
 	}
 	
 	public static String generateContactListHtml(final User user) {
-		StringBuilder html = new StringBuilder();
+		StringBuilder html = new StringBuilder("");
 		
 		// build the new contact list and send it out.
 		for (String a : Util.getAlphabet()) {
@@ -234,13 +234,18 @@ public class UserAccountHandler {
 					.append("</a>")
 		        	.append("<ul>");
 				
-				for (String name : contactMap.keySet()) { 
+				for (String email : contactMap.keySet()) { 
 
+					final String name = contactMap.get(email).getName();
 					
-					html.append("<li><a href='#'>")
-						.append("<span class='glyphicon glyphicon-remove-circle remove-indicator'></span> ")
+					html.append("<li>")
+						.append("<a href='#' class='contact-list-entry'><span class='glyphicon glyphicon-remove-circle remove-indicator'></span> ")
 						.append(name)
-						.append("</a></li>");
+						.append("</a>")
+						.append("<span class='contact-list-email'>")
+						.append(email)
+						.append("</span>")
+						.append("</li>");
 						
 				
 				}
@@ -254,17 +259,19 @@ public class UserAccountHandler {
 		return html.toString();
 	}
 	
-	public static Map<String,Contact> getContactSubList(User user,String letter) {
+
+	
+	public static Map<String,Contact> getContactSubList(final User user,final String letter) {
 		
 		Map<String,Contact> map= new TreeMap<String,Contact>();
 		
 		if (user != null) {
 		
-			for (Contact contact : user.getContacts()) {
+			for (Contact contact : ContactHandler.getContacts(user,0,Constant.MAX_CONTACTS)) {
 			
 				
-				if (contact.getName().startsWith(letter)) {
-					map.put(contact.getName(),contact);
+				if (contact.getName().toUpperCase().startsWith(letter)) {
+					map.put(contact.getEmail(),contact);
 				}
 				
 			}
@@ -275,17 +282,6 @@ public class UserAccountHandler {
 		
 	}
 	
-	public static void addContactList(final User user,final Contact[] contacts) {
-		
-		if (user != null) {
-			for (Contact contact : contacts) {
-				user.addContact(contact.getEmail(),contact.getName());
-			}
-			if (contacts.length > 0) {
-				persist(user);
-			}
-		}
-		
-	}
+
 
 }

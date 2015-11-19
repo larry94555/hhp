@@ -27,6 +27,10 @@ $(function() {
 		  $('#wizard-t-1').click();
 		  
 	  });
+	  
+	  $('body').on('click','a#stepTwo-continue', function() {
+		  $('#wizard-t-2').click();
+	  });
 
 	  $('.close').on('click', function() {
 	    deselect($('#contact'));

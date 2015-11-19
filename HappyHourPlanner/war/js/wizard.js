@@ -9,6 +9,7 @@ $('body').on('click','button#add-contact-button',function() {
 			//alert($(this).text());
 			var name = $.trim($(this).children(":first").text());
 			var email = $.trim($(this).children(":nth-child(2)").text());
+			
 			if (name.length > 0 && email.length > 0) {
 				//alert("child1: " + child1);
 				list.push({'name': name, 'email': email});
@@ -39,9 +40,22 @@ $('body').on('click','button#add-contact-button',function() {
 			rows.each(function(index) {
 				if ($.trim($(this).text()).length > 0) {
 					//alert($(this).text());
-					var name = $.trim($(this).children(":first").text());
-					var email = $.trim($(this).children(":nth-child(2)").text());
+					var td_name = $(this).children(":first");
+					var td_email = $(this).children(":nth-child(2)");
+					var name = $.trim(td_name.text());
+					var email = $.trim(td_email.text());
 					if (name.length > 0 && email.length > 0) {
+						
+//						var activeTd = $('#mainTable').find('td:focus');
+//						
+//						alert("activeTd: text = " + $(activeTd).text());
+//						
+//						if (activeTd == td_name || activeTd == td_email) {
+//							var editor = $('#mainTable').parent().children('input');
+//							editor.val('');
+//							editor.blur();
+//						}
+												
 						//alert("child1: " + child1);
 						$(this).children(":first").html("&nbsp;");
 						$(this).children(":nth-child(2)").html("&nbsp;");
@@ -51,9 +65,12 @@ $('body').on('click','button#add-contact-button',function() {
 			});
 			
 			
+			
+			
 			$('#slider-contact-list').html(data.html);
 			
 			$('#contact-continue').css('visibility','visible');
+			
 			
 		});
 		

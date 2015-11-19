@@ -53,6 +53,8 @@ $('body').on('click','button#add-contact-button',function() {
 			
 			$('#slider-contact-list').html(data.html);
 			
+			$('#contact-continue').css('visibility','visible');
+			
 		});
 		
 		addToContacts.fail(function(jqXHR, textStatus) {
@@ -60,3 +62,38 @@ $('body').on('click','button#add-contact-button',function() {
 		});
 	}
 });
+
+$('body').on('click','span.remove-indicator',function(e) {
+	// remove entry
+	//alert("email: " + $(this).parent().parent().children('.contact-list-email').text());
+	var removeContact = $.ajax({
+		url: "/remove-contact",
+		type: "POST",
+		data: {email:$(this).parent().parent().children('.contact-list-email').text()},
+		dataType: "json"
+	});
+	
+	removeContact.done(function(data) {
+		// add entries to contact list
+		//document.reload();
+		//return;
+		//alert("data.html = " + data.html);
+		
+		$('#slider-contact-list').html(data.html);
+	});
+	
+	removeContact.fail(function(jqXHR, textStatus) {
+		// not clear how to handle failures.
+	});
+	
+	e.preventDefault();
+	return false;
+});
+
+$('body').on('click','a.contact-list-entry',function(e) {
+	
+	//$(this).parent().children(".contact-list-email").css("display","block");
+	
+	e.preventDefault();
+	return false;
+})

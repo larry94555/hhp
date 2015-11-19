@@ -23,6 +23,28 @@ a:hover .remove-indicator {
 	visibility: visible;
 }
 
+a.contact-list-entry:hover, a:focus {
+	text-decoration: none;
+}
+
+span.contact-list-email {
+	padding-left: 5px;
+	display: none;
+}
+
+#contact-continue {
+	visibility: hidden;
+}
+
+#edit-contact-recycle-bin {
+	padding-left: 40px;
+	visibility: hidden;
+}
+
+/* a.contact-list-entry:hover + .contact-list-email {
+	display: block;
+} */
+
 .remove-indicator {
 	visibility: hidden;
 }

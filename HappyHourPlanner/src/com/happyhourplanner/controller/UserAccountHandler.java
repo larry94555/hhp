@@ -185,6 +185,11 @@ public class UserAccountHandler {
 		return true;
 	}
 	
+	public static void setCurrentState(final User user,final int newState) {
+		user.setCurrentState(newState);
+		persist(user);
+	}
+	
 	private static void persist(final User user) {
 		EM.get().persist(user);
 		EM.commit();

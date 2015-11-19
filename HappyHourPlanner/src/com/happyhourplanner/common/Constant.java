@@ -71,5 +71,20 @@ public class Constant {
 	public static final int NAME_PART=1;
 	public static final int EMAIL_PART=0;
 	
+	// user states
+	public static final String STATE_VERIFY_EMAIL = "verify email";
+	public static final String STATE_CONTACT_LIST = "contact list";
+	public static final String STATE_PREFERENCES = "preferences";
+	public static final String STATE_INVITE = "invite";
+	public static final String STATE_STATUS = "status";
+	public static final String STATE_DATE_SET = "date";
+	public static final String STATE_UNDEFINED = "undefined";
 
+	
+	public static final int STATE_VERIFY_EMAIL_NUM = 0;
+	public static final int STATE_CONTACT_LIST_NUM = 1;
+	public static final int STATE_PREFERENCES_NUM = 2;
+	public static final int STATE_INVITE_NUM = 3;
+	public static final int STATE_STATUS_NUM = 4;
+	public static final int STATE_DATE_SET_NUM = 5;
 }

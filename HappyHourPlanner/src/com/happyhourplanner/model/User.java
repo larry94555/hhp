@@ -115,13 +115,13 @@ public class User {
 	
 	public String getCurrentStateAsString() {
 		switch(currentState) {
-		case 0: return "verify email";
-		case 1: return "contact list";
-		case 2: return "preferences";
-		case 3: return "invite";
-		case 4: return "status";
-		case 5: return "date";
-		default: return "undefined";
+		case Constant.STATE_VERIFY_EMAIL_NUM: return Constant.STATE_VERIFY_EMAIL;
+		case Constant.STATE_CONTACT_LIST_NUM: return Constant.STATE_CONTACT_LIST;
+		case Constant.STATE_PREFERENCES_NUM: return Constant.STATE_PREFERENCES;
+		case Constant.STATE_INVITE_NUM: return Constant.STATE_INVITE;
+		case Constant.STATE_STATUS_NUM: return Constant.STATE_STATUS;
+		case Constant.STATE_DATE_SET_NUM: return Constant.STATE_DATE_SET;
+		default: return Constant.STATE_UNDEFINED;
 		}
 	}
 	

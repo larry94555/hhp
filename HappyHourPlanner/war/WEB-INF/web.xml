@@ -24,6 +24,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/contacts</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>removecontact</servlet-name>
+		<servlet-class>com.happyhourplanner.controller.RemoveContactHandlerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>removecontact</servlet-name>
+		<url-pattern>/remove-contact</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>signout</servlet-name>
 		<servlet-class>com.happyhourplanner.controller.SignOutServlet</servlet-class>
 	</servlet>

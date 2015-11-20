@@ -47,6 +47,7 @@
     	<!-- <link href="/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> -->
     	<link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link href="/css/font-awesome.css" rel="stylesheet">
+		<link rel="stylesheet" href="/css/preferences.css" />
         <script src="/querystep/lib/modernizr-2.6.2.min.js"></script>
         <script src="/querystep/lib/jquery-1.9.1.min.js"></script>
         <script src="/querystep/lib/jquery.cookie-1.3.1.js"></script>
@@ -183,34 +184,23 @@
 
                 <h2>Set Your Preferences</h2>
                 <section>
-                	<p>Please answer a few questions:<p>
-                    <p>Location?
-                    	<select>
-                    		<option>-Select-</option>
-                    		<option>Specify a Place</option>
-                    		<option>Let's Vote</option>
-                    		<option>Specify a Zip Code</option>
-                    	</select>
-                    </p>
-                    <p>When?
-                    	<select>
-                    		<option>-Select-</option>
-                    		<option>Let's Vote</option>
-                    		<option>Any Evening</option>
-                    		<option>Specify a Time</option>
-                    		<option>Specific Day of Week</option>
-                    		<option>Specific Date</option>
-                    	</select>
-                    </p>
-                    <p>Place?
-                    	<select>
-                    		<option>-Select-</option>
-                    		<option>Let's Vote</option>
-                    		<option>Recommended</option>
-                    		<option>List of Places</option>
-                    		<option>Specific Place</option>
-                    	</select>
-                    </p>
+ <div id="pref-container">
+  <div id="pref-form1">
+  
+<div>
+
+<p>What are your preferences?</p>
+<div class="form_labels">
+<input type="button" value="Accept" id="button" /><br />
+<label for="name">Location:</label><br /><input type="text" name="cm-name" input style="width:445px; height: 30px; border: 1px solid 256632; margin-bottom: 10px" id="name" /><br />
+<label for="ykkkllt-ykkkllt">When:</label><br /><input type="text" name="cm-ykkkllt-ykkkllt" input style="width:445px; height: 30px; border: 1px solid 256632; margin-bottom: 10px" id="ykkkllt-ykkkllt" /><br />
+<label for="Tell Us What You Like">Place:</label><br /><input type="text" name="cm-f-vtljth" input style="width:445px; height: 30px; border: 1px solid 256632; margin-bottom: 10px"id="TellUsWhatYouLike" /><br />
+
+</div>
+</div>
+    
+    </div>
+</div>
                 </section>
 
                 <h2>Send Out Invite</h2>

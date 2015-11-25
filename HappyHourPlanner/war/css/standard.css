@@ -2119,12 +2119,18 @@
 		-webkit-appearance: none;
 		-ms-appearance: none;
 		appearance: none;
-		display: block;
+		//display: block;
 		float: left;
 		margin-right: -2em;
-		opacity: 0;
+		//opacity: 0;
 		width: 1em;
+		//z-index: -1;
+	}
+	
+	.standard-checkbox {
+		opacity: 0;
 		z-index: -1;
+		display: none;
 	}
 
 		input[type="checkbox"] + label,

@@ -59,7 +59,10 @@
 		<link href="/css/edittableindex.css" rel="stylesheet">
 		<script src="/js/contact-input.js"></script>
     	<script src="/js/mindmup-rewrite-editabletable.js"></script>
-    	<link href="/css/contact-list.css" rel="stylesheet">		
+    	<link href="/css/contact-list.css" rel="stylesheet">	
+    	<link rel="stylesheet" href="/css/searchableOptionList.css">
+ 		<link rel="stylesheet" href="/css/sol.css">
+    	<script type="text/javascript" src="/js/sol.js"></script>
     </head>
     <body class="landing">
         
@@ -187,14 +190,57 @@
  <div id="pref-container">
   <div id="pref-form1">
   
-<div>
+<div id='select-container'>
 
-<p>What are your preferences?</p>
-<div class="form_labels">
-<input type="button" value="Accept" id="button" /><br />
-<label for="name">Location:</label><br /><input type="text" name="cm-name" input style="width:445px; height: 30px; border: 1px solid 256632; margin-bottom: 10px" id="name" /><br />
-<label for="ykkkllt-ykkkllt">When:</label><br /><input type="text" name="cm-ykkkllt-ykkkllt" input style="width:445px; height: 30px; border: 1px solid 256632; margin-bottom: 10px" id="ykkkllt-ykkkllt" /><br />
-<label for="Tell Us What You Like">Place:</label><br /><input type="text" name="cm-f-vtljth" input style="width:445px; height: 30px; border: 1px solid 256632; margin-bottom: 10px"id="TellUsWhatYouLike" /><br />
+<a href="#" id="accept-preferences" class="special button">Accept</a>
+
+<div id="preferences-title">What are your preferences?</div>
+
+<input type="checkbox" name="pref-allow-suggestions" class="standard-checkbox" id="pref-allow-suggestions" checked="checked" /><label for="pref-allow-suggestions">Let People Suggest Places</label><br /><br />
+<label for="pref-days">Days of Week:</label><br/>
+<input type="checkbox" name="pref-allow-m" class="standard-checkbox" id="pref-allow-m" checked="checked" /><label for="pref-allow-m">M</label>
+<input type="checkbox" name="pref-allow-t" class="standard-checkbox" id="pref-allow-t" checked="checked" /><label for="pref-allow-t">T</label>
+<input type="checkbox" name="pref-allow-w" class="standard-checkbox" id="pref-allow-w" checked="checked" /><label for="pref-allow-w">W</label>
+<input type="checkbox" name="pref-allow-th" class="standard-checkbox" id="pref-allow-th" checked="checked" /><label for="pref-allow-th">Th</label>
+<input type="checkbox" name="pref-allow-f" class="standard-checkbox" id="pref-allow-f" checked="checked" /><label for="pref-allow-f">F</label>
+<input type="checkbox" name="pref-allow-sa" class="standard-checkbox" id="pref-allow-sa" /><label for="pref-allow-sa">Sat</label>
+<input type="checkbox" name="pref-allow-su" class="standard-checkbox" id="pref-allow-su"  /><label for="pref-allow-su">Sun</label><br/><br/>
+
+<label for="pref-near">Near:</label><br />
+<input type="text" name="pref-near" id="pref-near" placeholder="Enter city, neighborhood, zip, or cross streets" /><br />
+
+<label for="pref-list">Allow:</label><br />
+<div id='container'>
+
+<select id="my-select" name="character" multiple="multiple">
+    <option value="Peter">Peter Griffin</option>
+    <option value="Lois">Lois Griffin</option>
+    <option value="Chris">Chris Griffin</option>
+    <option value="Meg">Meg Griffin</option>
+    <option value="Stewie">Stewie Griffin</option>
+    <option value="Cleveland">Cleveland Brown</option>    
+    <option value="Joe">Joe Swanson</option>    
+    <option value="Quagmire">Glenn Quagmire</option>    
+    <option value="Evil Monkey">Evil Monkey</option>
+    <option value="Herbert">John Herbert</option>    
+</select>
+</div>
+<div id='container2'>
+
+<br/><label for="pref-list">Disallow:</label><br />
+
+<select id="my-select2" name="character" multiple="multiple">
+    <option value="Peter">Peter Griffin</option>
+    <option value="Lois">Lois Griffin</option>
+    <option value="Chris">Chris Griffin</option>
+    <option value="Meg">Meg Griffin</option>
+    <option value="Stewie">Stewie Griffin</option>
+    <option value="Cleveland">Cleveland Brown</option>    
+    <option value="Joe">Joe Swanson</option>    
+    <option value="Quagmire">Glenn Quagmire</option>    
+    <option value="Evil Monkey">Evil Monkey</option>
+    <option value="Herbert">John Herbert</option>    
+</select>
 
 </div>
 </div>
@@ -301,11 +347,19 @@
   				$('#mainTable td').on('mouseover', function() {
 					if ($.trim($(this).text()).length===0 && $(this).prop('tabindex')===0) $(this).focus();
 				});
+			
   				window.prettyPrint && prettyPrint();
   				if (<%= currentState %> > 1) {
   					$('#contact-continue').css('visibility','visible');
   				}
 			});
+			
+			$(function() {
+        		// initialize sol
+        		$('#my-select').searchableOptionList({});
+        		$('#my-select2').searchableOptionList({});
+    		});
+   			
 		</script>
         
     </body>

@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Collections;
 import java.util.List;
+import java.util.TreeMap;
 
 import com.google.gson.Gson;
 import com.happyhourplanner.controller.LogInServlet;
@@ -185,6 +186,45 @@ public class Util {
 	
 	public static void removeSessionCookie(HttpServletResponse response) {
 		removeCookie(response,Constant.COOKIE_NAME);
+	}
+	
+//	<option value="Peter">Peter Griffin</option>
+//    <option value="Lois">Lois Griffin</option>
+//    <option value="Chris">Chris Griffin</option>
+//    <option value="Meg">Meg Griffin</option>
+//    <option value="Stewie">Stewie Griffin</option>
+//    <option value="Cleveland">Cleveland Brown</option>    
+//    <option value="Joe">Joe Swanson</option>    
+//    <option value="Quagmire">Glenn Quagmire</option>    
+//    <option value="Evil Monkey">Evil Monkey</option>
+//    <option value="Herbert">John Herbert</option>  
+	
+	
+	public static String generateList() {
+		StringBuilder builder = new StringBuilder();
+		
+		Map<String,String> map = new TreeMap<String,String>();
+		map.put("Peter","Peter Griffin");
+		map.put("Lois","Lois Griffin");
+		map.put("Chris","Chris Griffin");
+		map.put("Meg","Meg Griffin");
+		map.put("Stewie","Stewis Griffin");
+		map.put("Cleveland","Cleveland Brown");
+		map.put("Joe","Joe Swanson");
+		map.put("Quagmire","Glenn Quagmire");
+		map.put("Evil Monkey","Evil Monkey");
+		map.put("Herbert","John Herbert");
+		
+		for (String key : map.keySet()) {
+			builder.append("<option value=\"")
+			.append(key)
+			.append("\">")
+			.append(map.get(key))
+			.append("</option>\n");
+		}
+		
+		
+		return builder.toString();
 	}
 
 

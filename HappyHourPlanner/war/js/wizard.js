@@ -114,3 +114,106 @@ $('body').on('click','a.contact-list-entry',function(e) {
 	e.preventDefault();
 	return false;
 })
+
+$(function() {
+	// get location
+	var x = $("#def-location");
+
+	function showPosition(position) {
+		//alert("position: " + position.coords.latitude + ", longitude: " + position.coords.longitude);
+	    //x.html("Latitude: " + position.coords.latitude + 
+	    //", Longitude: " + position.coords.longitude);	
+		//x.html("found");
+		$("#def-location").html("position: " + position.coords.latitude + ", longitude: " + position.coords.longitude);
+	}
+	
+	function showError(error) {
+		//alert("error!");
+		x.html("error");
+	    switch(error.code) {
+	        case error.PERMISSION_DENIED:
+	            x.html("User denied the request for Geolocation.");
+	            break;
+	        case error.POSITION_UNAVAILABLE:
+	            x.html("Location information is unavailable.");
+	            break;
+	        case error.TIMEOUT:
+	            x.html("The request to get user location timed out.");
+	            break;
+	        case error.UNKNOWN_ERROR:
+	            x.html("An unknown error occurred.");
+	            break;
+	        default:
+	        	x.html("Unexpected");
+	            break;
+	    }
+	}
+	
+	function getLocation() {
+	    if (navigator.geolocation) {
+	    	//x.html("offered");
+	        navigator.geolocation.getCurrentPosition(showPosition,showError);
+	        //x.html("what's up?")
+	    } else { 
+	        x.html("denied");
+	    }
+	}
+
+	
+	// get location
+	getLocation();
+	// get ip address
+	var getIp = $.ajax({
+		url: "/location",
+		type: "POST",
+		data: {},
+		dataType: "json"
+	});
+	getIp.done(function(data) {
+		// add entries to contact list
+		//document.reload();
+		//return;
+		//alert("data.html = " + data.html);
+		
+		$('#def-ip').html(data.msg);
+	});
+	
+	getIp.fail(function(jqXHR, textStatus) {
+		$('#def-ip').html("failed");
+	});
+	
+	var getLocation = $.ajax({
+		url: "http://freegeoip.net/json/",
+		type: "GET",
+		data: {},
+		dataType: "json"
+	});
+	getLocation.done(function(data) {
+		var value = "ip: " + data.ip + ", country code: " + data.country_code + ", country: " + data.country_name + ", region code: " 
+		+ data.region_code + ", region: " + data.region_name + ", city: " + data.city + ", zip: " + data.zip_code + ", tz: " + data.time_zone
+		+ ", latitude: " + data.latitude + ", longitude: " + data.longitude + ", metro code: " + data.metro_code;
+		$('#def-lookup-location').html(value)
+		
+		// do a look up for
+		getPlaceList = $.ajax({
+			url: "/place-list",
+			type: "POST",
+			data:{ },
+			dataType: "json"
+		});
+		
+		getPlaceList.done(function(data){
+			$('#yelp-result').html(data.html);
+			
+		});
+	});
+	
+	getLocation.fail(function(jqXHR,textStatus) {
+		$('#def-lookup-location').html("failed");
+	});
+	
+	
+	
+	
+});
+

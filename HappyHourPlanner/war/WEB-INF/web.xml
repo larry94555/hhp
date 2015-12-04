@@ -16,6 +16,22 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/admin/updateuser</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>placelisthandler</servlet-name>
+		<servlet-class>com.happyhourplanner.controller.PlaceListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>placelisthandler</servlet-name>
+		<url-pattern>/place-list</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>locationinfo</servlet-name>
+		<servlet-class>com.happyhourplanner.controller.LocationInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>locationinfo</servlet-name>
+		<url-pattern>/location</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>addcontacts</servlet-name>
 		<servlet-class>com.happyhourplanner.controller.ContactListHandlerServlet</servlet-class>
 	</servlet>

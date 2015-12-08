@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.happyhourplanner.common.Constant;
 import com.happyhourplanner.model.ResponseBean;
 import com.happyhourplanner.yelp.YelpHandler;
 
@@ -21,12 +22,24 @@ public class PlaceListServlet extends HttpServlet {
 		try {
 			
 			resp.setContentType("application/json");
+			PrintWriter out = resp.getWriter();
+			
+			String category = req.getParameter("category");
+			String location = req.getParameter("location");
+			
+			if (category == null) {
+				ResponseBean.println(out,Constant.CATEGORY_MISSING);
+			}
+			else if (location == null) {
+				ResponseBean.println(out,Constant.LOCATION_MISSING);
+			}
+			else {
 		    
-		    PrintWriter out = resp.getWriter();
 		    
-		    // get request
-		    ResponseBean.println(out, "test","NA",YelpHandler.getPlaceListAsHtml("dinner","San Francisco, CA"));
+				// get request
+				ResponseBean.println(out, "test","NA",YelpHandler.getPlaceListAsHtml(category,location));
 		    
+			}
 		    
 		    out.close();
 		

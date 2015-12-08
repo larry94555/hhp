@@ -5,7 +5,7 @@
 
 #pref-container {
 	background:url() no-repeat;
-	height: 855px;
+	//height: 855px;
 	width: 800px;
 	}
 	
@@ -88,4 +88,21 @@ box-shadow: 0px 0px 7px #000;
 	font-family: Arial,Helvetica,sans-serif;
     font-size: 17px;
     margin-bottom: 20px;
+}
+
+#def-location {
+	padding-left: 5px;
+}
+
+#set-default-location {
+	padding-left: 15px;
+	display: none;
+}
+
+a#set-default-location:hover {
+	cursor: pointer;
+}
+
+input[type="checkbox"].sol-checkbox {
+	display: none;
 }

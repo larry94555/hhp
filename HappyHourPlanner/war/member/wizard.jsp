@@ -206,26 +206,23 @@
 <input type="checkbox" name="pref-allow-sa" class="standard-checkbox" id="pref-allow-sa" /><label for="pref-allow-sa">Sat</label>
 <input type="checkbox" name="pref-allow-su" class="standard-checkbox" id="pref-allow-su"  /><label for="pref-allow-su">Sun</label><br/><br/>
 
+<label for="default-location">Current Location:</label><span id="def-location">detect (<span id="detected-location"></span>)</span><a id="set-default-location">set</a><br/><br/>
+<input type="hidden" id="detected-latitude"></input>
+<input type="hidden" id="detected-longitude"></input>
+
 <label for="pref-near">Near:</label><br />
 <input type="text" name="pref-near" id="pref-near" placeholder="Enter city, neighborhood, zip, or cross streets" /><br />
 
-<label for="def-location">Location: </label>
-<span id="def-location">None</span><br/>
-<label for="def-ip">Ip: </label>
-<span id="def-ip">None</span><br/>
-<label for="def-lookup-location">Look up location: </label>
-<span id="def-lookup-location">None</span><br/>
+<label for="pref-list">Allow:</label><br /> 
+<div id='container'> 
 
-<label for="pref-list">Allow:</label><br />
-<div id='container'>
-
-<label for "yelp-result">Yelp result:</label><br />
+<!-- <label for "yelp-result">Yelp result:</label><br />
 <div id='yelp-result'>
 Nothing yet!
-</div>
+</div>  -->
 
 <select id="my-select" name="character" multiple="multiple"> 
-<%= Util.generateList() %> 
+<option>Loading...</option>
 </select>
 </div>
 <div id='container2'>
@@ -233,7 +230,7 @@ Nothing yet!
 <br/><label for="pref-list">Disallow:</label><br />
 
 <select id="my-select2" name="character" multiple="multiple">
-<%= Util.generateList() %> 
+<option>Loading...</option>
 </select>
 
 </div>

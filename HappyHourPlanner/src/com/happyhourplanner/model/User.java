@@ -39,6 +39,8 @@ public class User {
 	
 	private String passwordResetCode;
 	
+	private String defaultLocation;
+	
 	private boolean emailTextOnly; // for testing purposes only
 	
 	public byte[] getSalt() { return salt; }
@@ -59,6 +61,7 @@ public class User {
 		this.activationCode="";
 		this.passwordResetCode="";
 		this.emailTextOnly = false;
+		this.defaultLocation = Constant.NO_DEFAULT_LOCATION_SET;
 	}
 	
 	public boolean isDisabled() { return disabled; }
@@ -70,6 +73,10 @@ public class User {
 	public boolean isFirstTime() { return firstTimeUser; }
 	
 	public boolean emailTextOnly() { return this.emailTextOnly; }
+	
+	public String getDefaultLocation() { 
+		return (this.defaultLocation != null) ? this.defaultLocation : Constant.NO_DEFAULT_LOCATION_SET; 
+	}
 	
 	public void setVerifiedFlag(final boolean verified) {
 		this.verified=verified;
@@ -89,6 +96,10 @@ public class User {
 	
 	public void setEmailTextOnly(final boolean flag) {
 		this.emailTextOnly = flag;
+	}
+	
+	public void setDefaultLocation(final String location) {
+		this.defaultLocation = location;
 	}
 	
 	public boolean checkPassword(final String password) {

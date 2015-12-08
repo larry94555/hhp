@@ -116,104 +116,139 @@ $('body').on('click','a.contact-list-entry',function(e) {
 })
 
 $(function() {
-	// get location
-	var x = $("#def-location");
-
-	function showPosition(position) {
-		//alert("position: " + position.coords.latitude + ", longitude: " + position.coords.longitude);
-	    //x.html("Latitude: " + position.coords.latitude + 
-	    //", Longitude: " + position.coords.longitude);	
-		//x.html("found");
-		$("#def-location").html("position: " + position.coords.latitude + ", longitude: " + position.coords.longitude);
-	}
 	
-	function showError(error) {
-		//alert("error!");
-		x.html("error");
-	    switch(error.code) {
-	        case error.PERMISSION_DENIED:
-	            x.html("User denied the request for Geolocation.");
-	            break;
-	        case error.POSITION_UNAVAILABLE:
-	            x.html("Location information is unavailable.");
-	            break;
-	        case error.TIMEOUT:
-	            x.html("The request to get user location timed out.");
-	            break;
-	        case error.UNKNOWN_ERROR:
-	            x.html("An unknown error occurred.");
-	            break;
-	        default:
-	        	x.html("Unexpected");
-	            break;
-	    }
-	}
-	
-	function getLocation() {
-	    if (navigator.geolocation) {
-	    	//x.html("offered");
-	        navigator.geolocation.getCurrentPosition(showPosition,showError);
-	        //x.html("what's up?")
-	    } else { 
-	        x.html("denied");
-	    }
-	}
-
-	
-	// get location
-	getLocation();
-	// get ip address
-	var getIp = $.ajax({
-		url: "/location",
-		type: "POST",
-		data: {},
-		dataType: "json"
-	});
-	getIp.done(function(data) {
-		// add entries to contact list
-		//document.reload();
-		//return;
-		//alert("data.html = " + data.html);
-		
-		$('#def-ip').html(data.msg);
-	});
-	
-	getIp.fail(function(jqXHR, textStatus) {
-		$('#def-ip').html("failed");
-	});
-	
-	var getLocation = $.ajax({
-		url: "http://freegeoip.net/json/",
-		type: "GET",
-		data: {},
-		dataType: "json"
-	});
-	getLocation.done(function(data) {
-		var value = "ip: " + data.ip + ", country code: " + data.country_code + ", country: " + data.country_name + ", region code: " 
-		+ data.region_code + ", region: " + data.region_name + ", city: " + data.city + ", zip: " + data.zip_code + ", tz: " + data.time_zone
-		+ ", latitude: " + data.latitude + ", longitude: " + data.longitude + ", metro code: " + data.metro_code;
-		$('#def-lookup-location').html(value)
+	function fillPlaces() {
+		// if near is set, use that, otherwise use longitude, latitude
+		var location = $.trim($("#pref-near"));
+		var longitude = "";
+		var latitude = "";
+		if (location === "") {
+			// use longitude/latitude
+			longitude = $.trim($('#detected-longitude'));
+			latitude = $.trim($('#detected-latitude'));
+			
+		}
 		
 		// do a look up for
 		getPlaceList = $.ajax({
 			url: "/place-list",
 			type: "POST",
-			data:{ },
+			data:{
+				location: location,
+				longitude: longitude,
+				latitude: latitude
+			},
 			dataType: "json"
 		});
 		
 		getPlaceList.done(function(data){
-			$('#yelp-result').html(data.html);
+			//$('#yelp-result').html(unescape(data.html));
+			//var obj = $.parseJSON(data.html);
+			//$('#yelp-result').html(obj.total);
+		});		
+		
+		getPlaceList.fail(function(qXHR,textStatus) {
 			
 		});
-	});
+		
+	}
 	
-	getLocation.fail(function(jqXHR,textStatus) {
-		$('#def-lookup-location').html("failed");
-	});
+	function getDefaultLocationBasedOnIpAddress() {
+		
+		var getLocation = $.ajax({
+			url: "http://freegeoip.net/json/",
+			type: "GET",
+			data: {},
+			dataType: "json"
+		});
+		getLocation.done(function(data) {
+			
+			//var value = "ip: " + data.ip + ", country code: " + data.country_code + ", country: " + data.country_name + ", region code: " 
+			//+ data.region_code + ", region: " + data.region_name + ", city: " + data.city + ", zip: " + data.zip_code + ", tz: " + data.time_zone
+			//+ ", latitude: " + data.latitude + ", longitude: " + data.longitude + ", metro code: " + data.metro_code;
+			//$('#def-lookup-location').html(value)
+			
+			
+			$('#detected-location').html(data.city+','+ data.region_code);
+			$('#detected-longitude').html(data.longitude);
+			$('#defected-latitude').html(data.latitude);
+			
+			fillPlaces();
+			
+			//defaultLocation = value;
+			
+		});
+		
+		getLocation.fail(function(jqXHR,textStatus) {
+			$('#def-lookup-location').html("failed");
+		});
+	}
 	
+
+	function showPosition(position) {
+		
+        var getAddressFromLatitudeLongitude = $.ajax({
+        	url: "http://pelias.mapzen.com/v1/reverse?api_key=search-h-wI3wM&point.lat=" + position.coords.latitude + 
+        	"&point.lon=" + position.coords.longitude+"&size=1",
+    		type: "GET",
+    		data: {},
+    		dataType: "json"
+        });
+        getAddressFromLatitudeLongitude.done(function(data){
+        	// get the label
+        	value = data.features[0].properties.label;
+        	//var value = "lat: " + position.coords.latitude + ", long: " + position.coords.longitude;
+        	$('#detected-location').html(value);
+        	$('#detected-longitude').html(position.coords.longitude);
+			$('#defected-latitude').html(position.coords.latitude);
+			fillPlaces();
+        	
+        });
+        getAddressFromLatitudeLongitude.fail(function(qXHR,textStatus) {
+        	getDefaultLocationBasedOnIpAddress();
+        });
+        
+	}
 	
+	function showError(error) {
+		//alert("error!");
+		//var x= $('#def-location');
+		
+		getDefaultLocationBasedOnIpAddress();
+		
+	    switch(error.code) {
+	        case error.PERMISSION_DENIED:
+	            //x.html("User denied the request for Geolocation.");
+	            break;
+	        case error.POSITION_UNAVAILABLE:
+	            //x.html("Location information is unavailable.");
+	            break;
+	        case error.TIMEOUT:
+	            //x.html("The request to get user location timed out.");
+	            break;
+	        case error.UNKNOWN_ERROR:
+	            //x.html("An unknown error occurred.");
+	            break;
+	        default:
+	        	//x.html("Unexpected");
+	            break;
+	    }
+	}
 	
+	function getDefaultLocation() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(showPosition,showError);
+	        
+	    } else { 
+	        getDefaultLocationBasedOnIpAddress();
+	    }
+	}
+
+	
+	// no default location set, try to figure out.
+	getDefaultLocation();
+	$('#detected-location').html('checking...');
+
 	
 });
 

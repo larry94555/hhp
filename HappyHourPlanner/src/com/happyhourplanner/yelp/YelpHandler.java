@@ -1,5 +1,7 @@
 package com.happyhourplanner.yelp;
 
+import java.text.Normalizer;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,7 +19,7 @@ import com.happyhourplanner.key.YelpAPI;
 
 public class YelpHandler {
 	
-	private static final int SEARCH_LIMIT = 3;
+	private static final int SEARCH_LIMIT =5;
 	private static final String SEARCH_PATH = "/v2/search";
 	private static final String BUSINESS_PATH = "/v2/business";
 	private static final String API_HOST = "api.yelp.com";
@@ -64,6 +66,12 @@ public class YelpHandler {
 	    this.service.signRequest(this.accessToken, request);
 	    Response response = request.send();
 	    return response.getBody();
+	  }
+	  
+	  private static String normalize(final String word) {
+		  return  Normalizer
+			        .normalize(word, Normalizer.Form.NFD)
+			        .replaceAll("[^\\p{ASCII}]", "");
 	  }
 	  
 	  /**
@@ -124,24 +132,30 @@ public class YelpHandler {
 	      //System.out.println(searchResponseJSON);
 	      //System.exit(1);
 	    }
+	    
+	   
 
 	    JSONArray businesses = (JSONArray) response.get("businesses");
-	    JSONObject firstBusiness = (JSONObject) businesses.get(0);
-	    String firstBusinessID = firstBusiness.get("id").toString();
+	    for (int i=0; i < businesses.size(); i++) {
+	    	JSONObject business = (JSONObject)businesses.get(i);
+	    	result.append((i+1)).append(". ").append(normalize(business.get("name").toString())).append("<br/>");
+	    }
+	    //JSONObject firstBusiness = (JSONObject) businesses.get(0);
+	    //String firstBusinessID = firstBusiness.get("id").toString();
 	    //System.out.println(String.format(
 	    //    "%s businesses found, querying business info for the top result \"%s\" ...",
 	    //    businesses.size(), firstBusinessID));
-	    result.append(String.format(
-	    		"%s businesses found, querying business info for the top result \"%s\" ...",
-	    		businesses.size(), firstBusinessID)).append("\n");
+	   // result.append(String.format(
+	    //		"%s businesses found, querying business info for the top result \"%s\" ...",
+	    //		businesses.size(), firstBusinessID)).append("\n");
 
 	    // Select the first business and display business details
-	    String businessResponseJSON = yelpApi.searchByBusinessId(firstBusinessID.toString());
+	    //String businessResponseJSON = yelpApi.searchByBusinessId(firstBusinessID.toString());
 	    //System.out.println(String.format("Result for business \"%s\" found:", firstBusinessID));
 	    
 	    //System.out.println(businessResponseJSON);
-	    result.append(String.format("Result for business \"%s\" found:",firstBusinessID)).append("\n");
-	    result.append(businessResponseJSON).append("\n");
+	    //result.append(String.format("Result for business \"%s\" found:",firstBusinessID)).append("\n");
+	    //result.append(businesses.toString());
 	    return result.toString();
 	  }
 	  

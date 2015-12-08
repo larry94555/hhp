@@ -67,6 +67,12 @@ public class Constant {
 	
 	public static final String CONTACTS_ADDED = "Contacts added.";
 	
+	public static final String LOCATION_MISSING = "Location not sent.";
+	
+	public static final String CATEGORY_MISSING = "Category not sent.";
+	
+	public static final String NO_DEFAULT_LOCATION_SET = "detect";
+	
 	// contacts stored as <email>@@<name>
 	public static final int NAME_PART=1;
 	public static final int EMAIL_PART=0;

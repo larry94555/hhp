@@ -29,17 +29,12 @@ public class Util {
 	
 	public static final Logger _log = Logger.getLogger(Util.class.getName());
 	
-	private static final Gson GSON_INSTANCE = new Gson();
-	
 	private Util() {}
 	
 	public static void log(String message) {
 		_log.info(message);
 	}
 	
-//	public static Gson getGson() {
-//		return GSON_INSTANCE;
-//	}
 	
 	public static List<String> getAlphabet() {
 		return Collections.unmodifiableList(Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V",
@@ -187,19 +182,7 @@ public class Util {
 	public static void removeSessionCookie(HttpServletResponse response) {
 		removeCookie(response,Constant.COOKIE_NAME);
 	}
-	
-//	<option value="Peter">Peter Griffin</option>
-//    <option value="Lois">Lois Griffin</option>
-//    <option value="Chris">Chris Griffin</option>
-//    <option value="Meg">Meg Griffin</option>
-//    <option value="Stewie">Stewie Griffin</option>
-//    <option value="Cleveland">Cleveland Brown</option>    
-//    <option value="Joe">Joe Swanson</option>    
-//    <option value="Quagmire">Glenn Quagmire</option>    
-//    <option value="Evil Monkey">Evil Monkey</option>
-//    <option value="Herbert">John Herbert</option>  
-	
-	
+		
 	public static String generateList() {
 		StringBuilder builder = new StringBuilder();
 		

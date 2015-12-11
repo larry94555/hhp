@@ -605,6 +605,7 @@
                 cssClass: $option.attr('class'),
                 label: $option.html(),
                 tooltip: $option.attr('title'),
+                dataurl: $option.attr('data-url'),
                 element: $option
             });
         },
@@ -720,7 +721,7 @@
                 $actualTargetContainer = $optionalTargetContainer || this.$selection,
                 $inputElement,
                 $labelText = $('<div class="sol-label-text"/>')
-                    .html(solOption.label.trim().length === 0 ? '&nbsp;' : solOption.label)
+                    .html(solOption.label.trim().length === 0 ? '&nbsp;' : solOption.label +'<a href="'+ solOption.dataurl +'" target="_yelp"> (view) </a>')
                     .addClass(solOption.cssClass),
                 $label,
                 $displayElement,

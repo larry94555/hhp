@@ -119,13 +119,16 @@ $(function() {
 	
 	function fillPlaces() {
 		// if near is set, use that, otherwise use longitude, latitude
-		var location = $.trim($("#pref-near"));
+		var location = $.trim($("#pref-near").text());
 		var longitude = "";
 		var latitude = "";
 		if (location === "") {
 			// use longitude/latitude
-			longitude = $.trim($('#detected-longitude'));
-			latitude = $.trim($('#detected-latitude'));
+			longitude = $.trim($('#detected-longitude').text());
+			latitude = $.trim($('#detected-latitude').text());
+			location = $.trim($('#detected-location').text());
+			
+			//alert("lon: " + lon + ", lat: " + lat);
 			
 		}
 		
@@ -136,7 +139,8 @@ $(function() {
 			data:{
 				location: location,
 				longitude: longitude,
-				latitude: latitude
+				latitude: latitude,
+				category: 'happy hour'
 			},
 			dataType: "json"
 		});
@@ -145,6 +149,11 @@ $(function() {
 			//$('#yelp-result').html(unescape(data.html));
 			//var obj = $.parseJSON(data.html);
 			//$('#yelp-result').html(obj.total);
+			$('#my-select').html(data.html);
+			$('#my-select2').html(data.html);
+			//$('#yelp-result').text(data.html);
+			$('#my-select').searchableOptionList({maxHeight: '250px'});
+    		$('#my-select2').searchableOptionList({maxHeight: '250px'});
 		});		
 		
 		getPlaceList.fail(function(qXHR,textStatus) {
@@ -171,7 +180,7 @@ $(function() {
 			
 			$('#detected-location').html(data.city+','+ data.region_code);
 			$('#detected-longitude').html(data.longitude);
-			$('#defected-latitude').html(data.latitude);
+			$('#detected-latitude').html(data.latitude);
 			
 			fillPlaces();
 			
@@ -200,7 +209,7 @@ $(function() {
         	//var value = "lat: " + position.coords.latitude + ", long: " + position.coords.longitude;
         	$('#detected-location').html(value);
         	$('#detected-longitude').html(position.coords.longitude);
-			$('#defected-latitude').html(position.coords.latitude);
+			$('#detected-latitude').html(position.coords.latitude);
 			fillPlaces();
         	
         });

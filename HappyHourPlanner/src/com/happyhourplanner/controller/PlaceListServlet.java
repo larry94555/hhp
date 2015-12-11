@@ -26,18 +26,30 @@ public class PlaceListServlet extends HttpServlet {
 			
 			String category = req.getParameter("category");
 			String location = req.getParameter("location");
+			String longitude = req.getParameter("longitude");
+			String latitude = req.getParameter("latitude");
 			
-			if (category == null) {
+			if (category == null || category.trim().length() == 0) {
 				ResponseBean.println(out,Constant.CATEGORY_MISSING);
 			}
-			else if (location == null) {
-				ResponseBean.println(out,Constant.LOCATION_MISSING);
+			else if (location == null || location.trim().length() == 0) {
+				if (longitude == null || latitude == null || longitude.trim().length() == 0 || latitude.trim().length() == 0 ) {
+					ResponseBean.println(out,Constant.LOCATION_MISSING);
+				}
+				else {
+					String look = YelpHandler.getPlaceListAsHtml(category,longitude,latitude,20,0);
+					//_log.info("look: " + look);
+					ResponseBean.println(out,"test","NA",look);
+				}
 			}
 			else {
 		    
 		    
 				// get request
-				ResponseBean.println(out, "test","NA",YelpHandler.getPlaceListAsHtml(category,location));
+				String look = YelpHandler.getPlaceListAsHtml(category,location,20,0);
+				//_log.info("look: " + look);
+				ResponseBean.println(out, "test","NA",look);
+				
 		    
 			}
 		    

@@ -108,16 +108,19 @@ public class YelpHandler {
 	   * @return <tt>String</tt> JSON Response
 	   */
 	  public String searchForBusinessesByLocation(final String term, final String location,
+			  final String longitude,final String latitude,
 			  final int limit, final int offset) {
-		_log.info("searchforBusinessByLocation, location: " + location.trim()+ ".");
+		_log.info("searchforBusinessByLocation, location: " + location.trim()+ "., term: " + term + ", longitude: " + longitude + ", latitude: " + latitude);
 	    OAuthRequest request = createOAuthRequest(SEARCH_PATH);
 	    request.addQuerystringParameter("term", term);
 	    request.addQuerystringParameter("location", location);
-	    //request.addQuerystringParameter("location","San Jose, CA");
-	    request.addQuerystringParameter("category_filter", "beer_and_wine");
+	    //request.addQuerystringParameter("category_filter", "beer_and_wine");
 	    request.addQuerystringParameter("limit", String.valueOf(limit));
 	    request.addQuerystringParameter("offset",String.valueOf(offset));
+	    request.addQuerystringParameter("longitude",longitude);
+	    request.addQuerystringParameter("latitude",latitude);
 	    request.addQuerystringParameter("sort","1");
+	    //request.addQuerystringParameter("radius_filter","8000");
 	    return sendRequestAndGetResponse(request);
 	  }
 	  
@@ -138,7 +141,6 @@ public class YelpHandler {
 	    request.addQuerystringParameter("term", term);
 	    request.addQuerystringParameter("longitude", longitude);
 	    request.addQuerystringParameter("latitude",latitude);
-	    //request.addQuerystringParameter("location","San Jose,CA");
 	    request.addQuerystringParameter("category_filter", "beer_and_wine");
 	    request.addQuerystringParameter("limit", String.valueOf(limit));
 	    request.addQuerystringParameter("offset", String.valueOf(offset));
@@ -156,6 +158,8 @@ public class YelpHandler {
 	  private static String queryAPI(YelpHandler yelpApi, 
 			  final String term,
 			  final String location,
+			  final String longitude,
+			  final String latitude,
 			  final int limit,
 			  final int offset) {
 		
@@ -169,7 +173,7 @@ public class YelpHandler {
 		// The values used for the radius of the Earth (3961 miles & 6373 km) are optimized for locations around 39 degrees from the equator (roughly the Latitude of Washington, DC, USA).
 		  
 	    String searchResponseJSON =
-	        yelpApi.searchForBusinessesByLocation(term, location, limit, offset);
+	        yelpApi.searchForBusinessesByLocation(term, location, longitude,latitude,limit, offset);
 	    
 	    StringBuilder result = new StringBuilder("");
 
@@ -202,11 +206,14 @@ public class YelpHandler {
 	    	String rating = business.get("rating").toString();
 	    	String businessName = normalize(business.get("name").toString());
 	    	String url = business.get("url").toString();
+	    	String openStatus = business.get("is_closed").toString().equalsIgnoreCase("true") ? "closed" : "open";
+	    	JSONObject locationInfo = (JSONObject)business.get("location");
+	    	String address = ((JSONArray)locationInfo.get("display_address")).get(0).toString();
 	    	//String distance = business.get("distance").toString();
 	    	//_log.info("distance: " + distance);
 	    	Map<String,String> items = map.get(rating);
 	    	if (items == null) items = new TreeMap<String,String>();
-	    	if (items.get(businessName) == null) items.put(businessName,url);
+	    	if (items.get(businessName) == null) items.put(businessName,url+",,"+openStatus+",,"+address);
 	    	map.put(rating, items);
 	    	
 	    	
@@ -219,15 +226,21 @@ public class YelpHandler {
 	    }
 	    
 	    // build output
+	    result.append("<optgroup label='Click here for more'>\n");
 	    for (String rating : map.keySet()) {
 	    	result.append("<optgroup label='").append(rating).append(" stars").append("'>\n");
 	    	Map<String,String> items = map.get(rating);
 	    	for (String businessName : items.keySet()) {
+	    		
+	    		String[] parts = items.get(businessName).split(",,");
+	    		
 	    		result.append("<option value='").append(businessName)
 	    		.append("' title='click view to check out' data-url='")
-	    		.append(items.get(businessName))
+	    		.append(parts[0])
 	    		.append("'>")
-	    		.append(businessName).append("</option>");
+	    		.append(businessName)
+	    		.append(", ").append(parts[2]).append(", ").append(parts[1])
+	    		.append("</option>");
 	    	}
 	    	
 	    	result.append("</optgroup>\n");
@@ -314,16 +327,12 @@ public class YelpHandler {
 	  }  
 	  
 	
-	  
-	public static String getPlaceListAsJson(final YelpHandler handler, final String term, final String location, final int limit,final int offset) {
-		return queryAPI(handler,term,location,limit,offset);
-	}
-	
-	public static String getPlaceListAsHtml(final String term, final String location, final int limit, final int offset) {
+	public static String getPlaceListAsHtml(final String term, final String location, 
+			final String longitude, final String latitude, final int limit, final int offset) {
 		
 		YelpHandler yelpHandler = new YelpHandler(Secret.CONSUMER_KEY, Secret.CONSUMER_SECRET, Secret.TOKEN, Secret.TOKEN_SECRET);
 		
-		String result = queryAPI(yelpHandler,term,location,limit,offset);
+		String result = queryAPI(yelpHandler,term,location,longitude,latitude,limit,offset);
 		
 		
 		
@@ -334,7 +343,6 @@ public class YelpHandler {
 		YelpHandler yelpHandler = new YelpHandler(Secret.CONSUMER_KEY, Secret.CONSUMER_SECRET, Secret.TOKEN, Secret.TOKEN_SECRET);
 		
 		String result = queryAPI(yelpHandler,term,longitude,latitude,limit,offset);
-		//String result = queryAPI(yelpHandler,"happy hour","San Francisco, CA",10,0);
 		
 		return result;
 		

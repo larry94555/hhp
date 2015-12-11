@@ -206,8 +206,9 @@ $(function() {
         getAddressFromLatitudeLongitude.done(function(data){
         	// get the label
         	value = data.features[0].properties.label;
+        	var value2 = data.features[0].properties.locality+", " + data.features[0].properties.region_a;
         	//var value = "lat: " + position.coords.latitude + ", long: " + position.coords.longitude;
-        	$('#detected-location').html(value);
+        	$('#detected-location').html(value2);
         	$('#detected-longitude').html(position.coords.longitude);
 			$('#detected-latitude').html(position.coords.latitude);
 			fillPlaces();

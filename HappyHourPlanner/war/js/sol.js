@@ -56,8 +56,9 @@
             texts: {
                 noItemsAvailable: 'No entries found',
                 selectAll: 'Select all',
-                selectNone: 'Select none',
+                selectNone: 'Clear all',
                 selectDone: 'Done',
+                loadMore: 'More',
                 quickDelete: '&times;',
                 searchplaceholder: 'Click here to search',
                 loadingData: 'Still loading data...'

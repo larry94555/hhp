@@ -202,6 +202,10 @@
 <input type="checkbox" name="disallow-low-ratings" class="standard-checkbox" id="disallow-low-ratings" checked="checked" />
 <label for="pref-disallow-low-ratings">Disallow places rated lower than</label><input type="text" name="min-rating" id="min-rating" value="2"></input> stars<br/><br/>
 
+<input type="checkbox" name="pref-restaurants-only" class="standard-checkbox" id="pref-restaurants-only" /><label for="pref-restaurants-only">Restaurants only</label><br /><br />
+
+<input type="checkbox" name="pref-spirits-too" class="standard-checkbox" id="pref-spirits-too" /><label for="pref-spirits-too">Full bar (wine, beer, and spirits)</label><br /><br />
+
 <input type="checkbox" name="pref-allow-m" class="standard-checkbox" id="pref-allow-m" checked="checked" /><label for="pref-allow-m">M</label>
 <input type="checkbox" name="pref-allow-t" class="standard-checkbox" id="pref-allow-t" checked="checked" /><label for="pref-allow-t">T</label>
 <input type="checkbox" name="pref-allow-w" class="standard-checkbox" id="pref-allow-w" checked="checked" /><label for="pref-allow-w">W</label>
@@ -209,6 +213,8 @@
 <input type="checkbox" name="pref-allow-f" class="standard-checkbox" id="pref-allow-f" checked="checked" /><label for="pref-allow-f">F</label>
 <input type="checkbox" name="pref-allow-sa" class="standard-checkbox" id="pref-allow-sa" /><label for="pref-allow-sa">Sat</label>
 <input type="checkbox" name="pref-allow-su" class="standard-checkbox" id="pref-allow-su"  /><label for="pref-allow-su">Sun</label>
+
+
 
 </div>
 

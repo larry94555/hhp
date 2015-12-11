@@ -196,41 +196,44 @@
 
 <div id="preferences-title">What are your preferences?</div>
 
+<div id="preference-settings">
 <input type="checkbox" name="pref-allow-suggestions" class="standard-checkbox" id="pref-allow-suggestions" checked="checked" /><label for="pref-allow-suggestions">Let People Suggest Places</label><br /><br />
-<label for="pref-days">Days of Week:</label><br/>
+
+<input type="checkbox" name="disallow-low-ratings" class="standard-checkbox" id="disallow-low-ratings" checked="checked" />
+<label for="pref-disallow-low-ratings">Disallow places rated lower than</label><input type="text" name="min-rating" id="min-rating" value="2"></input> stars<br/><br/>
+
 <input type="checkbox" name="pref-allow-m" class="standard-checkbox" id="pref-allow-m" checked="checked" /><label for="pref-allow-m">M</label>
 <input type="checkbox" name="pref-allow-t" class="standard-checkbox" id="pref-allow-t" checked="checked" /><label for="pref-allow-t">T</label>
 <input type="checkbox" name="pref-allow-w" class="standard-checkbox" id="pref-allow-w" checked="checked" /><label for="pref-allow-w">W</label>
 <input type="checkbox" name="pref-allow-th" class="standard-checkbox" id="pref-allow-th" checked="checked" /><label for="pref-allow-th">Th</label>
 <input type="checkbox" name="pref-allow-f" class="standard-checkbox" id="pref-allow-f" checked="checked" /><label for="pref-allow-f">F</label>
 <input type="checkbox" name="pref-allow-sa" class="standard-checkbox" id="pref-allow-sa" /><label for="pref-allow-sa">Sat</label>
-<input type="checkbox" name="pref-allow-su" class="standard-checkbox" id="pref-allow-su"  /><label for="pref-allow-su">Sun</label><br/><br/>
+<input type="checkbox" name="pref-allow-su" class="standard-checkbox" id="pref-allow-su"  /><label for="pref-allow-su">Sun</label>
 
-<label for="default-location">Current Location:</label><span id="def-location">detect (<span id="detected-location"></span>)</span><a id="set-default-location">set</a><br/><br/>
+</div>
+
+<label for="default-location">Location:</label><span id="def-location">current (<span id="detected-location"></span>)</span><a id="set-default-location">set</a>
 <input type="hidden" id="detected-latitude"></input>
 <input type="hidden" id="detected-longitude"></input>
 
-<label for="pref-near">Near:</label><br />
-<input type="text" name="pref-near" id="pref-near" placeholder="Enter city, neighborhood, zip, or cross streets" /><br />
+<div id="override-current-location">
+<input type="text" name="pref-near" id="pref-near" placeholder="Enter city, neighborhood, zip, or cross streets" />
+</div>
 
-<label for="pref-list">Allow:</label><br /> 
 <div id='container'> 
-
-<!-- <label for "yelp-result">Yelp result:</label><br />
-<div id='yelp-result'>
-Nothing yet!
-</div>  -->
+<label for="pref-list">Include:</label><br /> 
 
 <select id="my-select" name="character" multiple="multiple"> 
-<option>Loading...</option>
+<option disabled="disabled">Loading...</option>
 </select>
 </div>
-<div id='container2'>
+
+<div id='select-container2'>
 
 <br/><label for="pref-list">Disallow:</label><br />
 
 <select id="my-select2" name="character" multiple="multiple">
-<option>Loading...</option>
+<option disabled="disabled">Loading...</option>
 </select>
 
 </div>
@@ -347,8 +350,8 @@ Nothing yet!
 			
 			$(function() {
         		// initialize sol
-        		$('#my-select').searchableOptionList({});
-        		$('#my-select2').searchableOptionList({});
+        		//$('#my-select').searchableOptionList({});
+        		//$('#my-select2').searchableOptionList({});
     		});
    			
 		</script>

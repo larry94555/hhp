@@ -46,7 +46,7 @@ public class PlaceListServlet extends HttpServlet {
 		    
 		    
 				// get request
-				String look = YelpHandler.getPlaceListAsHtml(category,location,20,0);
+				String look = YelpHandler.getPlaceListAsHtml(category,location,longitude,latitude,20,0);
 				//_log.info("look: " + look);
 				ResponseBean.println(out, "test","NA",look);
 				

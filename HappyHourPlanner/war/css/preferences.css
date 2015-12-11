@@ -14,7 +14,8 @@
 	left: 100px;
 	background: #fcfff1;
 	width: 550px;
-	height: 600px;
+	padding-bottom: 20px;
+	//height: 600px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px; 
@@ -22,6 +23,7 @@
 -webkit-box-shadow: 0px 0px 7px #000;
 box-shadow: 0px 0px 7px #000;
 	}
+	
 	
 	#pref-container p {
 		color: #346a2e;
@@ -72,8 +74,18 @@ box-shadow: 0px 0px 7px #000;
 	width:510px; 
 	height: 30px; 
 	border: 1px solid 256632; 
-	margin-bottom: 10px
+	margin-bottom: 10px;
+	padding-left: 7px;
 
+}
+
+#preference-settings {
+	margin-bottom: 20px;
+}
+
+#min-rating {
+	width: 20px;
+	text-align: center;
 }
 
 #accept-preferences {
@@ -103,6 +115,6 @@ a#set-default-location:hover {
 	cursor: pointer;
 }
 
-input[type="checkbox"].sol-checkbox {
-	display: none;
+#disallow-container {
+	//margin-top: 20px;
 }

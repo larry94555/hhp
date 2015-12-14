@@ -84,9 +84,19 @@ box-shadow: 0px 0px 7px #000;
 }
 
 #min-rating {
-	width: 20px;
+	width: 40px;
 	text-align: center;
 }
+
+#select-container2 {
+	visibility: hidden;
+}
+
+#yelp-image {
+	padding-top: 20px;
+}
+
+
 
 #accept-preferences {
 	margin-left: 215px;
@@ -117,4 +127,92 @@ a#set-default-location:hover {
 
 #disallow-container {
 	//margin-top: 20px;
+}
+
+
+//.rating-very-large .5_0_star-rating {
+//    background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -614px;
+//} 
+
+.rating_5_0_star-rating {
+	//background-position: -3px -739px;
+	background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -739px;
+}
+
+.rating_4_5_star-rating {
+	//background-position: -3px -714px;
+	background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -714px;
+}
+
+.rating_4_0_star-rating {
+	//background-position: -3px -689px;
+	background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -689px;
+}
+
+.rating_3_5_star-rating {
+	//background-position: -3px -664px;
+	background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -664px;
+} 
+
+.rating_3_0_star-rating {
+	//background-position: -3px -639px;
+	background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -639px;
+}
+
+.rating_2_5_star-rating {
+	//background-position: -3px -614px;
+	background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -614px;
+}
+
+.rating_2_0_star-rating {
+	//background-position: -3px -589px;
+	background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -589px;
+}
+
+.rating_1_5_star-rating {
+	//background-position: -3px -564px;
+	background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -564px;
+}
+
+.rating_1_0_star-rating {
+	//background-position: -3px -539px;
+	background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -539px;
+}
+
+.rating_0_5_star-rating {
+	background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -514px;
+}
+
+.rating_0_0_star-rating {
+	//background-position: -3px -514px;
+	background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -514px;
+}
+
+
+.star-img {
+	//background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -739px;
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.offscreen {
+    clip: rect(0px, 0px, 0px, 0px);
+    height: 1px;
+    left: -9999px;
+    overflow: hidden;
+    position: absolute;
+    top: auto;
+    width: 1px;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.rating-very-large {
+    height: 22px;
+    overflow: hidden;
+    position: relative;
+    width: 126px;
 }

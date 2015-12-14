@@ -778,6 +778,7 @@
         },
 
         _renderOptiongroup: function (solOptiongroup) {
+        	
             var self = this,
                 $groupCaption = $('<div class="sol-optiongroup-label"/>')
                     .attr('title', solOptiongroup.tooltip)

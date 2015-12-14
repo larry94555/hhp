@@ -81,6 +81,10 @@ box-shadow: 0px 0px 7px #000;
 
 #preference-settings {
 	margin-bottom: 20px;
+	border-style: solid;
+	padding: 10px 25px 10px 25px;
+	border-color: #00cdcf;
+	
 }
 
 #min-rating {
@@ -102,6 +106,7 @@ box-shadow: 0px 0px 7px #000;
 	margin-left: 215px;
 	margin-top: 10px;
 	margin-bottom: 30px;
+	border-radius: 30px;
 }
 
 #preferences-title {

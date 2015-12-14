@@ -73,6 +73,8 @@ public class Constant {
 	
 	public static final String NO_DEFAULT_LOCATION_SET = "detect";
 	
+	public static final String PREFERENCES_SAVED = "Preferences saved.";
+	
 	// contacts stored as <email>@@<name>
 	public static final int NAME_PART=1;
 	public static final int EMAIL_PART=0;

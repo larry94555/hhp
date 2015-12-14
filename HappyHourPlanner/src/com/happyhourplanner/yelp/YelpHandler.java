@@ -112,12 +112,12 @@ public class YelpHandler {
 			  final int limit, final int offset) {
 		_log.info("searchforBusinessByLocation, location: " + location + ", term: " + term + ", longitude: " + longitude + ", latitude: " + latitude+ ", liimit: " + limit);
 	    OAuthRequest request = createOAuthRequest(SEARCH_PATH);
-	    request.addQuerystringParameter("location","San Francisco, CA");
-	    //request.addQuerystringParameter("term", term);
-	    //request.addQuerystringParameter("location", location);
+	    //request.addQuerystringParameter("location","San Francisco, CA");
+	    request.addQuerystringParameter("term", term);
+	    request.addQuerystringParameter("location", location);
 	    //request.addQuerystringParameter("category_filter", "beer_and_wine");
-	    //request.addQuerystringParameter("limit", String.valueOf(limit));
-	    //request.addQuerystringParameter("offset",String.valueOf(offset));
+	    request.addQuerystringParameter("limit", String.valueOf(limit));
+	    request.addQuerystringParameter("offset",String.valueOf(offset));
 	    //request.addQuerystringParameter("longitude",longitude);
 	    //request.addQuerystringParameter("latitude",latitude);
 	    request.addQuerystringParameter("sort","1");
@@ -225,17 +225,10 @@ public class YelpHandler {
 	    	if (items.get(businessName) == null) items.put(businessName,url+",,"+openStatus+",,"+address);
 	    	map.put(rating, items);
 	    	
-	    	
-	    	//result.append((i+1)).append(". ").append(normalize(business.get("name").toString()))
-	    	//.append("(").append(business.get("rating")).append(")")
-	    	//.append("\n");
-	    	//String businessName = normalize(business.get("name").toString());
-	    	//result.append("<option value='").append(businessName).append("'>")
-	    	//.append(businessName).append(" (").append(business.get("rating")).append(" stars ) ").append("</option>\n");
 	    }
 	    
 	    // build output
-	    result.append("<optgroup label='Click here for more'>\n");
+	    result.append("<optgroup label=\"<a href='#' class='click-more'>Click here for more</a>\">\n");
 	    for (String rating : map.keySet()) {
 	    	
 	    	result.append("<optgroup label=\"")

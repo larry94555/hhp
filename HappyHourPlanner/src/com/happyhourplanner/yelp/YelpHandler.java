@@ -107,47 +107,30 @@ public class YelpHandler {
 	   * @param location <tt>String</tt> of the location
 	   * @return <tt>String</tt> JSON Response
 	   */
-	  public String searchForBusinessesByLocation(final String term, final String location,
-			  final String longitude,final String latitude,
-			  final int limit, final int offset) {
-		_log.info("searchforBusinessByLocation, location: " + location + ", term: " + term + ", longitude: " + longitude + ", latitude: " + latitude+ ", liimit: " + limit);
+	  public String searchForBusinessesByLocation(final String term, 
+			  final String location,
+			  final String longitude,
+			  final String latitude,
+			  final String minRating,
+			  final String restaurantsOnly,
+			  final String fullBar,
+			  final int limit, 
+			  final String offset) {
+		_log.info("searchforBusinessByLocation, location: " + location + ", term: " + term + ", longitude: " + longitude + ", latitude: " + latitude+ 
+				", liimit: " + limit + ", minRating: " + minRating + ", restaurantsOnly: " + restaurantsOnly + ", fullBar: " + fullBar + ", offset: " + offset);
 	    OAuthRequest request = createOAuthRequest(SEARCH_PATH);
-	    //request.addQuerystringParameter("location","San Francisco, CA");
 	    request.addQuerystringParameter("term", term);
 	    request.addQuerystringParameter("location", location);
 	    //request.addQuerystringParameter("category_filter", "beer_and_wine");
 	    request.addQuerystringParameter("limit", String.valueOf(limit));
-	    request.addQuerystringParameter("offset",String.valueOf(offset));
-	    //request.addQuerystringParameter("longitude",longitude);
-	    //request.addQuerystringParameter("latitude",latitude);
+	    request.addQuerystringParameter("offset",offset);
+	    if (longitude != null) request.addQuerystringParameter("longitude",longitude);
+	    if (latitude != null) request.addQuerystringParameter("latitude",latitude);
 	    request.addQuerystringParameter("sort","1");
 	    //request.addQuerystringParameter("radius_filter","8000");
 	    return sendRequestAndGetResponse(request);
 	  }
-	  
-	  /**
-	   * Creates and sends a request to the Search API by term and location.
-	   * <p>
-	   * See <a href="http://www.yelp.com/developers/documentation/v2/search_api">Yelp Search API V2</a>
-	   * for more info.
-	   * 
-	   * @param term <tt>String</tt> of the search term to be queried
-	   * @param location <tt>String</tt> of the location
-	   * @return <tt>String</tt> JSON Response
-	   */
-	  public String searchForBusinessesByLongitudeLatitude(final String term, final String longitude, final String latitude,
-			  final int limit,final int offset) {
-		_log.info("searchForBusinessesByLongitude");
-	    OAuthRequest request = createOAuthRequest(SEARCH_PATH);
-	    request.addQuerystringParameter("term", term);
-	    request.addQuerystringParameter("longitude", longitude);
-	    request.addQuerystringParameter("latitude",latitude);
-	    request.addQuerystringParameter("category_filter", "beer_and_wine");
-	    request.addQuerystringParameter("limit", String.valueOf(limit));
-	    request.addQuerystringParameter("offset", String.valueOf(offset));
-	    request.addQuerystringParameter("sort", "1");
-	    return sendRequestAndGetResponse(request);
-	  }
+	 
 	
 	  /**
 	   * Queries the Search API based on the command line arguments and takes the first result to query
@@ -161,8 +144,11 @@ public class YelpHandler {
 			  final String location,
 			  final String longitude,
 			  final String latitude,
+			  final String minRating,
+			  final String restaurantsOnly,
+			  final String fullBar,
 			  final int limit,
-			  final int offset) {
+			  final String offset) {
 		
 		  
 		// sort by distance and use the following formula to calculate the distance
@@ -174,7 +160,8 @@ public class YelpHandler {
 		// The values used for the radius of the Earth (3961 miles & 6373 km) are optimized for locations around 39 degrees from the equator (roughly the Latitude of Washington, DC, USA).
 		  
 	    String searchResponseJSON =
-	        yelpApi.searchForBusinessesByLocation(term, location, longitude,latitude,limit, offset);
+	        yelpApi.searchForBusinessesByLocation(term, location, longitude,latitude, minRating,
+	        		restaurantsOnly, fullBar, limit, offset);
 	    
 	    StringBuilder result = new StringBuilder("");
 
@@ -190,13 +177,8 @@ public class YelpHandler {
 	    	result.append("Error: could not parse JSON response:\n");
 	    	result.append(searchResponseJSON).append("\n");
 	    	return result.toString();
-	      //System.out.println("Error: could not parse JSON response:");
-	      //System.out.println(searchResponseJSON);
-	      //System.exit(1);
 	    }
-//	    
-//	   
-//
+
 	    JSONArray businesses = (JSONArray) response.get("businesses");
 	    
 	    if (businesses == null) {
@@ -228,7 +210,7 @@ public class YelpHandler {
 	    }
 	    
 	    // build output
-	    result.append("<optgroup label=\"<a href='#' class='click-more'>Click here for more</a>\">\n");
+	    result.append("<optgroup label=\"<a href='#' class='click-more'>Check for more</a>\">\n");
 	    for (String rating : map.keySet()) {
 	    	
 	    	result.append("<optgroup label=\"")
@@ -260,101 +242,24 @@ public class YelpHandler {
 	    }
 	    
 	    
-//	    //JSONObject firstBusiness = (JSONObject) businesses.get(0);
-//	    //String firstBusinessID = firstBusiness.get("id").toString();
-//	    //System.out.println(String.format(
-//	    //    "%s businesses found, querying business info for the top result \"%s\" ...",
-//	    //    businesses.size(), firstBusinessID));
-//	   // result.append(String.format(
-//	    //		"%s businesses found, querying business info for the top result \"%s\" ...",
-//	    //		businesses.size(), firstBusinessID)).append("\n");
-//
-//	    // Select the first business and display business details
-//	    //String businessResponseJSON = yelpApi.searchByBusinessId(firstBusinessID.toString());
-//	    //System.out.println(String.format("Result for business \"%s\" found:", firstBusinessID));
-//	    
-//	    //System.out.println(businessResponseJSON);
-//	    //result.append(String.format("Result for business \"%s\" found:",firstBusinessID)).append("\n");
-//	    //result.append(businesses.toString());
+
 	    return result.toString();
 	    
-	   // return searchResponseJSON;
-	}
+	}		
 	
-	  /**
-	   * Queries the Search API based on the command line arguments and takes the first result to query
-	   * the Business API.
-	   * 
-	   * @param yelpApi <tt>YelpAPI</tt> service instance
-	   * @param yelpApiCli <tt>YelpAPICLI</tt> command line arguments
-	   */
-	  private static String queryAPI(YelpHandler yelpApi, 
-			  final String term,
-			  final String longitude,
-			  final String latitude,
-			  final int limit,
-			  final int offset) {
-	    String searchResponseJSON =
-	        yelpApi.searchForBusinessesByLongitudeLatitude(term, longitude,latitude,limit,offset);
-	    
-//	    StringBuilder result = new StringBuilder("");
-//
-//	    JSONParser parser = new JSONParser();
-//	    JSONObject response = null;
-//	    try {
-//	      response = (JSONObject) parser.parse(searchResponseJSON);
-//	    } catch (ParseException pe) {
-//	    	result.append("Error: could not parse JSON response:\n");
-//	    	result.append(searchResponseJSON).append("\n");
-//	      //System.out.println("Error: could not parse JSON response:");
-//	      //System.out.println(searchResponseJSON);
-//	      //System.exit(1);
-//	    }
-//	    
-//	   
-//
-//	    JSONArray businesses = (JSONArray) response.get("businesses");
-//	    for (int i=0; i < businesses.size(); i++) {
-//	    	JSONObject business = (JSONObject)businesses.get(i);
-//	    	result.append((i+1)).append(". ").append(normalize(business.get("name").toString())).append("<br/>");
-//	    }
-//	    //JSONObject firstBusiness = (JSONObject) businesses.get(0);
-//	    //String firstBusinessID = firstBusiness.get("id").toString();
-//	    //System.out.println(String.format(
-//	    //    "%s businesses found, querying business info for the top result \"%s\" ...",
-//	    //    businesses.size(), firstBusinessID));
-//	   // result.append(String.format(
-//	    //		"%s businesses found, querying business info for the top result \"%s\" ...",
-//	    //		businesses.size(), firstBusinessID)).append("\n");
-//
-//	    // Select the first business and display business details
-//	    //String businessResponseJSON = yelpApi.searchByBusinessId(firstBusinessID.toString());
-//	    //System.out.println(String.format("Result for business \"%s\" found:", firstBusinessID));
-//	    
-//	    //System.out.println(businessResponseJSON);
-//	    //result.append(String.format("Result for business \"%s\" found:",firstBusinessID)).append("\n");
-//	    //result.append(businesses.toString());
-//	    return result.toString();
-	    return searchResponseJSON;
-	  }  
-	  
-	
-	public static String getPlaceListAsHtml(final String term, final String location, 
-			final String longitude, final String latitude, final int limit, final int offset) {
-		
+	public static String getPlaceListAsHtml(final String term, 
+			final String location, 
+			final String longitude, 
+			final String latitude, 
+			final String minRating,
+			final String restaurantsOnly,
+			final String fullBar,
+			final int limit, 
+			final String offset) {
 		YelpHandler yelpHandler = new YelpHandler(Secret.CONSUMER_KEY, Secret.CONSUMER_SECRET, Secret.TOKEN, Secret.TOKEN_SECRET);
 		
-		String result = queryAPI(yelpHandler,term,location,longitude,latitude,limit,offset);
-		
-		
-		
-		return result;
-	}
-	
-	public static String getPlaceListAsHtml(final String term, final String longitude, final String latitude, final int limit, final int offset) {
-		YelpHandler yelpHandler = new YelpHandler(Secret.CONSUMER_KEY, Secret.CONSUMER_SECRET, Secret.TOKEN, Secret.TOKEN_SECRET);
-		
-		String result = queryAPI(yelpHandler,term,longitude,latitude,limit,offset);
+		String result = queryAPI(yelpHandler,term,location,longitude,latitude,minRating,restaurantsOnly,
+				fullBar,limit,offset);
 		
 		return result;
 		

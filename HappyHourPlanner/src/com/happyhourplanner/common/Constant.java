@@ -8,6 +8,9 @@ public class Constant {
 	// Contacts
 	public static final int MAX_CONTACTS = 1000;
 	
+	// Yelp Properties
+	public static final int YELP_REQUEST_LIMIT = 20;
+	
 	// Email
 	public static final String FROM_ADDRESS = "happyhour@happyhourplanner.appspotmail.com";
 	public static final String FROM_NAME = "Happy Hour Planner";

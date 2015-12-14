@@ -227,20 +227,22 @@
 </div>
 
 <div id='container'> 
-<label for="pref-list">Include:</label><br /> 
+<label for="pref-list">Places:</label><br /> 
 
 <select id="my-select" name="character" multiple="multiple"> 
 <option disabled="disabled">Loading...</option>
 </select>
 </div>
 
+<a href="http://yelp.com" title="list powered by yelp"><img id='yelp-image' src="/images/yelp_powered_btn_dark.png"></a>
+
 <div id='select-container2'>
 
 <br/><label for="pref-list">Disallow:</label><br />
 
-<select id="my-select2" name="character" multiple="multiple">
+<!--<select id="my-select2" name="character" multiple="multiple">
 <option disabled="disabled">Loading...</option>
-</select>
+</select> -->
 
 </div>
 </div>

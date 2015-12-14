@@ -110,15 +110,16 @@ public class YelpHandler {
 	  public String searchForBusinessesByLocation(final String term, final String location,
 			  final String longitude,final String latitude,
 			  final int limit, final int offset) {
-		_log.info("searchforBusinessByLocation, location: " + location.trim()+ "., term: " + term + ", longitude: " + longitude + ", latitude: " + latitude);
+		_log.info("searchforBusinessByLocation, location: " + location + ", term: " + term + ", longitude: " + longitude + ", latitude: " + latitude+ ", liimit: " + limit);
 	    OAuthRequest request = createOAuthRequest(SEARCH_PATH);
-	    request.addQuerystringParameter("term", term);
-	    request.addQuerystringParameter("location", location);
+	    request.addQuerystringParameter("location","San Francisco, CA");
+	    //request.addQuerystringParameter("term", term);
+	    //request.addQuerystringParameter("location", location);
 	    //request.addQuerystringParameter("category_filter", "beer_and_wine");
-	    request.addQuerystringParameter("limit", String.valueOf(limit));
-	    request.addQuerystringParameter("offset",String.valueOf(offset));
-	    request.addQuerystringParameter("longitude",longitude);
-	    request.addQuerystringParameter("latitude",latitude);
+	    //request.addQuerystringParameter("limit", String.valueOf(limit));
+	    //request.addQuerystringParameter("offset",String.valueOf(offset));
+	    //request.addQuerystringParameter("longitude",longitude);
+	    //request.addQuerystringParameter("latitude",latitude);
 	    request.addQuerystringParameter("sort","1");
 	    //request.addQuerystringParameter("radius_filter","8000");
 	    return sendRequestAndGetResponse(request);
@@ -181,9 +182,14 @@ public class YelpHandler {
 	    JSONObject response = null;
 	    try {
 	      response = (JSONObject) parser.parse(searchResponseJSON);
+	      if (response == null) {
+	    	  result.append("Error: no response returned.\n");
+	    	  return result.toString();
+	      }
 	    } catch (ParseException pe) {
 	    	result.append("Error: could not parse JSON response:\n");
 	    	result.append(searchResponseJSON).append("\n");
+	    	return result.toString();
 	      //System.out.println("Error: could not parse JSON response:");
 	      //System.out.println(searchResponseJSON);
 	      //System.exit(1);
@@ -194,7 +200,10 @@ public class YelpHandler {
 	    JSONArray businesses = (JSONArray) response.get("businesses");
 	    
 	    if (businesses == null) {
-	    	return "Error hit";
+	    	result.append("Error: could not parse JSON response:\n");
+	    	result.append(searchResponseJSON).append("\n");
+	    	return result.toString();
+	    	
 	    }
 	    
 	    Map<String,Map<String,String>> map = new TreeMap<String,Map<String,String>>(Collections.reverseOrder());
@@ -228,14 +237,24 @@ public class YelpHandler {
 	    // build output
 	    result.append("<optgroup label='Click here for more'>\n");
 	    for (String rating : map.keySet()) {
-	    	result.append("<optgroup label='").append(rating).append(" stars").append("'>\n");
+	    	
+	    	result.append("<optgroup label=\"")
+	    	
+	    	.append("<div class='rating-very-large'>")
+	    	.append("<i class='star-img rating_")
+	    	.append(rating.toString().replaceAll("\\.", "_")).append("_star-rating' title='")
+	    	.append(rating).append(" star rating'>")
+	    	.append("<img class='offscreen' width='84' height='303' alt='")
+	    	.append(rating).append(" star rating' src='/images/stars_map.png'>")
+	    	.append("</i></div>\">\n");
+	
 	    	Map<String,String> items = map.get(rating);
 	    	for (String businessName : items.keySet()) {
 	    		
 	    		String[] parts = items.get(businessName).split(",,");
 	    		
-	    		result.append("<option value='").append(businessName)
-	    		.append("' title='click view to check out' data-url='")
+	    		result.append("<option value=\"").append(businessName.replaceAll("\"", "'"))
+	    		.append("\" title='click view to check out' data-url='")
 	    		.append(parts[0])
 	    		.append("'>")
 	    		.append(businessName)

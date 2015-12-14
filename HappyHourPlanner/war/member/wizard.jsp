@@ -221,6 +221,7 @@
 <label for="default-location">Location:</label><span id="def-location">current (<span id="detected-location"></span>)</span><a id="set-default-location">set</a>
 <input type="hidden" id="detected-latitude"></input>
 <input type="hidden" id="detected-longitude"></input>
+<input type="hidden" id="place-search-offset" value="0"></input>
 
 <div id="override-current-location">
 <input type="text" name="pref-near" id="pref-near" placeholder="Enter city, neighborhood, zip, or cross streets" />

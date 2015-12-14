@@ -870,10 +870,11 @@
                 $displayItemText;
 
             if (!$existingDisplayItem) {
-                $displayItemText = $('<span class="sol-selected-display-item-text" />').html(solOptionItem.label);
+                $displayItemText = $('<span class="sol-selected-display-item-text" />').html(solOptionItem.value);
                 $existingDisplayItem = $('<div class="sol-selected-display-item"/>')
                     .append($displayItemText)
-                    .attr('title', solOptionItem.tooltip)
+                    //.attr('title', solOptionItem.tooltip)
+                    .attr('title','click x to remove')
                     .appendTo(this.$showSelectionContainer);
 
                 // show remove button on display items if not disabled and null selection allowed

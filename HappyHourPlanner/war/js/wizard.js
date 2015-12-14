@@ -122,11 +122,17 @@ $(function() {
 		var location = $.trim($("#pref-near").text());
 		var longitude = "";
 		var latitude = "";
+		var minRating= "";
+		var restaurantsOnly = "";
+		var fullBar = "";
 		if (location === "") {
 			// use longitude/latitude
 			longitude = $.trim($('#detected-longitude').text());
 			latitude = $.trim($('#detected-latitude').text());
 			location = $.trim($('#detected-location').text());
+			minRating = $.trim($('#min-rating').val());
+			restaurantsOnly = $('#pref-restaurants-only').is(':checked');
+			fullBar = $('#pref-spirits-too').is(':checked');
 			
 			//alert("lon: " + lon + ", lat: " + lat);
 			
@@ -141,6 +147,10 @@ $(function() {
 				longitude: longitude,
 				latitude: latitude,
 				category: 'happy hour'
+				//minRating: minRating,
+				//restaurantsOnly: restaurantsOnly,
+				//fullBar: fullBar
+				
 			},
 			dataType: "json"
 		});
@@ -153,7 +163,7 @@ $(function() {
 			$('#my-select2').html(data.html);
 			//$('#yelp-result').text(data.html);
 			$('#my-select').searchableOptionList({maxHeight: '250px'});
-    		$('#my-select2').searchableOptionList({maxHeight: '250px'});
+    		//$('#my-select2').searchableOptionList({maxHeight: '250px'});
 		});		
 		
 		getPlaceList.fail(function(qXHR,textStatus) {

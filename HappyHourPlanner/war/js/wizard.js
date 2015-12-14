@@ -122,19 +122,17 @@ $(function() {
 		var location = $.trim($("#pref-near").text());
 		var longitude = "";
 		var latitude = "";
-		var minRating= "";
-		var restaurantsOnly = "";
-		var fullBar = "";
+		var minRating = $.trim($('#min-rating').val());
+		var restaurantsOnly = $('#pref-restaurants-only').is(':checked');
+		var fullBar = $('#pref-spirits-too').is(':checked');
+		var offset = $('#place-search-offset').val();
+		
 		if (location === "") {
 			// use longitude/latitude
-			longitude = $.trim($('#detected-longitude').text());
-			latitude = $.trim($('#detected-latitude').text());
+			longitude = $.trim($('#detected-longitude').val());
+			latitude = $.trim($('#detected-latitude').val());
 			location = $.trim($('#detected-location').text());
-			minRating = $.trim($('#min-rating').val());
-			restaurantsOnly = $('#pref-restaurants-only').is(':checked');
-			fullBar = $('#pref-spirits-too').is(':checked');
 			
-			//alert("lon: " + lon + ", lat: " + lat);
 			
 		}
 		
@@ -149,21 +147,18 @@ $(function() {
 				category: 'happy hour',
 				minRating: minRating,
 				restaurantsOnly: restaurantsOnly,
-				fullBar: fullBar
+				fullBar: fullBar,
+				offset: offset
 				
 			},
 			dataType: "json"
 		});
 		
 		getPlaceList.done(function(data){
-			//$('#yelp-result').html(unescape(data.html));
-			//var obj = $.parseJSON(data.html);
-			//$('#yelp-result').html(obj.total);
+			
 			$('#my-select').html(data.html);
-			//$('#my-select2').html(data.html);
-			//$('#yelp-result').text(data.html);
 			$('#my-select').searchableOptionList({maxHeight: '250px'});
-    		//$('#my-select2').searchableOptionList({maxHeight: '250px'});
+    
 		});		
 		
 		getPlaceList.fail(function(qXHR,textStatus) {
@@ -189,8 +184,8 @@ $(function() {
 			
 			
 			$('#detected-location').html(data.city+','+ data.region_code);
-			$('#detected-longitude').html(data.longitude);
-			$('#detected-latitude').html(data.latitude);
+			$('#detected-longitude').val(data.longitude);
+			$('#detected-latitude').val(data.latitude);
 			
 			fillPlaces();
 			
@@ -217,10 +212,9 @@ $(function() {
         	// get the label
         	value = data.features[0].properties.label;
         	var value2 = data.features[0].properties.locality+", " + data.features[0].properties.region_a;
-        	//var value = "lat: " + position.coords.latitude + ", long: " + position.coords.longitude;
         	$('#detected-location').html(value2);
-        	$('#detected-longitude').html(position.coords.longitude);
-			$('#detected-latitude').html(position.coords.latitude);
+        	$('#detected-longitude').val(position.coords.longitude);
+			$('#detected-latitude').val(position.coords.latitude);
 			fillPlaces();
         	
         });
@@ -231,26 +225,24 @@ $(function() {
 	}
 	
 	function showError(error) {
-		//alert("error!");
-		//var x= $('#def-location');
 		
 		getDefaultLocationBasedOnIpAddress();
 		
 	    switch(error.code) {
 	        case error.PERMISSION_DENIED:
-	            //x.html("User denied the request for Geolocation.");
+	            // User denied the request for Geolocation.
 	            break;
 	        case error.POSITION_UNAVAILABLE:
-	            //x.html("Location information is unavailable.");
+	            // Location information is unavailable.
 	            break;
 	        case error.TIMEOUT:
-	            //x.html("The request to get user location timed out.");
+	            // The request to get user location timed out
 	            break;
 	        case error.UNKNOWN_ERROR:
-	            //x.html("An unknown error occurred.");
+	            // An unknown error occurred.");
 	            break;
 	        default:
-	        	//x.html("Unexpected");
+	        	// Unexpected
 	            break;
 	    }
 	}

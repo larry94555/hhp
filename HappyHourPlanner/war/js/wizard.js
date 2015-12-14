@@ -146,10 +146,10 @@ $(function() {
 				location: location,
 				longitude: longitude,
 				latitude: latitude,
-				category: 'happy hour'
-				//minRating: minRating,
-				//restaurantsOnly: restaurantsOnly,
-				//fullBar: fullBar
+				category: 'happy hour',
+				minRating: minRating,
+				restaurantsOnly: restaurantsOnly,
+				fullBar: fullBar
 				
 			},
 			dataType: "json"
@@ -160,7 +160,7 @@ $(function() {
 			//var obj = $.parseJSON(data.html);
 			//$('#yelp-result').html(obj.total);
 			$('#my-select').html(data.html);
-			$('#my-select2').html(data.html);
+			//$('#my-select2').html(data.html);
 			//$('#yelp-result').text(data.html);
 			$('#my-select').searchableOptionList({maxHeight: '250px'});
     		//$('#my-select2').searchableOptionList({maxHeight: '250px'});

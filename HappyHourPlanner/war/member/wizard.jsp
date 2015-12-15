@@ -192,19 +192,19 @@
   
 <div id='select-container'>
 
-<a href="#" id="accept-preferences" class="special button">Accept</a>
+<a href="#" id="accept-preferences" class="special button">Skip</a>
 
 <div id="preferences-title">What are your preferences?</div>
 
 <div id="preference-settings">
 <input type="checkbox" name="pref-allow-suggestions" class="standard-checkbox" id="pref-allow-suggestions" checked="checked" /><label for="pref-allow-suggestions">Let People Suggest Places</label><br /><br />
 
-<input type="checkbox" name="disallow-low-ratings" class="standard-checkbox" id="disallow-low-ratings" checked="checked" />
-<label for="pref-disallow-low-ratings">Disallow places rated lower than</label><input type="text" name="min-rating" id="min-rating" value="2"></input> stars<br/><br/>
+<input type="checkbox" name="skip-low-ratings" class="standard-checkbox place-search-option" id="skip-low-ratings" checked="checked" />
+<label for="skip-low-ratings">Disallow places rated lower than</label><input type="text" name="min-rating" id="min-rating" class="place-search-option" value="2"></input> stars<br/><br/>
 
-<input type="checkbox" name="pref-restaurants-only" class="standard-checkbox" id="pref-restaurants-only" /><label for="pref-restaurants-only">Restaurants only</label><br /><br />
+<input type="checkbox" name="pref-restaurants-only" class="standard-checkbox place-search-option" id="pref-restaurants-only" /><label for="pref-restaurants-only">Restaurants only</label><br /><br />
 
-<input type="checkbox" name="pref-spirits-too" class="standard-checkbox" id="pref-spirits-too" /><label for="pref-spirits-too">Full bar (wine, beer, and spirits)</label><br /><br />
+<input type="checkbox" name="pref-spirits-too" class="standard-checkbox place-search-option" id="pref-spirits-too" /><label for="pref-spirits-too">Full bar (wine, beer, and spirits)</label><br /><br />
 
 <input type="checkbox" name="pref-allow-m" class="standard-checkbox" id="pref-allow-m" checked="checked" /><label for="pref-allow-m">M</label>
 <input type="checkbox" name="pref-allow-t" class="standard-checkbox" id="pref-allow-t" checked="checked" /><label for="pref-allow-t">T</label>
@@ -224,7 +224,7 @@
 <input type="hidden" id="place-search-offset" value="0"></input>
 
 <div id="override-current-location">
-<input type="text" name="pref-near" id="pref-near" placeholder="Enter city, neighborhood, zip, or cross streets" />
+<input type="text" name="pref-near" id="pref-near" class="place-search-option" placeholder="Enter city, neighborhood, zip, or cross streets" />
 </div>
 
 <div id='container'> 

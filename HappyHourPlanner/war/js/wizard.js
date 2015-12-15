@@ -116,16 +116,32 @@ $('body').on('click','a.contact-list-entry',function(e) {
 })
 
 $(function() {
+
+	var reloadNeeded=false;
 	
-	function fillPlaces() {
+	function fillPlaces(reset) {
+		
+		if (reset) {
+			// handle reset
+			//$(".sol-container").remove();
+			//$(".sol-selection").remove();
+		}
+		
+		
 		// if near is set, use that, otherwise use longitude, latitude
 		var location = $.trim($("#pref-near").text());
 		var longitude = "";
 		var latitude = "";
+		var useMinRating = $('#skip-low-ratings').is(':checked');
 		var minRating = $.trim($('#min-rating').val());
 		var restaurantsOnly = $('#pref-restaurants-only').is(':checked');
 		var fullBar = $('#pref-spirits-too').is(':checked');
 		var offset = $('#place-search-offset').val();
+		
+		if (minRating.length == 0) minRating="0.0";
+		var checkValue = parseFloat(minRating);
+		if (isNaN(checkValue) || checkValue < 1 || checkValue > 5) minRating="0.0";
+		if (useMinRating === false) minRating="0.0";
 		
 		if (location === "") {
 			// use longitude/latitude
@@ -158,6 +174,19 @@ $(function() {
 			
 			$('#my-select').html(data.html);
 			$('#my-select').searchableOptionList({maxHeight: '250px'});
+			
+			reloadNeeded=true;
+			
+			// catch when search data changes
+			
+			
+			
+			// may consider adding this later.
+			// update offset
+			//$('#place-search-offset').val((parseInt(offset)+20));
+			//$('body').on('click','a.click-more',function(e) {
+			//	// get more
+			//});
     
 		});		
 		
@@ -166,6 +195,17 @@ $(function() {
 		});
 		
 	}
+	
+	function handleChangeToSearchOptions() {
+		if (reloadNeeded) {
+			reloadNeeded=false;
+			
+			fillPlaces(true);
+		}
+	}
+	
+	$('body').on('change','input.place-search-option',handleChangeToSearchOptions);
+	
 	
 	function getDefaultLocationBasedOnIpAddress() {
 		

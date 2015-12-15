@@ -226,6 +226,24 @@
                 window[this.WINDOW_EVENTS_KEY] = true;
             }
         },
+        
+        _checkIfElementExists: function(prefix) {
+        	
+        	var elementId = prefix+"-id-" + this.$originalElement.attr("id");
+        	if ($("#"+elementId).length) {
+        		
+        		return $("#"+elementId);
+        	}
+        	else if (prefix == "input") {
+        		//return $('<input type="text" id="' + elementId + '" />');
+        		return $('<input type="text" />').attr("id",elementId);
+        	}
+        	else {
+        		//return $('<div class="' + prefix + '" id="' + elementId + '" />');
+        		return $('<div />').addClass(prefix).attr("id",elementId);
+        	}
+        	
+        },
 
         // add sol ui elements
         _initializeUiElements: function () {
@@ -237,7 +255,10 @@
                 }
             };
 
-            this.$input = $('<input type="text"/>')
+            
+            //this.$input = $('<input type="text" />')
+            this.$input = this._checkIfElementExists("input");
+            this.$input = this.$input
                 .attr('placeholder', this.config.texts.searchplaceholder);
 
             this.$noResultsItem = $('<div class="sol-no-results"/>').html(this.config.texts.noItemsAvailable).hide();
@@ -249,23 +270,55 @@
                 return false;
             });
 
-            var $inputContainer = $('<div class="sol-input-container"/>').append(this.$input);
-            this.$innerContainer = $('<div class="sol-inner-container"/>').append($inputContainer).append(this.$caret);
-            this.$selection = $('<div class="sol-selection"/>');
-            this.$selectionContainer = $('<div class="sol-selection-container"/>')
+            
+            var $inputContainer = this._checkIfElementExists("sol-input-container");
+            
+            //var $inputContainer = $('<div class="sol-input-container"/>').append(this.$input);
+            
+            $inputContainer = $inputContainer.append(this.$input);
+            
+            //this.$innerContainer = $('<div class="sol-inner-container"/>').append($inputContainer).append(this.$caret);
+            this.$innerContainer = this._checkIfElementExists("sol-inner-container");
+            this.$innerContainer = this.$innerContainer.append($inputContainer).append(this.$caret);
+            
+            
+            //this.$selection = $('<div class="sol-selection"/>');
+            this.$selection = this._checkIfElementExists("sol-selection");
+            this.$selection.empty();
+           
+            
+            this.$selectionContainer = this._checkIfElementExists("sol-selection-container");
+            
+            //this.$selectionContainer = $('<div class="sol-selection-container"/>')
+            this.$selectionContainer = this.$selectionContainer
                 .append(this.$noResultsItem)
                 .append(this.$loadingData)
                 .append(this.$selection);
+            
+            //
+            
+//            if ($("#sol-container-id-" + this.$originalElement.attr("id")).length) {
+//            	this.$container = $("#sol-container-id-"+this.$originalElement.attr("id"));
+//            }
+//            else {
+//            	this.$container =  $('<div class="sol-container" id="sol-container-id-'+this.$originalElement.attr("id")+'" />');
+//            }
+            
+            this.$container = this._checkIfElementExists("sol-container");
 
-            this.$container = $('<div class="sol-container"/>')
-                .hide()
+            //this.$container = $('<div class="sol-container" id="sol-id-'+this.$originalElement.attr("id")+'" />')
+            
+            this.$container = this.$container
+            	.hide()
                 .data(this.DATA_KEY, this)
                 .append(this.$selectionContainer)
                 .append(this.$innerContainer)
                 .insertBefore(this.$originalElement);
 
             // add selected items display container
-            this.$showSelectionContainer = $('<div class="sol-current-selection"/>');
+            //this.$showSelectionContainer = $('<div class="sol-current-selection"/>');
+            this.$showSelectionContainer = this._checkIfElementExists("sol-current-selection");
+            
             if (this.config.showSelectionBelowList) {
                 this.$showSelectionContainer.insertAfter(this.$innerContainer);
             } else {
@@ -821,7 +874,10 @@
                         return false;
                     });
 
-                this.$actionButtons = $('<div class="sol-action-buttons"/>').append($selectAllButton).append($selectDoneButton).append($deselectAllButton).append('<div class="sol-clearfix"/>');
+                //this.$actionButtons = $('<div class="sol-action-buttons"/>').append($selectAllButton).append($selectDoneButton).append($deselectAllButton).append('<div class="sol-clearfix"/>');
+                this.$actionButtons = this._checkIfElementExists("sol-action-buttons");
+                this.$actionButtons.empty();
+                this.$actionButtons = this.$actionButtons.append($selectAllButton).append($selectDoneButton).append($deselectAllButton).append('<div class="sol-clearfix"/>');
                 this.$selectionContainer.prepend(this.$actionButtons);
             }
         },
@@ -1014,19 +1070,19 @@
     $.fn.searchableOptionList = function (options) {
         var result = [];
         this.each(function () {
-            var $this = $(this),
-                $alreadyInitializedSol = $this.data(SearchableOptionList.prototype.DATA_KEY);
+            var $this = $(this);
+                //$alreadyInitializedSol = $this.data(SearchableOptionList.prototype.DATA_KEY);
 
-            if ($alreadyInitializedSol) {
-                result.push($alreadyInitializedSol);
-            } else {
+            //if ($alreadyInitializedSol) {
+            //    result.push($alreadyInitializedSol);
+            //} else {
                 var newSol = new SearchableOptionList($this, options);
                 result.push(newSol);
 
                 setTimeout(function() {
                     newSol.init();
                 }, 0);
-            }
+            //}
         });
 
         if (result.length === 1) {

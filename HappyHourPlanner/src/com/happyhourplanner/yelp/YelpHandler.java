@@ -119,9 +119,17 @@ public class YelpHandler {
 		_log.info("searchforBusinessByLocation, location: " + location + ", term: " + term + ", longitude: " + longitude + ", latitude: " + latitude+ 
 				", liimit: " + limit + ", minRating: " + minRating + ", restaurantsOnly: " + restaurantsOnly + ", fullBar: " + fullBar + ", offset: " + offset);
 	    OAuthRequest request = createOAuthRequest(SEARCH_PATH);
+	    
+	    StringBuilder category = new StringBuilder("");
+	    if (restaurantsOnly.equalsIgnoreCase("true")) category.append("restaurants");
+	    if (fullBar.equalsIgnoreCase("true")) {
+	    	if (category.length() > 0) category.append(",");
+	    	category.append("beer_and_wine");
+	    }
+	    
 	    request.addQuerystringParameter("term", term);
 	    request.addQuerystringParameter("location", location);
-	    //request.addQuerystringParameter("category_filter", "beer_and_wine");
+	    if (category.length() > 0) request.addQuerystringParameter("category_filter", category.toString());
 	    request.addQuerystringParameter("limit", String.valueOf(limit));
 	    request.addQuerystringParameter("offset",offset);
 	    if (longitude != null) request.addQuerystringParameter("longitude",longitude);
@@ -195,22 +203,25 @@ public class YelpHandler {
 	    	JSONObject business = (JSONObject)businesses.get(i);
 	    	
 	    	String rating = business.get("rating").toString();
-	    	String businessName = normalize(business.get("name").toString());
-	    	String url = business.get("url").toString();
-	    	String openStatus = business.get("is_closed").toString().equalsIgnoreCase("true") ? "closed" : "open";
-	    	JSONObject locationInfo = (JSONObject)business.get("location");
-	    	String address = ((JSONArray)locationInfo.get("display_address")).get(0).toString();
-	    	//String distance = business.get("distance").toString();
-	    	//_log.info("distance: " + distance);
-	    	Map<String,String> items = map.get(rating);
-	    	if (items == null) items = new TreeMap<String,String>();
-	    	if (items.get(businessName) == null) items.put(businessName,url+",,"+openStatus+",,"+address);
-	    	map.put(rating, items);
+	    	if (rating.compareTo(minRating) >= 0) {
+		    	String businessName = normalize(business.get("name").toString());
+		    	String url = business.get("url").toString();
+		    	String openStatus = business.get("is_closed").toString().equalsIgnoreCase("true") ? "closed" : "open";
+		    	JSONObject locationInfo = (JSONObject)business.get("location");
+		    	String address = ((JSONArray)locationInfo.get("display_address")).get(0).toString();
+		    	//String distance = business.get("distance").toString();
+		    	//_log.info("distance: " + distance);
+		    	Map<String,String> items = map.get(rating);
+		    	if (items == null) items = new TreeMap<String,String>();
+		    	if (items.get(businessName) == null) items.put(businessName,url+",,"+openStatus+",,"+address);
+		    	map.put(rating, items);
+	    	}
 	    	
 	    }
 	    
 	    // build output
-	    result.append("<optgroup label=\"<a href='#' class='click-more'>Check for more</a>\">\n");
+	    // I will consider adding this later.
+	    //result.append("<optgroup label=\"<a href='#' class='click-more'>Check for more</a>\">\n");
 	    for (String rating : map.keySet()) {
 	    	
 	    	result.append("<optgroup label=\"")

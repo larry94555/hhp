@@ -206,6 +206,7 @@ public class YelpHandler {
 	    	if (rating.compareTo(minRating) >= 0) {
 		    	String businessName = normalize(business.get("name").toString());
 		    	String url = business.get("url").toString();
+		    	String id = business.get("id").toString();
 		    	String openStatus = business.get("is_closed").toString().equalsIgnoreCase("true") ? "closed" : "open";
 		    	JSONObject locationInfo = (JSONObject)business.get("location");
 		    	String address = ((JSONArray)locationInfo.get("display_address")).get(0).toString();
@@ -213,7 +214,7 @@ public class YelpHandler {
 		    	//_log.info("distance: " + distance);
 		    	Map<String,String> items = map.get(rating);
 		    	if (items == null) items = new TreeMap<String,String>();
-		    	if (items.get(businessName) == null) items.put(businessName,url+",,"+openStatus+",,"+address);
+		    	if (items.get(businessName) == null) items.put(businessName,url+",,"+openStatus+",,"+address+",,"+id);
 		    	map.put(rating, items);
 	    	}
 	    	
@@ -242,6 +243,8 @@ public class YelpHandler {
 	    		result.append("<option value=\"").append(businessName.replaceAll("\"", "'"))
 	    		.append("\" title='click view to check out' data-url='")
 	    		.append(parts[0])
+	    		.append("' data-id='")
+	    		.append(parts[3])
 	    		.append("'>")
 	    		.append(businessName)
 	    		.append(", ").append(parts[2]).append(", ").append(parts[1])

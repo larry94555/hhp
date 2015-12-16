@@ -5,17 +5,23 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.happyhourplanner.common.Constant;
+import com.happyhourplanner.controller.PlaceListServlet;
 
 @Entity(name = "User")
 public class User {
+	
+	public static final Logger _log = Logger.getLogger(User.class.getName());
+	
 	@Id
 	private String emailAddress;
 	
@@ -43,11 +49,19 @@ public class User {
 	
 	private boolean emailTextOnly; // for testing purposes only
 	
+	@ElementCollection
+	private String[] businessIdList;
+	
+	@Embedded
+	private Preferences prefs;
+	
 	public byte[] getSalt() { return salt; }
 	
 	public byte[] getHash() { return hash; }
 	
 	public String getUserName() { return emailAddress; }
+	
+	private final static Preferences DEFAULT_PREFS = new Preferences(); 
 	
 	public User(String emailAddress, String password) {
 		this.emailAddress = emailAddress;
@@ -62,6 +76,8 @@ public class User {
 		this.passwordResetCode="";
 		this.emailTextOnly = false;
 		this.defaultLocation = Constant.NO_DEFAULT_LOCATION_SET;
+		this.businessIdList = null;
+		this.prefs = null;
 	}
 	
 	public boolean isDisabled() { return disabled; }
@@ -73,6 +89,20 @@ public class User {
 	public boolean isFirstTime() { return firstTimeUser; }
 	
 	public boolean emailTextOnly() { return this.emailTextOnly; }
+	
+	public String[] getBusinessIdList() { return this.businessIdList; }
+	
+	public Preferences getPreferences() { 
+	
+		if (prefs == null) {
+			_log.info("Preferences is null: " + DEFAULT_PREFS.debug());
+			return DEFAULT_PREFS;
+		}
+		else {
+			_log.info("Preferences is not null: " + prefs.debug());
+			return this.prefs;
+		}
+	}
 	
 	public String getDefaultLocation() { 
 		return (this.defaultLocation != null) ? this.defaultLocation : Constant.NO_DEFAULT_LOCATION_SET; 
@@ -120,6 +150,14 @@ public class User {
 	
 	public void setPasswordResetCode(final String passwordResetCode) {
 		this.passwordResetCode = passwordResetCode;
+	}
+	
+	public void setBusinessIdList(final String[] businessIdList) {
+		this.businessIdList = businessIdList;
+	}
+	
+	public void setPreferences(final Preferences prefs) {
+		this.prefs = prefs;
 	}
 	
 	public int getCurrentState() { return currentState; }

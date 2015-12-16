@@ -19,6 +19,7 @@ import com.happyhourplanner.model.Contact;
 import com.happyhourplanner.model.EM;
 import com.happyhourplanner.model.EMF;
 import com.happyhourplanner.model.Passwords;
+import com.happyhourplanner.model.Preferences;
 import com.happyhourplanner.model.ResponseBean;
 import com.happyhourplanner.model.SavedSession;
 import com.happyhourplanner.model.User;
@@ -284,6 +285,12 @@ public class UserAccountHandler {
 		}
 		
 		return map;
+		
+	}
+	
+	public static void updatePreferences(final User user,String[] businessIdList, Preferences preferences) {
+		user.setBusinessIdList(businessIdList);
+		user.setPreferences(preferences);
 		
 	}
 	

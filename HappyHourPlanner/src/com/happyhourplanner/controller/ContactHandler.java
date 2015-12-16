@@ -49,12 +49,14 @@ public class ContactHandler {
 		query.setParameter("userEmail", user.getUserName());
 		query.setFirstResult(offset);
 		query.setMaxResults(count);
-		_log.info("userEmail = " + user.getUserName() + ", offset = " + offset + ", count = " + count);
 		
-		_log.info("Found: " + query.getResultList().size() + " items.");
-		for (Contact contact : (List<Contact>)query.getResultList()) {
-			_log.info("contact email = " + contact.getEmail());
-		}
+		// to do: check why these logs appear so often.
+		//_log.info("userEmail = " + user.getUserName() + ", offset = " + offset + ", count = " + count);
+		
+		//_log.info("Found: " + query.getResultList().size() + " items.");
+//		for (Contact contact : (List<Contact>)query.getResultList()) {
+//			_log.info("contact email = " + contact.getEmail());
+//		}
 		return (List<Contact>)query.getResultList();
 		//return new ArrayList<Contact>();
 			

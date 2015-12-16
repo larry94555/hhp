@@ -1,5 +1,10 @@
 package com.happyhourplanner.model;
 
+import javax.persistence.Embeddable;
+
+import com.happyhourplanner.common.Constant;
+
+@Embeddable
 public class Preferences {
 	private boolean allowSuggestions;
 	private boolean useMinRating;
@@ -47,12 +52,26 @@ public class Preferences {
 	public void setFullBar(final boolean fullBar) { this.fullBar = fullBar; }
 	public void setAvailability(final String availability)  {this.availability = availability; }
 	
-	public boolean getAllowSuggestions() { return allowSuggestions; }
-	public boolean getUseMinRating() { return useMinRating; }
-	public String getMinRating() { return minRating; }
-	public boolean getRestaurantsOnly() { return restaurantsOnly; }
-	public boolean getFullBar() { return fullBar; }
-	public String getAvailability() { return availability; }
+	public boolean isAllowSuggestions() { return allowSuggestions; }
+	public boolean isUseMinRating() { return useMinRating; }
+	public String getMinRating() {
+		if (minRating == null) {
+			return Constant.EMPTY_STRING;
+		}
+		else {
+			return minRating;
+		}
+	}
+	public boolean isRestaurantsOnly() { return restaurantsOnly; }
+	public boolean isFullBar() { return fullBar; }
+	public String getAvailability() {
+		if (availability == null) {
+			return Constant.EMPTY_STRING;
+		}
+		else {
+			return availability;
+		}
+	}
 	
 	public String debug() {
 		StringBuilder result = new StringBuilder();

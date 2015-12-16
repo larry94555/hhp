@@ -8,6 +8,10 @@ public class Constant {
 	// Contacts
 	public static final int MAX_CONTACTS = 1000;
 	
+	// HTML
+	public static final String CHECKED = "checked=\"checked\"";
+	public static final String EMPTY_STRING = "";
+	
 	// Yelp Properties
 	public static final int YELP_REQUEST_LIMIT = 20;
 	

@@ -38,12 +38,26 @@ public class PreferencesHandlerServlet extends HttpServlet {
 		    	
 		    	// get preferences from the settings
 		    	final String[] businessIdList = _gson.fromJson(req.getParameter("businessIdList"),String[].class);
-		    	for (String businessId : businessIdList) {
-		    		_log.info(businessId);
-		    	}
 		    	
+		    	if (businessIdList == null) {
+		    		//_log.info("*** businessIdList is null");
+		    		
+		    	}
+		    	else if (businessIdList.length > 0) {
+		    	
+			    	for (String businessId : businessIdList) {
+			    		_log.info(businessId);
+			    	}
+		    	}
+			    	
 		    	final Preferences prefs = _gson.fromJson(req.getParameter("settings"),Preferences.class);
-		    	_log.info(prefs.debug());
+		    	if (prefs == null) {
+		    		_log.info("*** prefs is null");
+		    	}
+		    	else {
+		    		_log.info(prefs.debug());
+		    	}
+		    	UserAccountHandler.updatePreferences(user,businessIdList,prefs);
 		    	
 	    		
 	    		// save preferences

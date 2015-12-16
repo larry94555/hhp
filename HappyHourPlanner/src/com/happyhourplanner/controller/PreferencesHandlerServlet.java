@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.happyhourplanner.common.Constant;
 import com.happyhourplanner.model.Contact;
+import com.happyhourplanner.model.PlaceMarker;
 import com.happyhourplanner.model.Preferences;
 import com.happyhourplanner.model.ResponseBean;
 import com.happyhourplanner.model.User;
@@ -37,16 +38,16 @@ public class PreferencesHandlerServlet extends HttpServlet {
 		    if (user != null) {
 		    	
 		    	// get preferences from the settings
-		    	final String[] businessIdList = _gson.fromJson(req.getParameter("businessIdList"),String[].class);
+		    	final PlaceMarker[] placeMarkers = _gson.fromJson(req.getParameter("placeMarkers"),PlaceMarker[].class);
 		    	
-		    	if (businessIdList == null) {
-		    		//_log.info("*** businessIdList is null");
+		    	if (placeMarkers == null) {
+		    		_log.info("*** placeMarkers is null");
 		    		
 		    	}
-		    	else if (businessIdList.length > 0) {
+		    	else if (placeMarkers.length > 0) {
 		    	
-			    	for (String businessId : businessIdList) {
-			    		_log.info(businessId);
+			    	for (PlaceMarker placeMarker : placeMarkers) {
+			    		_log.info(placeMarker.debug());
 			    	}
 		    	}
 			    	
@@ -57,7 +58,7 @@ public class PreferencesHandlerServlet extends HttpServlet {
 		    	else {
 		    		_log.info(prefs.debug());
 		    	}
-		    	UserAccountHandler.updatePreferences(user,businessIdList,prefs);
+		    	UserAccountHandler.updatePreferences(user,placeMarkers,prefs);
 		    	
 	    		
 	    		// save preferences

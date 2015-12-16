@@ -50,7 +50,7 @@ public class User {
 	private boolean emailTextOnly; // for testing purposes only
 	
 	@ElementCollection
-	private String[] businessIdList;
+	private PlaceMarker[] placeMarkers;
 	
 	@Embedded
 	private Preferences prefs;
@@ -76,7 +76,7 @@ public class User {
 		this.passwordResetCode="";
 		this.emailTextOnly = false;
 		this.defaultLocation = Constant.NO_DEFAULT_LOCATION_SET;
-		this.businessIdList = null;
+		this.placeMarkers = null;
 		this.prefs = null;
 	}
 	
@@ -90,7 +90,7 @@ public class User {
 	
 	public boolean emailTextOnly() { return this.emailTextOnly; }
 	
-	public String[] getBusinessIdList() { return this.businessIdList; }
+	public PlaceMarker[] getPlaceMarkers() { return this.placeMarkers; }
 	
 	public Preferences getPreferences() { 
 	
@@ -152,8 +152,8 @@ public class User {
 		this.passwordResetCode = passwordResetCode;
 	}
 	
-	public void setBusinessIdList(final String[] businessIdList) {
-		this.businessIdList = businessIdList;
+	public void setPlaceMarkers(final PlaceMarker[] placeMarkers) {
+		this.placeMarkers = placeMarkers;
 	}
 	
 	public void setPreferences(final Preferences prefs) {

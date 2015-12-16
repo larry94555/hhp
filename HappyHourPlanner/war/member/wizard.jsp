@@ -197,24 +197,22 @@
 <div id="preferences-title">What are your preferences?</div>
 
 <div id="preference-settings">
-<input type="checkbox" name="pref-allow-suggestions" class="standard-checkbox" id="pref-allow-suggestions" checked="checked" /><label for="pref-allow-suggestions">Let People Suggest Places</label><br /><br />
+<input type="checkbox" name="pref-allow-suggestions" class="standard-checkbox pref-setting" id="pref-allow-suggestions" checked="checked" /><label for="pref-allow-suggestions">Let People Suggest Places</label><br /><br />
 
-<input type="checkbox" name="skip-low-ratings" class="standard-checkbox place-search-option" id="skip-low-ratings" checked="checked" />
-<label for="skip-low-ratings">Disallow places rated lower than</label><input type="text" name="min-rating" id="min-rating" class="place-search-option" value="2"></input> stars<br/><br/>
+<input type="checkbox" name="skip-low-ratings" class="standard-checkbox place-search-option pref-setting" id="skip-low-ratings" checked="checked" />
+<label for="skip-low-ratings">Disallow places rated lower than</label><input type="text" name="min-rating" id="min-rating" class="place-search-option pref-setting" value="2"></input> stars<br/><br/>
 
-<input type="checkbox" name="pref-restaurants-only" class="standard-checkbox place-search-option" id="pref-restaurants-only" /><label for="pref-restaurants-only">Restaurants only</label><br /><br />
+<input type="checkbox" name="pref-restaurants-only" class="standard-checkbox place-search-option pref-setting" id="pref-restaurants-only" /><label for="pref-restaurants-only">Restaurants only</label><br /><br />
 
-<input type="checkbox" name="pref-spirits-too" class="standard-checkbox place-search-option" id="pref-spirits-too" /><label for="pref-spirits-too">Full bar (wine, beer, and spirits)</label><br /><br />
+<input type="checkbox" name="pref-spirits-too" class="standard-checkbox place-search-option pref-setting" id="pref-spirits-too" /><label for="pref-spirits-too">Full bar (wine, beer, and spirits)</label><br /><br />
 
-<input type="checkbox" name="pref-allow-m" class="standard-checkbox" id="pref-allow-m" checked="checked" /><label for="pref-allow-m">M</label>
-<input type="checkbox" name="pref-allow-t" class="standard-checkbox" id="pref-allow-t" checked="checked" /><label for="pref-allow-t">T</label>
-<input type="checkbox" name="pref-allow-w" class="standard-checkbox" id="pref-allow-w" checked="checked" /><label for="pref-allow-w">W</label>
-<input type="checkbox" name="pref-allow-th" class="standard-checkbox" id="pref-allow-th" checked="checked" /><label for="pref-allow-th">Th</label>
-<input type="checkbox" name="pref-allow-f" class="standard-checkbox" id="pref-allow-f" checked="checked" /><label for="pref-allow-f">F</label>
-<input type="checkbox" name="pref-allow-sa" class="standard-checkbox" id="pref-allow-sa" /><label for="pref-allow-sa">Sat</label>
-<input type="checkbox" name="pref-allow-su" class="standard-checkbox" id="pref-allow-su"  /><label for="pref-allow-su">Sun</label>
-
-
+<input type="checkbox" name="pref-allow-m" class="standard-checkbox pref-setting" id="pref-allow-m" checked="checked" /><label for="pref-allow-m">M</label>
+<input type="checkbox" name="pref-allow-t" class="standard-checkbox pref-setting" id="pref-allow-t" checked="checked" /><label for="pref-allow-t">T</label>
+<input type="checkbox" name="pref-allow-w" class="standard-checkbox pref-setting" id="pref-allow-w" checked="checked" /><label for="pref-allow-w">W</label>
+<input type="checkbox" name="pref-allow-th" class="standard-checkbox pref-setting" id="pref-allow-th" checked="checked" /><label for="pref-allow-th">Th</label>
+<input type="checkbox" name="pref-allow-f" class="standard-checkbox pref-setting" id="pref-allow-f" checked="checked" /><label for="pref-allow-f">F</label>
+<input type="checkbox" name="pref-allow-sa" class="standard-checkbox pref-setting" id="pref-allow-sa" /><label for="pref-allow-sa">Sat</label>
+<input type="checkbox" name="pref-allow-su" class="standard-checkbox pref-setting" id="pref-allow-su"  /><label for="pref-allow-su">Sun</label>
 
 </div>
 

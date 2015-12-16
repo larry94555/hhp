@@ -295,14 +295,6 @@
                 .append(this.$loadingData)
                 .append(this.$selection);
             
-            //
-            
-//            if ($("#sol-container-id-" + this.$originalElement.attr("id")).length) {
-//            	this.$container = $("#sol-container-id-"+this.$originalElement.attr("id"));
-//            }
-//            else {
-//            	this.$container =  $('<div class="sol-container" id="sol-container-id-'+this.$originalElement.attr("id")+'" />');
-//            }
             
             this.$container = this._checkIfElementExists("sol-container");
 
@@ -660,6 +652,7 @@
                 label: $option.html(),
                 tooltip: $option.attr('title'),
                 dataurl: $option.attr('data-url'),
+                dataid: $option.attr('data-id'),
                 element: $option
             });
         },
@@ -774,7 +767,7 @@
             var self = this,
                 $actualTargetContainer = $optionalTargetContainer || this.$selection,
                 $inputElement,
-                $labelText = $('<div class="sol-label-text"/>')
+                $labelText = $('<div class="sol-label-text" />')
                     .html(solOption.label.trim().length === 0 ? '&nbsp;' : solOption.label +'<a href="'+ solOption.dataurl +'" target="_yelp"> (view) </a>')
                     .addClass(solOption.cssClass),
                 $label,
@@ -927,7 +920,11 @@
                 $displayItemText;
 
             if (!$existingDisplayItem) {
-                $displayItemText = $('<span class="sol-selected-display-item-text" />').html(solOptionItem.value);
+                $displayItemText = $('<span class="sol-selected-display-item-text" />')
+                	.attr('id',solOptionItem.dataid)
+                	.addClass('pref-setting-business-id')
+                	.addClass('pref-setting')
+                	.html(solOptionItem.value);
                 $existingDisplayItem = $('<div class="sol-selected-display-item"/>')
                     .append($displayItemText)
                     //.attr('title', solOptionItem.tooltip)

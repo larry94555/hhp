@@ -119,6 +119,41 @@ $(function() {
 
 	var reloadNeeded=false;
 	
+	function getSettings() {
+		
+		var allowSuggestions = $('#pref-allow-suggestions').is(':checked');
+		var useMinRating = $('#skip-low-ratings').is(':checked');
+		var minRating = $.trim($('#min-rating').val());
+		var restaurantsOnly = $('#pref-restaurants-only').is(':checked');
+		var fullBar = $('#pref-spirits-too').is(':checked');
+		var mon = $('#pref-allow-m').is(':checked');
+		var tue = $('#pref-allow-t').is(':checked');
+		var wed = $('#pref-allow-w').is(':checked');
+		var thur = $('#pref-allow-th').is(':checked');
+		var fri = $('#pref-allow-f').is(':checked');
+		var sat = $('#pref-allow-sa').is(':checked');
+		var sun = $('#pref-allow-su').is(':checked');
+		
+		String availability = "";
+		if (mon) availability += "Mo";
+		if (tue) availabliity += "Tu";
+		if (wed) availability += "We";
+		if (thur) availability += "Th";
+		if (fri) availability += "Fr";
+		if (sat) availability += "Sa";
+		if (sun) availability += "Su";
+		
+		
+		return {
+			allowSuggestions: allowSuggestions,
+			useMinRating: useMinRating,
+			minRating: minRating,
+			restaurantsOnly: restaurantsOnly,
+			fullBar: fullBar,
+			availability: availability
+		};
+	}
+	
 	function fillPlaces(reset) {
 		
 		if (reset) {
@@ -129,27 +164,24 @@ $(function() {
 		
 		
 		// if near is set, use that, otherwise use longitude, latitude
+		
+		var settings = getSettings();	
+		
 		var location = $.trim($("#pref-near").text());
 		var longitude = "";
 		var latitude = "";
-		var useMinRating = $('#skip-low-ratings').is(':checked');
-		var minRating = $.trim($('#min-rating').val());
-		var restaurantsOnly = $('#pref-restaurants-only').is(':checked');
-		var fullBar = $('#pref-spirits-too').is(':checked');
 		var offset = $('#place-search-offset').val();
 		
-		if (minRating.length == 0) minRating="0.0";
+		if (settings.minRating.length == 0) settings.minRating="0.0";
 		var checkValue = parseFloat(minRating);
-		if (isNaN(checkValue) || checkValue < 1 || checkValue > 5) minRating="0.0";
-		if (useMinRating === false) minRating="0.0";
+		if (isNaN(checkValue) || checkValue < 1 || checkValue > 5) settings.minRating="0.0";
+		if (settings.useMinRating === false) settings.minRating="0.0";
 		
 		if (location === "") {
 			// use longitude/latitude
 			longitude = $.trim($('#detected-longitude').val());
 			latitude = $.trim($('#detected-latitude').val());
-			location = $.trim($('#detected-location').text());
-			
-			
+			location = $.trim($('#detected-location').text());	
 		}
 		
 		// do a look up for
@@ -161,9 +193,9 @@ $(function() {
 				longitude: longitude,
 				latitude: latitude,
 				category: 'happy hour',
-				minRating: minRating,
-				restaurantsOnly: restaurantsOnly,
-				fullBar: fullBar,
+				minRating: settings.minRating,
+				restaurantsOnly: settings.restaurantsOnly,
+				fullBar: settings.fullBar,
 				offset: offset
 				
 			},
@@ -178,8 +210,6 @@ $(function() {
 			reloadNeeded=true;
 			
 			// catch when search data changes
-			
-			
 			
 			// may consider adding this later.
 			// update offset
@@ -205,6 +235,35 @@ $(function() {
 	}
 	
 	$('body').on('change','input.place-search-option',handleChangeToSearchOptions);
+	
+	$('body').on('change','input.pref-settings',function() {
+		// make an ajax call to update preferences
+		var settings = getSettings();
+		var businessIdList = [];
+		
+		$('.pref-setting-business-id').each(function() {
+			businessIdList.push($(this).attr("id"));
+		});
+		
+		var updatePreferences = $.ajax({
+        	url: "/preferences",
+    		type: "POST",
+    		data: {
+    			settings: settings,
+    			includes: businessIdList
+    		},
+    		dataType: "json"
+        });
+		
+		updatePreferences.done(function(data) {
+			
+		});
+		
+		updatePreferences.fail(function(qXHR,textStatus) {
+			
+		});
+		
+	});
 	
 	
 	function getDefaultLocationBasedOnIpAddress() {

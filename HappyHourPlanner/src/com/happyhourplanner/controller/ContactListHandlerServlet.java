@@ -36,12 +36,12 @@ public class ContactListHandlerServlet extends HttpServlet {
 				
 				// add list to the contacts
 				//_log.info("list param = " + req.getParameter("list[]"));
-				String[] parts = req.getParameterValues("list");
-				if (parts != null) {
-					for (String part : parts) {
-						_log.info("found: part = " + part);
-					}
-				}
+				//String[] parts = req.getParameterValues("list");
+//				if (parts != null) {
+//					for (String part : parts) {
+//						_log.info("found: part = " + part);
+//					}
+//				}
 				final Contact[] contacts = _gson.fromJson(req.getParameter("list"),Contact[].class);
 				
 				//final Contact[] contacts = null;

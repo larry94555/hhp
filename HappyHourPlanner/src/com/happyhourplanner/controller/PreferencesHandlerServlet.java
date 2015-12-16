@@ -12,13 +12,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.happyhourplanner.common.Constant;
+import com.happyhourplanner.model.Contact;
+import com.happyhourplanner.model.Preferences;
 import com.happyhourplanner.model.ResponseBean;
 import com.happyhourplanner.model.User;
 
 public class PreferencesHandlerServlet extends HttpServlet {
 	
 	public static final Logger _log = Logger.getLogger(PreferencesHandlerServlet.class.getName());
+	private static final Gson _gson = new Gson();
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
@@ -31,6 +35,16 @@ public class PreferencesHandlerServlet extends HttpServlet {
 		    
 		    
 		    if (user != null) {
+		    	
+		    	// get preferences from the settings
+		    	final String[] businessIdList = _gson.fromJson(req.getParameter("businessIdList"),String[].class);
+		    	for (String businessId : businessIdList) {
+		    		_log.info(businessId);
+		    	}
+		    	
+		    	final Preferences prefs = _gson.fromJson(req.getParameter("settings"),Preferences.class);
+		    	_log.info(prefs.debug());
+		    	
 	    		
 	    		// save preferences
 	    		

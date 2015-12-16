@@ -2,6 +2,7 @@
 <%@ page import="com.happyhourplanner.controller.UserAccountHandler" %>
 <%@ page import="com.happyhourplanner.model.User" %>
 <%@ page import="com.happyhourplanner.model.Contact" %>
+<%@ page import="com.happyhourplanner.model.Preferences" %>
 <%@ page import="com.happyhourplanner.common.Util" %>
 <%@ page import="com.happyhourplanner.common.Constant" %>
 <%@ page import="java.util.List" %>
@@ -196,23 +197,45 @@
 
 <div id="preferences-title">What are your preferences?</div>
 
+<%
+
+	// handle options
+	String prefAllowSuggestions = (user.getPreferences().isAllowSuggestions()) ? Constant.CHECKED : "";
+	String prefUseMinRating = (user.getPreferences().isUseMinRating()) ? Constant.CHECKED : "";
+	String minRating = user.getPreferences().getMinRating();
+	String restaurantsOnly = (user.getPreferences().isRestaurantsOnly()) ? Constant.CHECKED : "";
+	String fullBar = (user.getPreferences().isFullBar())? Constant.CHECKED : "";
+	
+	String mon = (user.getPreferences().getAvailability().indexOf("Mo") != -1) ? Constant.CHECKED : "";
+	String tues = (user.getPreferences().getAvailability().indexOf("Tu") != -1) ? Constant.CHECKED : "";
+	String wed = (user.getPreferences().getAvailability().indexOf("We") != -1) ? Constant.CHECKED : "";
+	String thur = (user.getPreferences().getAvailability().indexOf("Th") != -1) ? Constant.CHECKED : "";
+	String fri = (user.getPreferences().getAvailability().indexOf("Fr") != -1) ? Constant.CHECKED : "";
+	String sat = (user.getPreferences().getAvailability().indexOf("Sa") != -1) ? Constant.CHECKED : "";
+	String sun = (user.getPreferences().getAvailability().indexOf("Su") != -1) ? Constant.CHECKED : "";
+	
+	Util.log("initial: " + user.getPreferences().debug());
+	
+
+%>
+
 <div id="preference-settings">
-<input type="checkbox" name="pref-allow-suggestions" class="standard-checkbox pref-setting" id="pref-allow-suggestions" checked="checked" /><label for="pref-allow-suggestions">Let People Suggest Places</label><br /><br />
+<input type="checkbox" name="pref-allow-suggestions" class="standard-checkbox pref-setting" id="pref-allow-suggestions" <%= prefAllowSuggestions %> /><label for="pref-allow-suggestions">Let People Suggest Places</label><br /><br />
 
-<input type="checkbox" name="skip-low-ratings" class="standard-checkbox place-search-option pref-setting" id="skip-low-ratings" checked="checked" />
-<label for="skip-low-ratings">Disallow places rated lower than</label><input type="text" name="min-rating" id="min-rating" class="place-search-option pref-setting" value="2"></input> stars<br/><br/>
+<input type="checkbox" name="skip-low-ratings" class="standard-checkbox place-search-option pref-setting" id="skip-low-ratings" <%= prefUseMinRating %> />
+<label for="skip-low-ratings">Disallow places rated lower than</label><input type="text" name="min-rating" id="min-rating" class="place-search-option pref-setting" value="<%= minRating %>"></input> stars<br/><br/>
 
-<input type="checkbox" name="pref-restaurants-only" class="standard-checkbox place-search-option pref-setting" id="pref-restaurants-only" /><label for="pref-restaurants-only">Restaurants only</label><br /><br />
+<input type="checkbox" name="pref-restaurants-only" class="standard-checkbox place-search-option pref-setting" id="pref-restaurants-only" <%= restaurantsOnly %>/><label for="pref-restaurants-only">Restaurants only</label><br /><br />
 
-<input type="checkbox" name="pref-spirits-too" class="standard-checkbox place-search-option pref-setting" id="pref-spirits-too" /><label for="pref-spirits-too">Full bar (wine, beer, and spirits)</label><br /><br />
+<input type="checkbox" name="pref-spirits-too" class="standard-checkbox place-search-option pref-setting" id="pref-spirits-too" <%= fullBar %> /><label for="pref-spirits-too">Full bar (wine, beer, and spirits)</label><br /><br />
 
-<input type="checkbox" name="pref-allow-m" class="standard-checkbox pref-setting" id="pref-allow-m" checked="checked" /><label for="pref-allow-m">M</label>
-<input type="checkbox" name="pref-allow-t" class="standard-checkbox pref-setting" id="pref-allow-t" checked="checked" /><label for="pref-allow-t">T</label>
-<input type="checkbox" name="pref-allow-w" class="standard-checkbox pref-setting" id="pref-allow-w" checked="checked" /><label for="pref-allow-w">W</label>
-<input type="checkbox" name="pref-allow-th" class="standard-checkbox pref-setting" id="pref-allow-th" checked="checked" /><label for="pref-allow-th">Th</label>
-<input type="checkbox" name="pref-allow-f" class="standard-checkbox pref-setting" id="pref-allow-f" checked="checked" /><label for="pref-allow-f">F</label>
-<input type="checkbox" name="pref-allow-sa" class="standard-checkbox pref-setting" id="pref-allow-sa" /><label for="pref-allow-sa">Sat</label>
-<input type="checkbox" name="pref-allow-su" class="standard-checkbox pref-setting" id="pref-allow-su"  /><label for="pref-allow-su">Sun</label>
+<input type="checkbox" name="pref-allow-m" class="standard-checkbox pref-setting" id="pref-allow-m" <%= mon %> /><label for="pref-allow-m">M</label>
+<input type="checkbox" name="pref-allow-t" class="standard-checkbox pref-setting" id="pref-allow-t" <%= tues %> /><label for="pref-allow-t">T</label>
+<input type="checkbox" name="pref-allow-w" class="standard-checkbox pref-setting" id="pref-allow-w" <%= wed %> /><label for="pref-allow-w">W</label>
+<input type="checkbox" name="pref-allow-th" class="standard-checkbox pref-setting" id="pref-allow-th" <%= thur %> /><label for="pref-allow-th">Th</label>
+<input type="checkbox" name="pref-allow-f" class="standard-checkbox pref-setting" id="pref-allow-f" <%= fri %> /><label for="pref-allow-f">F</label>
+<input type="checkbox" name="pref-allow-sa" class="standard-checkbox pref-setting" id="pref-allow-sa" <%= sat %> /><label for="pref-allow-sa">Sat</label>
+<input type="checkbox" name="pref-allow-su" class="standard-checkbox pref-setting" id="pref-allow-su" <%= sun %> /><label for="pref-allow-su">Sun</label>
 
 </div>
 

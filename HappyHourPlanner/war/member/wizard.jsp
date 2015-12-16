@@ -3,6 +3,7 @@
 <%@ page import="com.happyhourplanner.model.User" %>
 <%@ page import="com.happyhourplanner.model.Contact" %>
 <%@ page import="com.happyhourplanner.model.Preferences" %>
+<%@ page import="com.happyhourplanner.model.PlaceMarker" %>
 <%@ page import="com.happyhourplanner.common.Util" %>
 <%@ page import="com.happyhourplanner.common.Constant" %>
 <%@ page import="java.util.List" %>
@@ -214,7 +215,20 @@
 	String sat = (user.getPreferences().getAvailability().indexOf("Sa") != -1) ? Constant.CHECKED : "";
 	String sun = (user.getPreferences().getAvailability().indexOf("Su") != -1) ? Constant.CHECKED : "";
 	
-	Util.log("initial: " + user.getPreferences().debug());
+	//Util.log("initial: " + user.getPreferences().debug());
+	
+	StringBuilder placeMarkerList = new StringBuilder();
+	PlaceMarker[] placeMarkers = user.getPlaceMarkers();
+	if (placeMarkers != null) {
+		for (PlaceMarker placeMarker : placeMarkers) {
+			placeMarkerList.append(placeMarker.getName().replaceAll("\"","'"))
+				.append(",,")
+				.append(placeMarker.getId())
+				.append(",,")
+				.append(placeMarker.getUrl())
+				.append(",,");
+		}
+	}
 	
 
 %>
@@ -243,6 +257,7 @@
 <input type="hidden" id="detected-latitude"></input>
 <input type="hidden" id="detected-longitude"></input>
 <input type="hidden" id="place-search-offset" value="0"></input>
+<input type="hidden" id="place-marker-list" value="<%= placeMarkerList.toString() %>"></input>
 
 <div id="override-current-location">
 <input type="text" name="pref-near" id="pref-near" class="place-search-option" placeholder="Enter city, neighborhood, zip, or cross streets" />

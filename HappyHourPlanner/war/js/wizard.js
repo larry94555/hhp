@@ -239,10 +239,15 @@ $(function() {
 	$('body').on('change','input.pref-setting',function() {
 		// make an ajax call to update preferences
 		var settings = getSettings();
-		var businessIdList = [];
+		var placeMarkers = [];
 		
 		$('.pref-setting-business-id').each(function() {
-			businessIdList.push($(this).attr("id"));
+			//businessIdList.push($(this).attr("id"));
+			placeMarkers.push({
+				id:$(this).attr("id"),
+				url:$(this).attr("data-url"),
+				name:$(this).text()
+			});
 		});
 		
 		var updatePreferences = $.ajax({
@@ -250,7 +255,7 @@ $(function() {
     		type: "POST",
     		data: { 
     			settings: JSON.stringify(settings),
-    			businessIdList: JSON.stringify(businessIdList)
+    			placeMarkers: JSON.stringify(placeMarkers)
 			},
     		dataType: "json"
         });

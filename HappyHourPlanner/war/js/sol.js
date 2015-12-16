@@ -922,12 +922,11 @@
             if (!$existingDisplayItem) {
                 $displayItemText = $('<span class="sol-selected-display-item-text" />')
                 	.attr('id',solOptionItem.dataid)
+                	.attr('data-url',solOptionItem.dataurl)
                 	.addClass('pref-setting-business-id')
-                	.addClass('pref-setting')
-                	.html(solOptionItem.value);
+                	.html('<a href="'+solOptionItem.dataurl+'" target="_yelp">'+solOptionItem.value+'</a>');
                 $existingDisplayItem = $('<div class="sol-selected-display-item"/>')
                     .append($displayItemText)
-                    //.attr('title', solOptionItem.tooltip)
                     .attr('title','click x to remove')
                     .appendTo(this.$showSelectionContainer);
 

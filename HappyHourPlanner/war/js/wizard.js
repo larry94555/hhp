@@ -134,9 +134,9 @@ $(function() {
 		var sat = $('#pref-allow-sa').is(':checked');
 		var sun = $('#pref-allow-su').is(':checked');
 		
-		String availability = "";
+		var availability = "";
 		if (mon) availability += "Mo";
-		if (tue) availabliity += "Tu";
+		if (tue) availability += "Tu";
 		if (wed) availability += "We";
 		if (thur) availability += "Th";
 		if (fri) availability += "Fr";
@@ -173,7 +173,7 @@ $(function() {
 		var offset = $('#place-search-offset').val();
 		
 		if (settings.minRating.length == 0) settings.minRating="0.0";
-		var checkValue = parseFloat(minRating);
+		var checkValue = parseFloat(settings.minRating);
 		if (isNaN(checkValue) || checkValue < 1 || checkValue > 5) settings.minRating="0.0";
 		if (settings.useMinRating === false) settings.minRating="0.0";
 		
@@ -236,7 +236,7 @@ $(function() {
 	
 	$('body').on('change','input.place-search-option',handleChangeToSearchOptions);
 	
-	$('body').on('change','input.pref-settings',function() {
+	$('body').on('change','input.pref-setting',function() {
 		// make an ajax call to update preferences
 		var settings = getSettings();
 		var businessIdList = [];
@@ -248,10 +248,10 @@ $(function() {
 		var updatePreferences = $.ajax({
         	url: "/preferences",
     		type: "POST",
-    		data: {
-    			settings: settings,
-    			includes: businessIdList
-    		},
+    		data: { 
+    			settings: JSON.stringify(settings),
+    			businessIdList: JSON.stringify(businessIdList)
+			},
     		dataType: "json"
         });
 		

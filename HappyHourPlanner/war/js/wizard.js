@@ -240,7 +240,7 @@ $(function() {
 		}
 	}
 	
-	function handleChangeToPreferences() {
+	function handleChangeToPreferences(handleFunction) {
 		
 		// make an ajax call to update preferences
 		var settings = getSettings();
@@ -267,7 +267,7 @@ $(function() {
         });
 		
 		updatePreferences.done(function(data) {
-			
+			handleFunction();
 		});
 		
 		updatePreferences.fail(function(qXHR,textStatus) {

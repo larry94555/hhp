@@ -292,6 +292,9 @@ public class UserAccountHandler {
 	public static void updatePreferences(final User user,Map<String,String> map, Preferences preferences) {
 		user.setPlaceMarkerMap(map);
 		user.setPreferences(preferences);
+		if (user.getCurrentState() < Constant.STATE_INVITE_NUM) {
+			user.setCurrentState(Constant.STATE_INVITE_NUM);
+		}
 		persist(user);
 		
 	}

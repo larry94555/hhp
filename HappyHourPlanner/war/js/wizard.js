@@ -205,7 +205,13 @@ $(function() {
 		getPlaceList.done(function(data){
 			
 			$('#my-select').html(data.html);
-			$('#my-select').searchableOptionList({maxHeight: '250px'});
+			$('#my-select').searchableOptionList(
+				{
+					maxHeight: '250px',
+					events: {
+						onChange: handleChangeToPreferences
+					}
+				});
 			
 			reloadNeeded=true;
 			
@@ -234,9 +240,8 @@ $(function() {
 		}
 	}
 	
-	$('body').on('change','input.place-search-option',handleChangeToSearchOptions);
-	
-	$('body').on('change','input.pref-setting',function() {
+	function handleChangeToPreferences() {
+		
 		// make an ajax call to update preferences
 		var settings = getSettings();
 		var placeMarkers = [];
@@ -246,6 +251,7 @@ $(function() {
 			placeMarkers.push({
 				id:$(this).attr("id"),
 				url:$(this).attr("data-url"),
+				address:$(this).attr("data-address"),
 				name:$(this).text()
 			});
 		});
@@ -266,9 +272,12 @@ $(function() {
 		
 		updatePreferences.fail(function(qXHR,textStatus) {
 			
-		});
-		
-	});
+		});		
+	}
+	
+	$('body').on('change','input.place-search-option',handleChangeToSearchOptions);
+	
+	$('body').on('change','input.pref-setting',handleChangeToPreferences);
 	
 	
 	function getDefaultLocationBasedOnIpAddress() {
@@ -298,7 +307,12 @@ $(function() {
 		});
 		
 		getLocation.fail(function(jqXHR,textStatus) {
-			$('#def-lookup-location').html("failed");
+			
+			// figure out why it fails.
+			//alert("jqXHR = " + jqXHR + ", textStatus = " + textStatus);
+			
+			
+			
 		});
 	}
 	

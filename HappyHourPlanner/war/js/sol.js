@@ -244,6 +244,7 @@
         	}
         	
         },
+        
 
         // add sol ui elements
         _initializeUiElements: function () {
@@ -653,6 +654,7 @@
                 tooltip: $option.attr('title'),
                 dataurl: $option.attr('data-url'),
                 dataid: $option.attr('data-id'),
+                dataaddress: $option.attr('data-address'),
                 element: $option
             });
         },
@@ -923,6 +925,7 @@
                 $displayItemText = $('<span class="sol-selected-display-item-text" />')
                 	.attr('id',solOptionItem.dataid)
                 	.attr('data-url',solOptionItem.dataurl)
+                	.attr('data-address',solOptionItem.dataaddress)
                 	.addClass('pref-setting-business-id')
                 	.html('<a href="'+solOptionItem.dataurl+'" target="_yelp">'+solOptionItem.value+'</a>');
                 $existingDisplayItem = $('<div class="sol-selected-display-item"/>')
@@ -1074,7 +1077,7 @@
             //} else {
                 var newSol = new SearchableOptionList($this, options);
                 result.push(newSol);
-
+                
                 setTimeout(function() {
                     newSol.init();
                 }, 0);

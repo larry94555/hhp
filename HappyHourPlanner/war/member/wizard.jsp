@@ -85,7 +85,7 @@
             <h1>&nbsp;</h1>
 
             <div id="wizard">
-                <h2>Verify Email Account</h2>
+                <h2>Verify Email Address</h2>
                 <section>
                 
                 <% if (user.isVerified()) { %>
@@ -188,7 +188,7 @@
                     
                 </section>
 
-                <h2>Set Your Preferences</h2>
+                <h2>Set Preferences</h2>
                 <section>
  <div id="pref-container">
   <div id="pref-form1">
@@ -216,13 +216,12 @@
 	String sat = (user.getPreferences().getAvailability().indexOf("Sa") != -1) ? Constant.CHECKED : "";
 	String sun = (user.getPreferences().getAvailability().indexOf("Su") != -1) ? Constant.CHECKED : "";
 	
-	//Util.log("initial: " + user.getPreferences().debug());
-	
-
 %>
 
 <div id="preference-settings">
+<div id="allow-suggestions-container">
 <input type="checkbox" name="pref-allow-suggestions" class="standard-checkbox pref-setting" id="pref-allow-suggestions" <%= prefAllowSuggestions %> /><label for="pref-allow-suggestions">Let People Suggest Places</label><br /><br />
+</div>
 
 <input type="checkbox" name="skip-low-ratings" class="standard-checkbox place-search-option pref-setting" id="skip-low-ratings" <%= prefUseMinRating %> />
 <label for="skip-low-ratings">Disallow places rated lower than</label><input type="text" name="min-rating" id="min-rating" class="place-search-option pref-setting" value="<%= minRating %>"></input> stars<br/><br/>
@@ -245,6 +244,7 @@
 <input type="hidden" id="detected-latitude"></input>
 <input type="hidden" id="detected-longitude"></input>
 <input type="hidden" id="place-search-offset" value="0"></input>
+<input type="hidden" id="main-current-state" value="<%= currentState %>"></input>
 
 <div id="override-current-location">
 <input type="text" name="pref-near" id="pref-near" class="place-search-option" placeholder="Enter city, neighborhood, zip, or cross streets" />

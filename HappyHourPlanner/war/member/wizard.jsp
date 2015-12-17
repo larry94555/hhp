@@ -195,7 +195,7 @@
   
 <div id='select-container'>
 
-<a href="#" id="accept-preferences" class="special button">Skip</a>
+<a href="#" id="accept-preferences" class="special button">Continue</a>
 
 <div id="preferences-title">What are your preferences?</div>
 

@@ -39,7 +39,7 @@ public class PreferencesHandlerServlet extends HttpServlet {
 		    	
 		    	// get preferences from the settings
 		    	final PlaceMarker[] placeMarkers = _gson.fromJson(req.getParameter("placeMarkers"),PlaceMarker[].class);
-		    	Map<String,PlaceMarker> placeMarkerMap = new HashMap<String,PlaceMarker>();
+		    	Map<String,String> placeMarkerMap = new HashMap<String,String>();
 		    	
 		    	if (placeMarkers == null) {
 		    		_log.info("*** placeMarkers is null");
@@ -50,8 +50,8 @@ public class PreferencesHandlerServlet extends HttpServlet {
 		    		// build
 		    		
 			    	for (PlaceMarker placeMarker : placeMarkers) {
-			    		placeMarkerMap.put(placeMarker.getId(),placeMarker);
-			    		//_log.info(placeMarker.debug());
+			    		placeMarkerMap.put(placeMarker.getId(),placeMarker.toStringForm());
+			    		_log.info(placeMarker.debug());
 			    	}
 		    	}
 			    	

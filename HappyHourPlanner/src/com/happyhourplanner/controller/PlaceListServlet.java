@@ -2,6 +2,7 @@ package com.happyhourplanner.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,18 +51,23 @@ public class PlaceListServlet extends HttpServlet {
 				
 				String optionList;
 				
-				if (user.getPlaceMarkers() == null) {
-					_log.info("getPlaceMarkers is null.");
+				final Map<String,String> placeMarkerMap = user.getPlaceMarkerMap();
+				if (placeMarkerMap == null) {
+					_log.info("placeMarkerMap is null");
+				}
+				else if (placeMarkerMap.size() == 0) {
+			
+					_log.info("no places saved");
 				}
 				else {
-					_log.info("there are " + user.getPlaceMarkers().size() + " markers.");
+					_log.info("there are " + placeMarkerMap.size() + " markers.");
 				}
 				
 				
 				if (longitude == null || latitude == null || longitude.trim().length() == 0 || latitude.trim().length() == 0 ) {
 				
 	
-					optionList = YelpHandler.getPlaceListAsHtml(user.getPlaceMarkers(),category,location,null,null,minRating,restaurantsOnly,
+					optionList = YelpHandler.getPlaceListAsHtml(placeMarkerMap,category,location,null,null,minRating,restaurantsOnly,
 							fullBar,Constant.YELP_REQUEST_LIMIT,offset);
 					
 	
@@ -69,7 +75,7 @@ public class PlaceListServlet extends HttpServlet {
 				else {
 			    
 					// get request
-					optionList = YelpHandler.getPlaceListAsHtml(user.getPlaceMarkers(),category,location,longitude,latitude,minRating,
+					optionList = YelpHandler.getPlaceListAsHtml(placeMarkerMap,category,location,longitude,latitude,minRating,
 							restaurantsOnly,fullBar,Constant.YELP_REQUEST_LIMIT,offset);
 					
 			    

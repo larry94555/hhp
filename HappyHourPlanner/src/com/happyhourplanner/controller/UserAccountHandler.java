@@ -289,8 +289,8 @@ public class UserAccountHandler {
 		
 	}
 	
-	public static void updatePreferences(final User user,Map<String,PlaceMarker> placeMarkers, Preferences preferences) {
-		user.setPlaceMarkers(placeMarkers);
+	public static void updatePreferences(final User user,Map<String,String> map, Preferences preferences) {
+		user.setPlaceMarkerMap(map);
 		user.setPreferences(preferences);
 		persist(user);
 		

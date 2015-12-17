@@ -50,7 +50,7 @@ public class User {
 	private boolean emailTextOnly; // for testing purposes only
 	
 	@ElementCollection
-	private Map<String,PlaceMarker> placeMarkers;
+	private Map<String,String> placeMarkerMap;
 	
 	@Embedded
 	private Preferences prefs;
@@ -76,7 +76,7 @@ public class User {
 		this.passwordResetCode="";
 		this.emailTextOnly = false;
 		this.defaultLocation = Constant.NO_DEFAULT_LOCATION_SET;
-		this.placeMarkers = null;
+		this.placeMarkerMap = new HashMap<String,String>();
 		this.prefs = null;
 	}
 	
@@ -90,9 +90,15 @@ public class User {
 	
 	public boolean emailTextOnly() { return this.emailTextOnly; }
 	
-	public Map<String,PlaceMarker> getPlaceMarkers() { 
-		//return this.placeMarkers;
-		return new HashMap<String,PlaceMarker>();
+	public Map<String,String> getPlaceMarkerMap() { 
+		Map<String,String> copyMap = new HashMap<String,String>();
+		if (placeMarkerMap != null) {
+			for (String key : placeMarkerMap.keySet()) {
+				copyMap.put(key, placeMarkerMap.get(key));
+			}
+		}
+		
+		return copyMap;
 	}
 	
 	public Preferences getPreferences() { 
@@ -155,8 +161,14 @@ public class User {
 		this.passwordResetCode = passwordResetCode;
 	}
 	
-	public void setPlaceMarkers(final Map<String,PlaceMarker> placeMarkers) {
-		this.placeMarkers = placeMarkers;
+	public void setPlaceMarkerMap(final Map<String,String> copyMap) {
+		if (placeMarkerMap == null) {
+			placeMarkerMap = new HashMap<String,String>();
+		}
+		placeMarkerMap.clear();
+		for (String key : copyMap.keySet()) {
+			placeMarkerMap.put(key,copyMap.get(key));
+		}
 	}
 	
 	public void setPreferences(final Preferences prefs) {

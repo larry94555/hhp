@@ -25,45 +25,45 @@ box-shadow: 0px 0px 7px #000;
 	}
 	
 	
-	#pref-container p {
-		color: #346a2e;
-		padding: 10px 20px 20px 20px;
-		font-size: 17px;
-		font-family:Arial, Helvetica, sans-serif;
-	}
+#pref-container p {
+	color: #346a2e;
+	padding: 10px 20px 20px 20px;
+	font-size: 17px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+	#pref-container p span {
+	color: #346a2e;
+	font-size: 13px;
+	padding-left: 40px;
+}
+
+.form_labels {
+	padding-left: 38px;
+	color: #1a6e34;
+	margin-top: -20px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+.form_labels label {
+}
+
+input #name {
+	color: red;
+}
+
+#button {
+	width: 75px;
+	height: 30px;
+	background: rgba(144, 144, 144, 0.075);
+	color: #346a2e;
+	border: 1px solid #717171;
+	font-weight:bold;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 	
-		#pref-container p span {
-		color: #346a2e;
-		font-size: 13px;
-		padding-left: 40px;
-	}
-	
-	.form_labels {
-		padding-left: 38px;
-		color: #1a6e34;
-		margin-top: -20px;
-		font-family:Arial, Helvetica, sans-serif;
-	}
-	
-	.form_labels label {
-	}
-	
-	input #name {
-		color: red;
-	}
-	
-	#button {
-		width: 75px;
-		height: 30px;
-		background: rgba(144, 144, 144, 0.075);
-		color: #346a2e;
-		border: 1px solid #717171;
-		font-weight:bold;
-		-moz-border-radius: 3px;
-		-webkit-border-radius: 3px;
-		border-radius: 3px;
-		
-	}
+}
 	
 #select-container {
 	margin-left: 20px;
@@ -82,7 +82,7 @@ box-shadow: 0px 0px 7px #000;
 #preference-settings {
 	margin-bottom: 20px;
 	border-style: solid;
-	padding: 10px 25px 10px 25px;
+	padding: 20px 25px 20px 25px;
 	border-color: #00cdcf;
 	
 }
@@ -134,10 +134,6 @@ a#set-default-location:hover {
 	//margin-top: 20px;
 }
 
-
-//.rating-very-large .5_0_star-rating {
-//    background: rgba(0, 0, 0, 0) url("/images/stars_map.png") no-repeat scroll -3px -614px;
-//} 
 
 .rating_5_0_star-rating {
 	//background-position: -3px -739px;
@@ -220,4 +216,8 @@ img {
     overflow: hidden;
     position: relative;
     width: 126px;
+}
+
+div#allow-suggestions-container {
+	display: none;
 }

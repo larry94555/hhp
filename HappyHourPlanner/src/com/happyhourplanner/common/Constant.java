@@ -10,10 +10,12 @@ public class Constant {
 	
 	// HTML
 	public static final String CHECKED = "checked=\"checked\"";
+	public static final String SELECTED = "selected=\"selected\"";
 	public static final String EMPTY_STRING = "";
 	
 	// Yelp Properties
 	public static final int YELP_REQUEST_LIMIT = 20;
+	public static final String UNKNOWN_RATING = "unknown_rating";
 	
 	// Email
 	public static final String FROM_ADDRESS = "happyhour@happyhourplanner.appspotmail.com";

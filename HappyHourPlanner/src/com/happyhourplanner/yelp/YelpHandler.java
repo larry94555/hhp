@@ -19,10 +19,13 @@ import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
+import com.happyhourplanner.common.Constant;
 import com.happyhourplanner.controller.PlaceListServlet;
 import com.happyhourplanner.key.Secret;
 import com.happyhourplanner.key.TwoStepOAuth;
 import com.happyhourplanner.key.YelpAPI;
+import com.happyhourplanner.model.PlaceMarker;
+import com.happyhourplanner.model.User;
 
 public class YelpHandler {
 	
@@ -107,7 +110,8 @@ public class YelpHandler {
 	   * @param location <tt>String</tt> of the location
 	   * @return <tt>String</tt> JSON Response
 	   */
-	  public String searchForBusinessesByLocation(final String term, 
+	  public String searchForBusinessesByLocation(
+			  final String term, 
 			  final String location,
 			  final String longitude,
 			  final String latitude,
@@ -148,6 +152,7 @@ public class YelpHandler {
 	   * @param yelpApiCli <tt>YelpAPICLI</tt> command line arguments
 	   */
 	  private static String queryAPI(YelpHandler yelpApi, 
+			  final Map<String,PlaceMarker> placeMarkers,
 			  final String term,
 			  final String location,
 			  final String longitude,
@@ -202,20 +207,32 @@ public class YelpHandler {
 	    for (int i=0; i < businesses.size(); i++) {
 	    	JSONObject business = (JSONObject)businesses.get(i);
 	    	
-	    	String rating = business.get("rating").toString();
+	    	final String rating = business.get("rating").toString();
+	    	final String id = business.get("id").toString();
 	    	if (rating.compareTo(minRating) >= 0) {
-		    	String businessName = normalize(business.get("name").toString());
-		    	String url = business.get("url").toString();
-		    	String id = business.get("id").toString();
-		    	String openStatus = business.get("is_closed").toString().equalsIgnoreCase("true") ? "closed" : "open";
-		    	JSONObject locationInfo = (JSONObject)business.get("location");
-		    	String address = ((JSONArray)locationInfo.get("display_address")).get(0).toString();
+		    	final String businessName = normalize(business.get("name").toString());
+		    	final String url = business.get("url").toString();
+		    	final String openStatus = business.get("is_closed").toString().equalsIgnoreCase("true") ? "closed" : "open";
+		    	final JSONObject locationInfo = (JSONObject)business.get("location");
+		    	final String address = ((JSONArray)locationInfo.get("display_address")).get(0).toString();
+		    	final boolean selected = (placeMarkers != null && placeMarkers.get(id) != null); 
+		    	if (selected) {
+		    		placeMarkers.remove(id);
+		    	}
 		    	//String distance = business.get("distance").toString();
 		    	//_log.info("distance: " + distance);
 		    	Map<String,String> items = map.get(rating);
 		    	if (items == null) items = new TreeMap<String,String>();
-		    	if (items.get(businessName) == null) items.put(businessName,url+",,"+openStatus+",,"+address+",,"+id);
+		    	items.put(businessName,url+",,"+openStatus+",,"+address+",,"+id+",,"+selected);
 		    	map.put(rating, items);
+	    	}
+	    	if (placeMarkers != null) {
+		    	for (PlaceMarker placeMarker : placeMarkers.values()) {
+		    		Map<String,String> items = map.get(Constant.UNKNOWN_RATING);
+		    		if (items == null) items = new TreeMap<String,String>();
+		    		items.put(placeMarker.getName(),placeMarker.getUrl()+",,"+"unknown"+",,"+placeMarker.getAddress()+",,"+placeMarker.getId()+",,true");
+		    		map.put(Constant.UNKNOWN_RATING, items);
+		    	}
 	    	}
 	    	
 	    }
@@ -223,10 +240,48 @@ public class YelpHandler {
 	    // build output
 	    // I will consider adding this later.
 	    //result.append("<optgroup label=\"<a href='#' class='click-more'>Check for more</a>\">\n");
+	    
+	    // handle unknown rating
+	    result.append("<optgroup label=\"")
+	    	.append("<div>Rating (Unknown)</div>\n");
+	    
+	    Map<String,String> items = map.get(Constant.UNKNOWN_RATING);
+	    if (items != null) {
+	    	for (String businessName : items.keySet()) {
+	    		
+	    		String[] parts = items.get(businessName).split(",,");
+	    		
+	    		result.append("<option value=\"").append(businessName.replaceAll("\"", "'"))
+	    		.append("\" title='click view to check out' data-url=\"")
+	    		.append(parts[0])
+	    		.append("\" data-id=\"")
+	    		.append(parts[3])
+	    		.append("\"")
+	    		.append(" data-address=\"")
+	    		.append(parts[1].replaceAll("\"",  "'"))
+	    		.append("\"");
+	    		
+	    		
+	    		if (parts[4].equalsIgnoreCase("true")) {
+	    			result.append(Constant.SELECTED);
+	    		}
+	    		
+	    		result.append(">")
+	    		.append(businessName)
+	    		.append(", ").append(parts[2]).append(", ").append(parts[1])
+	    		.append("</option>");
+	    	}
+	    	
+	    	result.append("</optgroup>\n");
+	    }
+	    
+	    
 	    for (String rating : map.keySet()) {
 	    	
-	    	result.append("<optgroup label=\"")
+	    	// we'll handle this one first, so we will skip.
+	    	if (rating.equals(Constant.UNKNOWN_RATING)) continue;
 	    	
+	    	result.append("<optgroup label=\"")	
 	    	.append("<div class='rating-very-large'>")
 	    	.append("<i class='star-img rating_")
 	    	.append(rating.toString().replaceAll("\\.", "_")).append("_star-rating' title='")
@@ -235,17 +290,27 @@ public class YelpHandler {
 	    	.append(rating).append(" star rating' src='/images/stars_map.png'>")
 	    	.append("</i></div>\">\n");
 	
-	    	Map<String,String> items = map.get(rating);
+	    	items = map.get(rating);
 	    	for (String businessName : items.keySet()) {
 	    		
 	    		String[] parts = items.get(businessName).split(",,");
 	    		
 	    		result.append("<option value=\"").append(businessName.replaceAll("\"", "'"))
-	    		.append("\" title='click view to check out' data-url='")
+	    		.append("\" title='click view to check out' data-url=\"")
 	    		.append(parts[0])
-	    		.append("' data-id='")
+	    		.append("\" data-id=\"")
 	    		.append(parts[3])
-	    		.append("'>")
+	    		.append("\"")
+	    		.append(" data-address=\"")
+	    		.append(parts[1].replaceAll("\"",  "'"))
+	    		.append("\"");
+	    		
+	    		
+	    		if (parts[4].equalsIgnoreCase("true")) {
+	    			result.append(Constant.SELECTED);
+	    		}
+	    		
+	    		result.append(">")
 	    		.append(businessName)
 	    		.append(", ").append(parts[2]).append(", ").append(parts[1])
 	    		.append("</option>");
@@ -261,7 +326,9 @@ public class YelpHandler {
 	    
 	}		
 	
-	public static String getPlaceListAsHtml(final String term, 
+	public static String getPlaceListAsHtml(
+			final Map<String,PlaceMarker> placeMarkers,
+			final String term, 
 			final String location, 
 			final String longitude, 
 			final String latitude, 
@@ -272,7 +339,7 @@ public class YelpHandler {
 			final String offset) {
 		YelpHandler yelpHandler = new YelpHandler(Secret.CONSUMER_KEY, Secret.CONSUMER_SECRET, Secret.TOKEN, Secret.TOKEN_SECRET);
 		
-		String result = queryAPI(yelpHandler,term,location,longitude,latitude,minRating,restaurantsOnly,
+		String result = queryAPI(yelpHandler,placeMarkers,term,location,longitude,latitude,minRating,restaurantsOnly,
 				fullBar,limit,offset);
 		
 		return result;

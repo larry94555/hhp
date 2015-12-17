@@ -50,7 +50,7 @@ public class User {
 	private boolean emailTextOnly; // for testing purposes only
 	
 	@ElementCollection
-	private PlaceMarker[] placeMarkers;
+	private Map<String,PlaceMarker> placeMarkers;
 	
 	@Embedded
 	private Preferences prefs;
@@ -90,7 +90,10 @@ public class User {
 	
 	public boolean emailTextOnly() { return this.emailTextOnly; }
 	
-	public PlaceMarker[] getPlaceMarkers() { return this.placeMarkers; }
+	public Map<String,PlaceMarker> getPlaceMarkers() { 
+		//return this.placeMarkers;
+		return new HashMap<String,PlaceMarker>();
+	}
 	
 	public Preferences getPreferences() { 
 	
@@ -152,7 +155,7 @@ public class User {
 		this.passwordResetCode = passwordResetCode;
 	}
 	
-	public void setPlaceMarkers(final PlaceMarker[] placeMarkers) {
+	public void setPlaceMarkers(final Map<String,PlaceMarker> placeMarkers) {
 		this.placeMarkers = placeMarkers;
 	}
 	

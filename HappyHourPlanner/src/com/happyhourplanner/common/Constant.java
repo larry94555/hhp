@@ -99,9 +99,9 @@ public class Constant {
 
 	
 	public static final int STATE_VERIFY_EMAIL_NUM = 0;
-	public static final int STATE_CONTACT_LIST_NUM = 1;
-	public static final int STATE_PREFERENCES_NUM = 2;
-	public static final int STATE_INVITE_NUM = 3;
+	public static final int STATE_PREFERENCES_NUM = 1;
+	public static final int STATE_INVITE_NUM = 2;
+	public static final int STATE_CONTACT_LIST_NUM = 3;
 	public static final int STATE_STATUS_NUM = 4;
 	public static final int STATE_DATE_SET_NUM = 5;
 }

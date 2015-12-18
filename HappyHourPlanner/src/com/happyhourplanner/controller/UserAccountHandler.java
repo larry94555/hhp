@@ -129,8 +129,12 @@ public class UserAccountHandler {
 		if (user != null && !user.isVerified()) {
 			if (user.getActivationCode().equals(activationCode)) {				
 				user.setVerifiedFlag(true);
-				user.setCurrentState(1);
+				user.setCurrentState(Constant.STATE_PREFERENCES);
 				persist(user);
+				
+				// create first invite
+				
+
 				
 			}
 

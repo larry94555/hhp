@@ -39,7 +39,7 @@ $(function() {
 			  });
 		  }
 		  else {
-			  $('#wizard-t-3').click();
+			  $('#wizard-t-2').click();
 		  }
 	  });
 

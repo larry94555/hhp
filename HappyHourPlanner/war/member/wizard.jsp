@@ -1,30 +1,4 @@
 <!DOCTYPE html>
-<%@ page import="com.happyhourplanner.controller.UserAccountHandler" %>
-<%@ page import="com.happyhourplanner.model.User" %>
-<%@ page import="com.happyhourplanner.model.Contact" %>
-<%@ page import="com.happyhourplanner.model.Preferences" %>
-<%@ page import="com.happyhourplanner.model.PlaceMarker" %>
-<%@ page import="com.happyhourplanner.common.Util" %>
-<%@ page import="com.happyhourplanner.common.Constant" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="javax.servlet.http.HttpSession" %>
-
-<% 
-	final User user = Util.checkForUser(request,response);
-	if (user == null) {
-		// in this case, do a sign out.
-		request.getSession().invalidate();
-	    Util.removeSessionCookie(response);
-	    pageContext.forward("/");
-	}
-	
-	final String status = (String)session.getAttribute(Constant.STATUS);
-	
-	final int currentState =  user.getCurrentState();
-	
-%>
-
 
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -88,264 +62,42 @@
                 <h2>Verify Email Address</h2>
                 <section>
                 
-                <% if (user.isVerified()) { %>
-                
-                	<p>Your account has already been activated.</p>
-                	<p>Click <a id="stepOne-continue" href="#">here</a> to continue.</p>
-                	
-                <% } else if (status == null) { %>	
-              
-                	
-                	<% if (Util.checkDateInMinutes((java.util.Date)session.getAttribute("verify_resend"),30)) { %>
-                
-                	<p>We&apos;ve resent the email containing a link that will verify your email account.</p>
-                	<p>Please check your spam folder if the email doesn&apos;t appear within a few minutes.</p>
-                
-                	<% } else { %>
-                	
-                	<p>We&apos;ve sent you an email containing a link that will allow you to verify your email account.</p>
-                	<p>Please check your spam folder if the email doesn&apos;t appear within a few minutes.</p>
-                	<p>Click <a href="#" id="resendverify">here</a> to resend the email.</p>
-                	
-                	<% } %>
-                
-                <% } else if (!status.equals(Constant.BAD_ACTIVATION_CODE)) { %>
-                
-                	<p>Thanks for verifying your email.  Welcome to Happy Hour Planner!</p>
-                	<p>Click <a href=#">here</a> to continue.</p>
-                
-                <% } else { %>
-                
-                	<p>The activation code you selected was old. A more recent one was sent.</p>
-                	<p>Click <a href="#" id="resendverify">here</a> to resend the email.</p>
-                
-                	<p>Thanks for verifying your email.  Welcome to Happy Hour Planner!</p>
-                	<p>Click <a href=#">here</a> to continue.</p>
-                
-                
-                <% 
-                
-                	session.removeAttribute(Constant.STATUS);
-                
-                	} 
-                	
-                %>
-                
-                
-                    <div class="messagepop pop">
-  						<form method="post" id="new_message" action="/messages">
-    						<p><label for="email">Your email address</label><input type="text" name="email-contact" id="email-contact" /></p>
-    						<p><label for="body">Message</label><textarea rows="6" name="contact-body" id="contact-body"></textarea></p>
-    						<p><input type="submit" value="Send Message" name="comment_submit" id="comment_submit"/></p>
-  						</form>
-					</div>
-					
-					<a href="#" id="contact" class="special button">Contact Us</a>
+				<jsp:include page="verifyEmailAccount.jsp" />
                     
                 </section>
 
                 <h2>Create Contact List</h2>
                 <section>
                 
-                	<% if (status != null && status.equals(Constant.JUST_ACTIVATED)) { %>
-                
-                    <p>Thanks for confirming your email address!</p>
-                   
-                    
-                    <% } %>
-                    
-                    <p>The next step is to add your contacts to the table below and click 'add'.</p>
-                    <p>You need at least 1 contact.<span id='contact-continue'> When done, click <a id='stepTwo-continue' href='#'>here</a> to continue.</span></p>
-                    
-                    <div class="add-contact-list-area">
-                    
-                    	<button id='add-contact-button' class='slider-button' title='add a contact.'>add</button>
-                    	<button id='email-contact-button' class='slider-button' title='forward an email'>email the contact</button>
-                    	<button id='edit-contact-button' class='slider-button' title='edit existing list'>edit list</button> 
-                    	<span id='edit-contact-recycle-bin' class='glyphicon glyphicon-trash'>2</span>
-					  	<table id="mainTable" class="table table-striped">
-            				<thead><tr><th>Name</th><th>Email Address</th></tr></thead>
-            				<tbody>
-            					<% for (int i=0; i < 10; i++) { %>
-            					
-              					<tr><td class='contact-name'>&nbsp;</td><td class='contact-email'>&nbsp;</td></tr>
-              					
-              					<% } %>
-            				</tbody>
-          				</table>
-					</div>
-                    <div id="slider">
-					  <div class="slider-content">
-					  	<ul id='slider-contact-list'>
-					  
-					  <%= UserAccountHandler.generateContactListHtml(user) %>   
-					    
-					  	
-					  	</ul>
-					  </div>
-					 
-					</div>
+				<jsp:include page="createContactList.jsp" />
                     
                 </section>
 
                 <h2>Set Preferences</h2>
                 <section>
- <div id="pref-container">
-  <div id="pref-form1">
-  
-<div id='select-container'>
+                
+                <jsp:include page="setPreferences.jsp" />
 
-<a href="#" id="accept-preferences" class="special button">Continue</a>
-
-<div id="preferences-title">What are your preferences?</div>
-
-<%
-
-	// handle options
-	String prefAllowSuggestions = (user.getPreferences().isAllowSuggestions()) ? Constant.CHECKED : "";
-	String prefUseMinRating = (user.getPreferences().isUseMinRating()) ? Constant.CHECKED : "";
-	String minRating = user.getPreferences().getMinRating();
-	String restaurantsOnly = (user.getPreferences().isRestaurantsOnly()) ? Constant.CHECKED : "";
-	String fullBar = (user.getPreferences().isFullBar())? Constant.CHECKED : "";
-	
-	String mon = (user.getPreferences().getAvailability().indexOf("Mo") != -1) ? Constant.CHECKED : "";
-	String tues = (user.getPreferences().getAvailability().indexOf("Tu") != -1) ? Constant.CHECKED : "";
-	String wed = (user.getPreferences().getAvailability().indexOf("We") != -1) ? Constant.CHECKED : "";
-	String thur = (user.getPreferences().getAvailability().indexOf("Th") != -1) ? Constant.CHECKED : "";
-	String fri = (user.getPreferences().getAvailability().indexOf("Fr") != -1) ? Constant.CHECKED : "";
-	String sat = (user.getPreferences().getAvailability().indexOf("Sa") != -1) ? Constant.CHECKED : "";
-	String sun = (user.getPreferences().getAvailability().indexOf("Su") != -1) ? Constant.CHECKED : "";
-	
-%>
-
-<div id="preference-settings">
-<div id="allow-suggestions-container">
-<input type="checkbox" name="pref-allow-suggestions" class="standard-checkbox pref-setting" id="pref-allow-suggestions" <%= prefAllowSuggestions %> /><label for="pref-allow-suggestions">Let People Suggest Places</label><br /><br />
-</div>
-
-<input type="checkbox" name="skip-low-ratings" class="standard-checkbox place-search-option pref-setting" id="skip-low-ratings" <%= prefUseMinRating %> />
-<label for="skip-low-ratings">Disallow places rated lower than</label><input type="text" name="min-rating" id="min-rating" class="place-search-option pref-setting" value="<%= minRating %>"></input> stars<br/><br/>
-
-<input type="checkbox" name="pref-restaurants-only" class="standard-checkbox place-search-option pref-setting" id="pref-restaurants-only" <%= restaurantsOnly %>/><label for="pref-restaurants-only">Restaurants only</label><br /><br />
-
-<input type="checkbox" name="pref-spirits-too" class="standard-checkbox place-search-option pref-setting" id="pref-spirits-too" <%= fullBar %> /><label for="pref-spirits-too">Full bar (wine, beer, and spirits)</label><br /><br />
-
-<input type="checkbox" name="pref-allow-m" class="standard-checkbox pref-setting" id="pref-allow-m" <%= mon %> /><label for="pref-allow-m">M</label>
-<input type="checkbox" name="pref-allow-t" class="standard-checkbox pref-setting" id="pref-allow-t" <%= tues %> /><label for="pref-allow-t">T</label>
-<input type="checkbox" name="pref-allow-w" class="standard-checkbox pref-setting" id="pref-allow-w" <%= wed %> /><label for="pref-allow-w">W</label>
-<input type="checkbox" name="pref-allow-th" class="standard-checkbox pref-setting" id="pref-allow-th" <%= thur %> /><label for="pref-allow-th">Th</label>
-<input type="checkbox" name="pref-allow-f" class="standard-checkbox pref-setting" id="pref-allow-f" <%= fri %> /><label for="pref-allow-f">F</label>
-<input type="checkbox" name="pref-allow-sa" class="standard-checkbox pref-setting" id="pref-allow-sa" <%= sat %> /><label for="pref-allow-sa">Sat</label>
-<input type="checkbox" name="pref-allow-su" class="standard-checkbox pref-setting" id="pref-allow-su" <%= sun %> /><label for="pref-allow-su">Sun</label>
-
-</div>
-
-<label for="default-location">Location:</label><span id="def-location">current (<span id="detected-location"></span>)</span><a id="set-default-location">set</a>
-<input type="hidden" id="detected-latitude"></input>
-<input type="hidden" id="detected-longitude"></input>
-<input type="hidden" id="place-search-offset" value="0"></input>
-<input type="hidden" id="main-current-state" value="<%= currentState %>"></input>
-
-<div id="override-current-location">
-<input type="text" name="pref-near" id="pref-near" class="place-search-option" placeholder="Enter city, neighborhood, zip, or cross streets" />
-</div>
-
-<div id='container'> 
-<label for="pref-list">Places:</label><br /> 
-
-<select id="my-select" name="character" multiple="multiple"> 
-<option disabled="disabled">Loading...</option>
-</select>
-</div>
-
-<a href="http://yelp.com" title="list powered by yelp"><img id='yelp-image' src="/images/yelp_powered_btn_dark.png"></a>
-
-<div id='select-container2'>
-
-<br/><label for="pref-list">Disallow:</label><br />
-
-<!--<select id="my-select2" name="character" multiple="multiple">
-<option disabled="disabled">Loading...</option>
-</select> -->
-
-</div>
-</div>
-    
-    </div>
-</div>
                 </section>
 
                 <h2>Send Out Invite</h2>
                 <section>
-                	<p>Here is the invite -- make any changes you like:</p>
-                	<textarea class="yellow-page"></textarea>
-                    <p>Who do you want to invite:
-                    	<select>
-                    		<option>-Select-</option>
-                    		<option>Entire Contact List</option>
-                    		<option>Group List</option>
-                    	</select>
-                    </p>
-                    <p>Which Group List:
-                    	<select>
-                    		<option>-Select-</option>
-                    		<option>Group A</option>
-                    		<option>Group B</option>
-                    		<option>Create New Group</option>
-                    	</select>
-                    </p>
+
+				<jsp:include page="sendOutInvite.jsp" />
                     
                 </section>
-                <h2>Check Out Status</h2>
+				
+				<h2>Check Out Status</h2>
                 <section>
-                    <p>Date Range:
-                    	<select>
-                    		<option>This week</option>
-                    		<option>Next 2 weeks</option>
-                    		<option>Next 3 weeks</option>
-                    		<option>Next 4 weeks</option>
-                    		<option>Next 5 weeks</option>
-                    		<option>Next 6 weeks</option>
-                    	</select>
-                    </p>
-                    <p>Day of Week:
-                    	<select>
-                    		<option>Any day</option>
-                    		<option>Weekend</option>
-                    		<option>Week Day</option>
-                    	</select>
-                    </p>
-                    <p>Time of Day:
-                    	<select>
-                    		<option>any time</option>
-                    		<option>3pm</option>
-                    		<option>4pm</option>
-                    		<option>5pm</option>
-                    		<option>6pm</option>
-                    		<option>7pm</option>
-                    		<option>8pm</option>
-                    	</select>
-                    </p>
-                    <p>Location:
-                    	<select>
-                    		<option>San Jose</option>
-                    		<option>Sunnyvale</option>
-                    		<option>Santa Cruz</option>
-                    	</select>
-                    </p>
-                    <p>Places:
-                    	<select>
-                    		<option>The Brit</option>
-                    		<option>The Wagon Wheel</option>
-                    		<option>Somewhere new</option>
-                    		<option>Don't care</option>
-                    	</select>
-                    </p>
+                
+                <jsp:include page="checkOutStatus.jsp" />
+                
                 </section>
                 <h2>Save the Date</h2>
                 <section>
-                    <p>Voting has ended.  Here are the details that accommodate the most people:</p>
-                    <p>Do you wish to proceed or cancel?</p>
+                    
+                <jsp:include page="saveTheDate.jsp" />    
+                    
                 </section>
             </div>
         </div>
@@ -357,36 +109,6 @@
 		<script src="/js/main.js"></script>
 		<script src="/js/login.js"></script>
 		<script src="/js/wizard.js"></script>
-		<script>
-			$(function () {
-			    $("#wizard").steps({
-			        headerTag: "h2",
-			        bodyTag: "section",
-			        enableKeyNavigation: false,
-			        startIndex: <%= currentState %>,
-			        enablePagination: false,
-			        transitionEffect: "slideLeft",
-			        stepsOrientation: "vertical"
-			    });
-			    $('#slider').sliderNav({height:'500'});
-			    $('#mainTable').editableTableWidget().contactInput().find('td:first').focus();
-  				$('#mainTable td').on('mouseover', function() {
-					if ($.trim($(this).text()).length===0 && $(this).prop('tabindex')===0) $(this).focus();
-				});
-			
-  				window.prettyPrint && prettyPrint();
-  				if (<%= currentState %> > 1) {
-  					$('#contact-continue').css('visibility','visible');
-  				}
-			});
-			
-			$(function() {
-        		// initialize sol
-        		//$('#my-select').searchableOptionList({});
-        		//$('#my-select2').searchableOptionList({});
-    		});
-   			
-		</script>
         
     </body>
 </html>

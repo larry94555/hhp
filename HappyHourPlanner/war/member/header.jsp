@@ -7,6 +7,12 @@
 <% 
 	// check for cookie
 	final User user = Util.checkForUser(request,response);
+	if (user == null) {
+		// in this case, do a sign out.
+		request.getSession().invalidate();
+	    Util.removeSessionCookie(response);
+	    pageContext.forward("/");
+	}
 %>
 
 		<!-- Header -->

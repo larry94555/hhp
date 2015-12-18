@@ -21,16 +21,16 @@
         <link rel="stylesheet" href="/css/slidernav.css" />
         <link href="/css/prettify.css" rel="stylesheet">
         <link href="/css/bootstrap.min.css" rel="stylesheet">
-    	<!-- <link href="/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> -->
     	<link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link href="/css/font-awesome.css" rel="stylesheet">
 		<link rel="stylesheet" href="/css/preferences.css" />
+		<link rel="stylesheet" href="/css/createInvite.css" />
         <script src="/querystep/lib/modernizr-2.6.2.min.js"></script>
         <script src="/querystep/lib/jquery-1.9.1.min.js"></script>
         <script src="/querystep/lib/jquery.cookie-1.3.1.js"></script>
         <script src="/querystep/lib/jquery.steps.js"></script>
         <script src="/js/slidernav.js"></script>
-        <script type="text/javascript" language="javascript" src="/js/emailpopup.js"></script>     
+        <script type="text/javascript" language="javascript" src="/js/verifyEmailAccount.js"></script>     
     	<script src="/js/bootstrap.min.js"></script>
     	<script src="/js/prettify.js"></script>
 		<link href="/css/edittableindex.css" rel="stylesheet">
@@ -66,13 +66,6 @@
                     
                 </section>
 
-                <h2>Create Contact List</h2>
-                <section>
-                
-				<jsp:include page="createContactList.jsp" />
-                    
-                </section>
-
                 <h2>Set Preferences</h2>
                 <section>
                 
@@ -80,10 +73,17 @@
 
                 </section>
 
-                <h2>Send Out Invite</h2>
+                <h2>Create Invite</h2>
                 <section>
 
-				<jsp:include page="sendOutInvite.jsp" />
+				<jsp:include page="createInvite.jsp" />
+                    
+                </section>
+                
+                <h2>Create Contact List</h2>
+                <section>
+                
+				<jsp:include page="createContactList.jsp" />
                     
                 </section>
 				

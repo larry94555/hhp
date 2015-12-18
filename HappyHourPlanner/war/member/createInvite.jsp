@@ -1,3 +1,8 @@
+ <div id="create-invite-container">
+ 
+ 	<div id="create-invite-form">
+		
+
                 	<p>Here is the invite -- make any changes you like:</p>
                 	<textarea class="yellow-page"></textarea>
                     <p>Who do you want to invite:
@@ -15,3 +20,6 @@
                     		<option>Create New Group</option>
                     	</select>
                     </p>
+	
+	</div>                    
+</div>

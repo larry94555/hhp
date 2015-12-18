@@ -15,8 +15,8 @@
 %> 
  
  
- <div id="pref-container">
-  <div id="pref-form1">
+<div id="pref-container">
+<div id="pref-form1">
   
 <div id='select-container'>
 

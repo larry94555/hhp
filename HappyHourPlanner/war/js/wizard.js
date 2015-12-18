@@ -382,3 +382,27 @@ $(function() {
 	
 });
 
+$(function () {
+    $("#wizard").steps({
+        headerTag: "h2",
+        bodyTag: "section",
+        enableKeyNavigation: false,
+        startIndex: $('#main-current-state').val(),
+        enablePagination: false,
+        transitionEffect: "slideLeft",
+        stepsOrientation: "vertical"
+    });
+    $('#slider').sliderNav({height:'500'});
+    $('#mainTable').editableTableWidget().contactInput().find('td:first').focus();
+		$('#mainTable td').on('mouseover', function() {
+		if ($.trim($(this).text()).length===0 && $(this).prop('tabindex')===0) $(this).focus();
+	});
+
+		window.prettyPrint && prettyPrint();
+		if ($('#main-current-state').val() > 1) {
+			$('#contact-continue').css('visibility','visible');
+		}
+});
+
+
+

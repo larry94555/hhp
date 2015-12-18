@@ -1,0 +1,44 @@
+#create-invite-container {
+	background:url() no-repeat;
+	//height: 855px;
+	width: 800px;
+}
+
+#create-invite-container p {
+	color: #346a2e;
+	padding: 10px 20px 20px 20px;
+	font-size: 17px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+#create-invite-container p span {
+	color: #346a2e;
+	font-size: 13px;
+	padding-left: 40px;
+}
+
+#create-invite-form {
+	position:absolute;
+	left: 100px;
+	background: #fcfff1;
+	width: 550px;
+	padding-bottom: 20px;
+	//height: 600px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px; 
+	-moz-box-shadow: 0px 0px 7px #000;
+	-webkit-box-shadow: 0px 0px 7px #000;
+	box-shadow: 0px 0px 7px #000;
+}
+
+
+
+
+#create-invite-inner-container {
+	margin-bottom: 20px;
+	border-style: solid;
+	padding: 20px 25px 20px 25px;
+	border-color: #00cdcf;
+	
+}

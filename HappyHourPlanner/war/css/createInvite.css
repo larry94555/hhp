@@ -42,3 +42,41 @@
 	border-color: #00cdcf;
 	
 }
+
+#invite-draft-text {
+	width: 510px; 
+	height: 300px; 
+	border: 1px solid 256632; 
+	margin-bottom: 10px;
+	margin-left: 0px;
+
+}
+
+#action-send-invite {
+	margin-left: 215px;
+	margin-top: 10px;
+	margin-bottom: 30px;
+	border-radius: 30px;
+}
+
+#invite-title {
+	text-align: center;
+	width: 510px; 
+}
+
+#invite-to-list {
+	background: white;
+	width: 510px;
+	height: 60px;
+}
+
+#invite-to-container {
+	padding: 10px 20px 0px 20px;
+	font-size: 17px;
+	font-family:Arial, Helvetica, sans-serif;
+	width: 550px;
+}
+
+input#invite-to-field {
+	width: 100%;
+}

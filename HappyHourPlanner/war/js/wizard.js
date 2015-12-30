@@ -277,14 +277,7 @@ $(function() {
 	
 	$('body').on('change','input.place-search-option',handleChangeToSearchOptions);
 	
-	$('body').on('change','input.pref-setting',handleChangeToPreferences);
-	
-	
-	// call ajax value to update the invitation details.
-	// title, contact list, and invite text.
-//	$('body').on('change','input.invite-settings', function() {
-//	});
-	
+	$('body').on('change','input.pref-setting',handleChangeToPreferences);	
 	
 	function getDefaultLocationBasedOnIpAddress() {
 		

@@ -75,6 +75,25 @@ public class Invite {
 		return copyInvitees;
 	}
 	
+	public String getInviteesAsString() {
+		if (invitees == null || invitees.isEmpty()) return "";
+		
+		StringBuilder builder = new StringBuilder("[");
+		for (String invitee : invitees) {
+			
+			if (builder.length() > 1) {
+				builder.append(",");
+			}
+			
+			builder.append("\"")
+				.append(invitee)
+				.append("\"");
+		}
+		builder.append("]");
+		
+		return builder.toString();
+	}
+	
 	public String getText() { return text; }
 	
 	public String getHtml() { return html; }

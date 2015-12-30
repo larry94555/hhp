@@ -3,6 +3,7 @@ package com.happyhourplanner.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.Map;
@@ -90,6 +91,28 @@ public class UserAccountHandler {
 		else {
 			return (Invite)query.getResultList().get(0);
 		}
+		
+	}
+	
+	public static void updateInvite(
+			final User user,
+			final String groupName,
+			final String[] toList,
+			final String text,
+			final int groupId,
+			final ServletContext servletContext
+			
+			) throws IOException {
+		
+		
+		Invite invite = findInvite(user.getUserName(),groupId,servletContext);
+		invite.setText(text);
+		invite.setGroupName(groupName);
+		invite.setInvitees(Arrays.asList(toList));
+		persist(invite);
+	
+		
+		
 		
 	}
 	

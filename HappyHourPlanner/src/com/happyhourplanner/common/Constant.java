@@ -89,6 +89,8 @@ public class Constant {
 	
 	public static final String PREFERENCES_SAVED = "Preferences saved.";
 	
+	public static final String CHANGES_SAVED = "Changes saved.";
+	
 	// contacts stored as <email>@@<name>
 	public static final int NAME_PART=1;
 	public static final int EMAIL_PART=0;

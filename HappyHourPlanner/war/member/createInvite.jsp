@@ -20,13 +20,14 @@
  
  		<p>
  		<label for="invite-title">Invite Group Name:</label>
- 		<input type="text" name="invite-title" id="invite-title" class="place-search-option invite-setting" value="<%= invite.getGroupName() %>" />	
+ 		<input type="text" name="invite-title" id="invite-title" class="invite-setting" value="<%= invite.getGroupName() %>" />
+ 		<input type="hidden" name="invite-group-id" id="invite-group-id" value="<%=invite.getGroupId() %>" />	
 		</p>    
  
  
 		<div id='invite-to-container'>
 			<label for='invite-to-field'>Add Emails:</label>
-			<input type='text' id='invite-to-field' name='invite-to-field' class='form-control invite-setting' value=''>
+			<input type='text' id='invite-to-field' name='invite-to-field' class='form-control invite-setting' value='<%= invite.getInviteesAsString() %>'>
 		</div>
  		
     	<p>

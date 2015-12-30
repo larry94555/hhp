@@ -280,6 +280,12 @@ $(function() {
 	$('body').on('change','input.pref-setting',handleChangeToPreferences);
 	
 	
+	// call ajax value to update the invitation details.
+	// title, contact list, and invite text.
+//	$('body').on('change','input.invite-settings', function() {
+//	});
+	
+	
 	function getDefaultLocationBasedOnIpAddress() {
 		
 		var getLocation = $.ajax({

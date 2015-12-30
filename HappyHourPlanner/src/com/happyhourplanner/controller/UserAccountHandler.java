@@ -1,5 +1,6 @@
 package com.happyhourplanner.controller;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.happyhourplanner.common.Constant;
@@ -18,6 +20,7 @@ import com.happyhourplanner.common.Util;
 import com.happyhourplanner.model.Contact;
 import com.happyhourplanner.model.EM;
 import com.happyhourplanner.model.EMF;
+import com.happyhourplanner.model.Invite;
 import com.happyhourplanner.model.Passwords;
 import com.happyhourplanner.model.PlaceMarker;
 import com.happyhourplanner.model.Preferences;
@@ -56,6 +59,37 @@ public class UserAccountHandler {
 	public static User find(final String username) {
 		
 		return EM.get().find(User.class, username);
+		
+	}
+	
+	public static Invite findInvite(final String username, final int groupId,final ServletContext servletContext) 
+		throws IOException {
+		
+		Query query = EM.get().createQuery(
+				"SELECT i FROM Invite i WHERE i.username = :username AND i.groupId = :groupId");
+		query.setParameter("username", username);
+		query.setParameter("groupId", groupId);
+		query.setFirstResult(0);
+		query.setMaxResults(1);
+		
+		// if none found, then create one
+		if (query.getResultList().isEmpty()) {
+			// create first invite
+			Invite invite = new Invite(
+					username,
+					Constant.DEFAULT_GROUP_NAME,
+					null,
+					FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_TEXT_FILE),
+					FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_HTML_FILE),
+					1
+			);
+			persist(invite);
+			return invite;
+			
+		}
+		else {
+			return (Invite)query.getResultList().get(0);
+		}
 		
 	}
 	
@@ -99,6 +133,8 @@ public class UserAccountHandler {
 		return null;
 	}
 	
+	
+	
 	private static User getUserByPasswordResetCode(final String passwordResetCode) {
 		Query query = EM.get().createQuery("SELECT u FROM User u WHERE u.passwordResetCode = :passwordResetCode");
 		query.setParameter("passwordResetCode", passwordResetCode);
@@ -118,7 +154,8 @@ public class UserAccountHandler {
 		return null;
 	}
 	
-	public static void activateUser(final String activationCode,User user) {
+	public static void activateUser(final String activationCode,User user, final ServletContext servletContext)
+		throws IOException {
 		
 		if (user == null) {
 			// in this case, retrieve use using activation code
@@ -129,11 +166,19 @@ public class UserAccountHandler {
 		if (user != null && !user.isVerified()) {
 			if (user.getActivationCode().equals(activationCode)) {				
 				user.setVerifiedFlag(true);
-				user.setCurrentState(Constant.STATE_PREFERENCES);
+				user.setCurrentState(Constant.STATE_PREFERENCES_NUM);
 				persist(user);
 				
 				// create first invite
-				
+				Invite invite = new Invite(
+						user.getUserName(),
+						Constant.DEFAULT_GROUP_NAME,
+						null,
+						FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_TEXT_FILE),
+						FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_HTML_FILE),
+						1
+				);
+				persist(invite);
 
 				
 			}
@@ -142,6 +187,10 @@ public class UserAccountHandler {
 		
 		// else, do nothing.
 		
+	}
+	
+	public static Invite getDefaultInvite(final User user,final ServletContext servletContext) throws IOException {
+		return findInvite(user.getUserName(),1,servletContext);
 	}
 	
 	public static boolean resetPassword(final String passwordResetCode,User user) {
@@ -198,6 +247,11 @@ public class UserAccountHandler {
 	
 	private static void persist(final User user) {
 		EM.get().persist(user);
+		EM.commit();
+	}
+	
+	private static void persist(final Invite invite) {
+		EM.get().persist(invite);
 		EM.commit();
 	}
 	

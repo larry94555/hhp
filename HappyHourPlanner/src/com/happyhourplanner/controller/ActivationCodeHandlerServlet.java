@@ -29,7 +29,7 @@ public class ActivationCodeHandlerServlet extends HttpServlet {
 			
 			if (!user.isVerified()) { 
 			
-				UserAccountHandler.activateUser(activationCode,user);
+				UserAccountHandler.activateUser(activationCode,user,getServletContext());
 				if (!user.isVerified()) {
 					req.getSession().setAttribute(Constant.STATUS, Constant.BAD_ACTIVATION_CODE);
 				}

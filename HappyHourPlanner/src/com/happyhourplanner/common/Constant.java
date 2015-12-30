@@ -8,6 +8,11 @@ public class Constant {
 	// Contacts
 	public static final int MAX_CONTACTS = 1000;
 	
+	// Invites
+	public static final String DEFAULT_GROUP_NAME = "Group 1";
+	public static final String DEFAULT_INVITE_TEXT_FILE = "/WEB-INF/resources/defaultInvite.txt";
+	public static final String DEFAULT_INVITE_HTML_FILE = "/WEB-INF/resources/defaultInvite.html";
+	
 	// HTML
 	public static final String CHECKED = "checked=\"checked\"";
 	public static final String SELECTED = "selected=\"selected\"";

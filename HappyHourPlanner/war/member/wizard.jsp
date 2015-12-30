@@ -24,6 +24,7 @@
     	<link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link href="/css/font-awesome.css" rel="stylesheet">
 		<link rel="stylesheet" href="/css/preferences.css" />
+		<link type="text/css" rel="stylesheet" href="/css/multiple-emails.css" />
 		<link rel="stylesheet" href="/css/createInvite.css" />
         <script src="/querystep/lib/modernizr-2.6.2.min.js"></script>
         <script src="/querystep/lib/jquery-1.9.1.min.js"></script>
@@ -109,6 +110,8 @@
 		<script src="/js/main.js"></script>
 		<script src="/js/login.js"></script>
 		<script src="/js/wizard.js"></script>
+		<script type="text/javascript" src="/js/multiple-emails.js"></script>
+        <script tyoe="text/javascript" src="/js/createInvite.js"></script>
         
     </body>
 </html>

@@ -1,25 +1,42 @@
+<%@ page import="com.happyhourplanner.controller.UserAccountHandler" %>
+<%@ page import="com.happyhourplanner.model.User" %>
+<%@ page import="com.happyhourplanner.model.Invite" %>
+<%@ page import="com.happyhourplanner.common.Util" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.happyhourplanner.common.Constant" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
+
+<% 
+	// check for cookie
+	final User user = Util.checkForUser(request,response);
+	
+	Invite invite = UserAccountHandler.getDefaultInvite(user,pageContext.getServletContext());
+%> 
+
+	
  <div id="create-invite-container">
  
  	<div id="create-invite-form">
-		
-
-                	<p>Here is the invite -- make any changes you like:</p>
-                	<textarea class="yellow-page"></textarea>
-                    <p>Who do you want to invite:
-                    	<select>
-                    		<option>-Select-</option>
-                    		<option>Entire Contact List</option>
-                    		<option>Group List</option>
-                    	</select>
-                    </p>
-                    <p>Which Group List:
-                    	<select>
-                    		<option>-Select-</option>
-                    		<option>Group A</option>
-                    		<option>Group B</option>
-                    		<option>Create New Group</option>
-                    	</select>
-                    </p>
+ 
+ 		<p>
+ 		<label for="invite-title">Invite Group Name:</label>
+ 		<input type="text" name="invite-title" id="invite-title" class="place-search-option invite-setting" value="<%= invite.getGroupName() %>" />	
+		</p>    
+ 
+ 
+		<div id='invite-to-container'>
+			<label for='invite-to-field'>Add Emails:</label>
+			<input type='text' id='invite-to-field' name='invite-to-field' class='form-control invite-setting' value=''>
+		</div>
+ 		
+    	<p>
+    	<label for="invite-draft-text">Text:</label>
+    	<textarea class="yellow-page invite-setting" id="invite-draft-text">
+    		<%= invite.getText() %>
+    	</textarea>
+    	</p>            
+                    
+        <a href="#" id="action-send-invite" class="special button">Send</a>
 	
 	</div>                    
 </div>

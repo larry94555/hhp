@@ -13,9 +13,11 @@ $(function() {
     		type: "POST",
     		data: { 
     			groupName: $('#invite-title').val(),
-    			toList: JSON.stringify($('#invite-to-field').val()),
+    			toList: $('#invite-to-field').val(),
     			text: $('#invite-draft-text').val(),
-    			groupId: $('#invite-group-id').val()
+    			groupId: $('#invite-group-id').val(),
+    			inviteInstanceId: $('#invite-instance-id').val(),
+    			send: "update"
 			},
     		dataType: "json"
         });
@@ -31,6 +33,29 @@ $(function() {
 	$('body').on('change','input.invite-setting', handleInviteChange);
 	
 	$('#invite-draft-text').bind('blur propertychange',handleInviteChange);
+	
+	$('#action-send-invite').click(function() {
+		var sendInvite = $.ajax({
+        	url: "/invite",
+    		type: "POST",
+    		data: { 
+    			groupName: $('#invite-title').val(),
+    			toList: $('#invite-to-field').val(),
+    			text: $('#invite-draft-text').val(),
+    			groupId: $('#invite-group-id').val(),
+    			inviteInstanceId: $('#invite-instance-id').val(),
+    			send: 'email'
+			},
+    		dataType: "json"
+        });
+		
+		updateInvite.done(function(data) {
+		});
+		
+		updateInvite.fail(function(jqXHR,textStatus) {
+		});
+		
+	});
 	
 });
 

@@ -126,6 +126,7 @@ $(function() {
 		var minRating = $.trim($('#min-rating').val());
 		var restaurantsOnly = $('#pref-restaurants-only').is(':checked');
 		var fullBar = $('#pref-spirits-too').is(':checked');
+		var minAvailable = $.trim($('#min-num-available').val());
 		var mon = $('#pref-allow-m').is(':checked');
 		var tue = $('#pref-allow-t').is(':checked');
 		var wed = $('#pref-allow-w').is(':checked');
@@ -150,7 +151,8 @@ $(function() {
 			minRating: minRating,
 			restaurantsOnly: restaurantsOnly,
 			fullBar: fullBar,
-			availability: availability
+			availability: availability,
+			minAvailable: minAvailable
 		};
 	}
 	
@@ -194,6 +196,7 @@ $(function() {
 				latitude: latitude,
 				category: 'happy hour',
 				minRating: settings.minRating,
+				minAvailable: settings.minAvailable,
 				restaurantsOnly: settings.restaurantsOnly,
 				fullBar: settings.fullBar,
 				offset: offset
@@ -267,7 +270,7 @@ $(function() {
         });
 		
 		updatePreferences.done(function(data) {
-			handleFunction();
+			//handleFunction();
 		});
 		
 		updatePreferences.fail(function(qXHR,textStatus) {

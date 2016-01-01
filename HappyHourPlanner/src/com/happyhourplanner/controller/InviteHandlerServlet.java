@@ -3,6 +3,7 @@ package com.happyhourplanner.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,17 +40,27 @@ public class InviteHandlerServlet extends HttpServlet {
 		    	// get details from the settings
 		    	final String groupName = req.getParameter("groupName");
 		    	final String[] toList = _gson.fromJson(req.getParameter("toList"),String[].class);
-		    	final String text = req.getParameter("text");
+		    	final String text = req.getParameter("text").trim();
 		    	final int groupId = Integer.parseInt(req.getParameter("groupId"));
-		    	
+		    	final int inviteInstanceId = Integer.parseInt(req.getParameter("inviteInstanceId"));
+		    	final String sendStatus = req.getParameter("send");
+		    	List<String> sentList = null;
 		    	
 		    	//UserAccountHandler.updatePreferences(user,placeMarkerMap,prefs);
 		    	UserAccountHandler.updateInvite(user,groupName,toList,text,groupId,getServletContext());
+		    	ContactHandler.addContactList(user, toList);
 		    	
+		    	if (sendStatus.equals("email")) {
+		    		
+		    		
+		    		// send out to each person (who has not already received)
+		    		sentList = ContactHandler.sendToNewUsersOnly(user,text,inviteInstanceId,toList);
+		    		
+		    	}
 	    		
 	    		// save preferences
 	    		
-	    		ResponseBean.println(out, Constant.CHANGES_SAVED);
+	    		ResponseBean.println(out, Constant.CHANGES_SAVED, "NA", sentList);
 		   
 		    } 
 		    out.close();

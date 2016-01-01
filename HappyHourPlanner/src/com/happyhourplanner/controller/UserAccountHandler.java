@@ -76,14 +76,7 @@ public class UserAccountHandler {
 		// if none found, then create one
 		if (query.getResultList().isEmpty()) {
 			// create first invite
-			Invite invite = new Invite(
-					username,
-					Constant.DEFAULT_GROUP_NAME,
-					null,
-					FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_TEXT_FILE),
-					FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_HTML_FILE),
-					1
-			);
+			Invite invite = createFirstInvite(username,servletContext);
 			persist(invite);
 			return invite;
 			
@@ -177,6 +170,20 @@ public class UserAccountHandler {
 		return null;
 	}
 	
+	public static Invite createFirstInvite(final String username,final ServletContext servletContext) 
+		throws IOException {
+		// create first invite
+		return new Invite(
+				username,
+				Constant.DEFAULT_GROUP_NAME,
+				null,
+				FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_TEXT_FILE),
+				FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_HTML_FILE),
+				1,
+				1
+		);
+	}
+	
 	public static void activateUser(final String activationCode,User user, final ServletContext servletContext)
 		throws IOException {
 		
@@ -191,17 +198,8 @@ public class UserAccountHandler {
 				user.setVerifiedFlag(true);
 				user.setCurrentState(Constant.STATE_PREFERENCES_NUM);
 				persist(user);
-				
-				// create first invite
-				Invite invite = new Invite(
-						user.getUserName(),
-						Constant.DEFAULT_GROUP_NAME,
-						null,
-						FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_TEXT_FILE),
-						FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_HTML_FILE),
-						1
-				);
-				persist(invite);
+			
+				persist(createFirstInvite(user.getUserName(),servletContext));
 
 				
 			}

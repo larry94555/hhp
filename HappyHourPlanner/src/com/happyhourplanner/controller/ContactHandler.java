@@ -41,6 +41,31 @@ public class ContactHandler {
 		}
 	}
 	
+	public static List<String> sendToNewUsersOnly(
+			final User user,
+			final String text,
+			final int inviteInstanceId,
+			final String[] toList) {
+		
+		List<String> list = new ArrayList<String>();
+		
+		for (String email : toList) {
+			
+			Contact contact = find(user,email);
+			if (contact != null) {
+				if (!contact.hasInviteInstanceId(inviteInstanceId)) {
+					// send Invite
+					contact.addInviteInstanceId(inviteInstanceId);
+					list.add(email);
+				}
+			}
+			
+		}
+		
+		return list;
+		
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static List<Contact> getContacts(final User user,final int offset,final int count) {
 		
@@ -67,18 +92,31 @@ public class ContactHandler {
 		if (user != null) {
 			for (Contact contact : contacts) {
 				if (find(user,contact.getEmail()) == null) {
-					_log.info("contact does not yet exist!");
+					//_log.info("contact does not yet exist!");
 					contact.setUser(user);
 					EM.get().persist(contact);
 					EM.commit();
 				}
 				else {
-					_log.info("contact exists");
+					//_log.info("contact exists");
 				}
 			}
 	
 		}
 		
+	}
+	
+	public static void addContactList(final User user,final String[] emails) {
+		if (user != null) {
+			for (String email : emails) {
+				Contact contact = find(user,email);
+				if (contact == null) {
+					contact = new Contact(email);
+					EM.get().persist(contact);
+					EM.commit();
+				}
+			}
+		}
 	}
 	
 	

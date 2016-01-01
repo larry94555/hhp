@@ -22,6 +22,7 @@
  		<label for="invite-title">Invite Group Name:</label>
  		<input type="text" name="invite-title" id="invite-title" class="invite-setting" value="<%= invite.getGroupName() %>" />
  		<input type="hidden" name="invite-group-id" id="invite-group-id" value="<%=invite.getGroupId() %>" />	
+ 		<input type="hidden" name="invite-instance-id" id = "invite-instance-id" value="<%=invite.getInviteInstanceId() %>" />
 		</p>    
  
  

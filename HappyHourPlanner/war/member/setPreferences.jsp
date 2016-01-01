@@ -32,6 +32,7 @@
 	String minRating = user.getPreferences().getMinRating();
 	String restaurantsOnly = (user.getPreferences().isRestaurantsOnly()) ? Constant.CHECKED : "";
 	String fullBar = (user.getPreferences().isFullBar())? Constant.CHECKED : "";
+	String minAvailable = user.getPreferences().getMinAvailable();
 	
 	String mon = (user.getPreferences().getAvailability().indexOf("Mo") != -1) ? Constant.CHECKED : "";
 	String tues = (user.getPreferences().getAvailability().indexOf("Tu") != -1) ? Constant.CHECKED : "";
@@ -54,6 +55,8 @@
 <input type="checkbox" name="pref-restaurants-only" class="standard-checkbox place-search-option pref-setting" id="pref-restaurants-only" <%= restaurantsOnly %>/><label for="pref-restaurants-only">Restaurants only</label><br /><br />
 
 <input type="checkbox" name="pref-spirits-too" class="standard-checkbox place-search-option pref-setting" id="pref-spirits-too" <%= fullBar %> /><label for="pref-spirits-too">Full bar (wine, beer, and spirits)</label><br /><br />
+
+<label for="min-num-available">At least <input type="text" class="pref-setting" id="min-num-available" name="min-num-available" value="<%=minAvailable %>" /> people must accept to schedule.</label><br /><br />
 
 <input type="checkbox" name="pref-allow-m" class="standard-checkbox pref-setting" id="pref-allow-m" <%= mon %> /><label for="pref-allow-m">M</label>
 <input type="checkbox" name="pref-allow-t" class="standard-checkbox pref-setting" id="pref-allow-t" <%= tues %> /><label for="pref-allow-t">T</label>

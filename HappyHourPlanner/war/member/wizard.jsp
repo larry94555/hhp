@@ -81,12 +81,12 @@
                     
                 </section>
                 
-                <h2>Create Contact List</h2>
+                <!-- <h2>Create Contact List</h2>
                 <section>
                 
 				<jsp:include page="createContactList.jsp" />
                     
-                </section>
+                </section> -->
 				
 				<h2>Check Out Status</h2>
                 <section>

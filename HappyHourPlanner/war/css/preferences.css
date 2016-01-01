@@ -206,3 +206,8 @@ img {
 div#allow-suggestions-container {
 	display: none;
 }
+
+#min-num-available {
+	width: 30px;
+	text-align: center;
+}

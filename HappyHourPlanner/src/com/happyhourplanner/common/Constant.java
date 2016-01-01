@@ -8,6 +8,9 @@ public class Constant {
 	// Contacts
 	public static final int MAX_CONTACTS = 1000;
 	
+	// Preferences
+	public static final String DEFAULT_MIN_AVAILABLE = "3";
+	
 	// Invites
 	public static final String DEFAULT_GROUP_NAME = "Group 1";
 	public static final String DEFAULT_INVITE_TEXT_FILE = "/WEB-INF/resources/defaultInvite.txt";

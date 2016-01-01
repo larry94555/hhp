@@ -29,6 +29,8 @@ public class Invite {
 	private String groupName;
 	private int groupId;
 	
+	private int inviteInstanceId; // generated new for each invite instance
+	
 	private String text;
 	private String html;
 
@@ -46,7 +48,8 @@ public class Invite {
 			final List<String> invitees,
 			final String text,
 			final String html,
-			final int groupId
+			final int groupId,
+			final int inviteInstanceId
 			) throws IOException {
 		
 		this.username = username;
@@ -61,6 +64,8 @@ public class Invite {
 			this.invitees.addAll(invitees);	
 		}
 		
+		this.inviteInstanceId = inviteInstanceId;
+		
 		
 		
 	}
@@ -68,6 +73,8 @@ public class Invite {
 	public String getUsername() { return username; }
 	
 	public String getGroupName() { return groupName; }
+	
+	public int getInviteInstanceId() { return inviteInstanceId; }
 	
 	public List<String> getInvitees() {
 		List<String> copyInvitees = new ArrayList<String>();
@@ -110,6 +117,8 @@ public class Invite {
 		this.invitees.clear();
 		this.invitees.addAll(invitees);
 	}
+	
+	public void setInviteInstanceId(final int inviteInstanceId) { this.inviteInstanceId = inviteInstanceId; }
 	
 	public void setText(final String text) { this.text = text; }
 	

@@ -1,6 +1,7 @@
 package com.happyhourplanner.model;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.happyhourplanner.common.Constant;
@@ -15,12 +16,27 @@ public class ResponseBean {
 	private final String sessionId; 
 	private final String cookieName;
 	private final String html;
+	private final String[] list;
 	
 	public ResponseBean(final String msg,final String sessionId,final String html) {
 		this.msg = msg;
 		this.sessionId = sessionId;
 		this.cookieName = Constant.COOKIE_NAME;
 		this.html = html;
+		this.list = null;
+	}
+	
+	public ResponseBean(final String msg,final String sessionId, final List<String> list) {
+		this.msg = msg;
+		this.sessionId = sessionId;
+		this.cookieName = Constant.COOKIE_NAME;
+		this.html = null;
+		if (list == null) {
+			this.list=null;
+		}
+		else {
+			this.list = list.toArray(list.toArray(new String[list.size()]));
+		}
 	}
 	
 	public String getJson() {
@@ -37,6 +53,11 @@ public class ResponseBean {
 	
 	public static void println(PrintWriter out,String msg,String sessionId,String html) {
 		ResponseBean rb = new ResponseBean(msg,sessionId,html);
+		out.println(rb.getJson());
+	}
+	
+	public static void println(PrintWriter out,String msg,String sessionId,List<String> list) {
+		ResponseBean rb = new ResponseBean(msg,sessionId,list);
 		out.println(rb.getJson());
 	}
 	

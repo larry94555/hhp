@@ -12,6 +12,7 @@ public class Preferences {
 	private boolean restaurantsOnly;
 	private boolean fullBar;
 	private String availability;
+	private String minAvailable;
 	
 	public Preferences() {
 		
@@ -19,6 +20,7 @@ public class Preferences {
 		allowSuggestions = true;
 		useMinRating = true;
 		minRating = "2.0";
+		minAvailable = "3";
 		restaurantsOnly = false;
 		fullBar = false;
 		availability="MoTuWeThFr";
@@ -32,7 +34,8 @@ public class Preferences {
 			final String minRating,
 			final boolean restaurantsOnly,
 			final boolean fullBar,
-			final String availability
+			final String availability,
+			final String minAvailable
 			
 			) {
 		
@@ -42,6 +45,7 @@ public class Preferences {
 		this.restaurantsOnly = restaurantsOnly;
 		this.fullBar = fullBar;
 		this.availability = availability;
+		this.minAvailable = minAvailable;
 		
 	}
 	
@@ -51,6 +55,7 @@ public class Preferences {
 	public void setRestaurantsOnly(final boolean restaurantsOnly) { this.restaurantsOnly = restaurantsOnly; }
 	public void setFullBar(final boolean fullBar) { this.fullBar = fullBar; }
 	public void setAvailability(final String availability)  {this.availability = availability; }
+	public void setMinAvailable(final String minAvailable) { this.minAvailable = minAvailable; }
 	
 	public boolean isAllowSuggestions() { return allowSuggestions; }
 	public boolean isUseMinRating() { return useMinRating; }
@@ -72,6 +77,10 @@ public class Preferences {
 			return availability;
 		}
 	}
+	public String getMinAvailable() {
+		if (minAvailable == null) return Constant.DEFAULT_MIN_AVAILABLE;
+		return minAvailable;
+	}
 	
 	public String debug() {
 		StringBuilder result = new StringBuilder();
@@ -80,6 +89,7 @@ public class Preferences {
 			.append("minRating: ").append(minRating).append(", ")
 			.append("restaurantsOnly: ").append(restaurantsOnly).append(", ")
 			.append("fullBar: ").append(fullBar).append(", ")
+			.append("minAvailable: ").append(minAvailable).append(", ")
 			.append("availability: ").append(availability);
 		
 		return result.toString();

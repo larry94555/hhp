@@ -16,6 +16,7 @@ $(function() {
     			toList: $('#invite-to-field').val(),
     			text: $('#invite-draft-text').val(),
     			groupId: $('#invite-group-id').val(),
+    			subject: $('#invite-subject').val(),
     			inviteInstanceId: $('#invite-instance-id').val(),
     			send: "update"
 			},
@@ -42,6 +43,7 @@ $(function() {
     			groupName: $('#invite-title').val(),
     			toList: $('#invite-to-field').val(),
     			text: $('#invite-draft-text').val(),
+    			subject: $('#invite-subject').val(),
     			groupId: $('#invite-group-id').val(),
     			inviteInstanceId: $('#invite-instance-id').val(),
     			send: 'email'

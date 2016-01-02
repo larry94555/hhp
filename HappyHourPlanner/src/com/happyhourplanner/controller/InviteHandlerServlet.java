@@ -42,19 +42,20 @@ public class InviteHandlerServlet extends HttpServlet {
 		    	final String[] toList = _gson.fromJson(req.getParameter("toList"),String[].class);
 		    	final String text = req.getParameter("text").trim();
 		    	final int groupId = Integer.parseInt(req.getParameter("groupId"));
+		    	final String subject = req.getParameter("subject").trim();
 		    	final int inviteInstanceId = Integer.parseInt(req.getParameter("inviteInstanceId"));
 		    	final String sendStatus = req.getParameter("send");
 		    	List<String> sentList = null;
 		    	
 		    	//UserAccountHandler.updatePreferences(user,placeMarkerMap,prefs);
-		    	UserAccountHandler.updateInvite(user,groupName,toList,text,groupId,getServletContext());
+		    	UserAccountHandler.updateInvite(user,groupName,subject,toList,text,groupId,getServletContext());
 		    	ContactHandler.addContactList(user, toList);
 		    	
 		    	if (sendStatus.equals("email")) {
 		    		
 		    		
 		    		// send out to each person (who has not already received)
-		    		sentList = ContactHandler.sendToNewUsersOnly(user,text,inviteInstanceId,toList);
+		    		sentList = ContactHandler.sendToNewUsersOnly(user,text,subject,inviteInstanceId,toList);
 		    		
 		    	}
 	    		

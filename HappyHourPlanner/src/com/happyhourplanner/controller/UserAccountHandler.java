@@ -90,6 +90,7 @@ public class UserAccountHandler {
 	public static void updateInvite(
 			final User user,
 			final String groupName,
+			final String subject,
 			final String[] toList,
 			final String text,
 			final int groupId,
@@ -101,6 +102,7 @@ public class UserAccountHandler {
 		Invite invite = findInvite(user.getUserName(),groupId,servletContext);
 		invite.setText(text);
 		invite.setGroupName(groupName);
+		invite.setSubject(subject);
 		invite.setInvitees(Arrays.asList(toList));
 		persist(invite);
 	
@@ -176,6 +178,7 @@ public class UserAccountHandler {
 		return new Invite(
 				username,
 				Constant.DEFAULT_GROUP_NAME,
+				Constant.DEFAULT_SUBJECT,
 				null,
 				FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_TEXT_FILE),
 				FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_HTML_FILE),

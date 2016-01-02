@@ -23,7 +23,7 @@ public class Contact {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key key;
 	
-	private String userEmail;
+	private String userName;
 	private String email;
 	
 	private String name;
@@ -50,7 +50,7 @@ public class Contact {
 		this.alreadySent = new HashSet<Integer>();
 	}
 	
-	public String getUserEmail() { return userEmail; }
+	public String getUserName() { return userName; }
 	public String getName() { return name; }
 	public String getEmail() { return email; }
 	public Key getKey() { return key; }
@@ -79,7 +79,7 @@ public class Contact {
 	
 	
 	public void setUser(final User user) {
-		this.userEmail = user.getUserName();
+		this.userName = user.getUserName();
 	}
 	
 }

@@ -13,6 +13,7 @@ public class Constant {
 	
 	// Invites
 	public static final String DEFAULT_GROUP_NAME = "Group 1";
+	public static final String DEFAULT_SUBJECT = "Would folks be up for a Happy Hour?";
 	public static final String DEFAULT_INVITE_TEXT_FILE = "/WEB-INF/resources/defaultInvite.txt";
 	public static final String DEFAULT_INVITE_HTML_FILE = "/WEB-INF/resources/defaultInvite.html";
 	
@@ -31,7 +32,9 @@ public class Constant {
 	
 	// Email Properties
 	public static final String ACTIVATION_KEY = "activationKey";
+	public static final String INVITATION_KEY = "invitationKey";
 	public static final int ACTIVATION_KEY_LENGTH = 40;
+	public static final int INVITATION_KEY_LENGTH = 40;
 	
 	public static final String PASSWORD_RESET_KEY = "passwordResetKey";
 	public static final int PASSWORD_RESET_KEY_LENGTH = 40;

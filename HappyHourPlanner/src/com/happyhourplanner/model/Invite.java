@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.servlet.ServletContext;
 
 import com.google.appengine.api.datastore.Key;
+import com.happyhourplanner.common.Constant;
 import com.happyhourplanner.controller.FileRetriever;
 
 @Entity(name = "Invite")
@@ -28,6 +29,8 @@ public class Invite {
 	private String username;  // user
 	private String groupName;
 	private int groupId;
+	
+	private String subject;
 	
 	private int inviteInstanceId; // generated new for each invite instance
 	
@@ -45,6 +48,7 @@ public class Invite {
 	public Invite(
 			final String username,
 			final String groupName,
+			final String subject,
 			final List<String> invitees,
 			final String text,
 			final String html,
@@ -54,6 +58,7 @@ public class Invite {
 		
 		this.username = username;
 		this.groupName = groupName;
+		this.subject = subject;
 		
 		this.text = text;
 		this.html = html;
@@ -73,6 +78,15 @@ public class Invite {
 	public String getUsername() { return username; }
 	
 	public String getGroupName() { return groupName; }
+	
+	public String getSubject() {
+		if (subject == null) {
+			return Constant.DEFAULT_SUBJECT;
+		}
+		else {
+			return subject;
+		}
+	}
 	
 	public int getInviteInstanceId() { return inviteInstanceId; }
 	
@@ -112,6 +126,8 @@ public class Invite {
 	public void setGroupName(final String groupName) { this.groupName = groupName; }
 	
 	public void setGroupId(final int id) { this.groupId = id; }
+	
+	public void setSubject(final String subject) { this.subject = subject; }
 	
 	public void setInvitees(final List<String> invitees) {
 		this.invitees.clear();

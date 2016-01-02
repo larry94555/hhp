@@ -45,6 +45,10 @@ public class Util {
 		return Passwords.generateRandomPassword(Constant.ACTIVATION_KEY_LENGTH);
 	}
 	
+	public static String generateInvitationKey() {
+		return Passwords.generateRandomPassword(Constant.INVITATION_KEY_LENGTH);
+	}
+	
 	public static boolean checkDateInMinutes(Date date, int minutes) {
 		
 		if (date != null) {

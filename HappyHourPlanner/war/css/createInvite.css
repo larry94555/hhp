@@ -80,3 +80,7 @@
 input#invite-to-field {
 	width: 100%;
 }
+
+input#invite-subject {
+	width: 100%;
+}

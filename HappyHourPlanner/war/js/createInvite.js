@@ -15,6 +15,7 @@ $(function() {
     			groupName: $('#invite-title').val(),
     			toList: $('#invite-to-field').val(),
     			text: $('#invite-draft-text').val(),
+    			html: $('#invite-html').val(),
     			groupId: $('#invite-group-id').val(),
     			subject: $('#invite-subject').val(),
     			inviteInstanceId: $('#invite-instance-id').val(),
@@ -43,6 +44,7 @@ $(function() {
     			groupName: $('#invite-title').val(),
     			toList: $('#invite-to-field').val(),
     			text: $('#invite-draft-text').val(),
+    			html: $('#invite-html').val(),
     			subject: $('#invite-subject').val(),
     			groupId: $('#invite-group-id').val(),
     			inviteInstanceId: $('#invite-instance-id').val(),
@@ -51,10 +53,10 @@ $(function() {
     		dataType: "json"
         });
 		
-		updateInvite.done(function(data) {
+		sendInvite.done(function(data) {
 		});
 		
-		updateInvite.fail(function(jqXHR,textStatus) {
+		sendInvite.fail(function(jqXHR,textStatus) {
 		});
 		
 	});

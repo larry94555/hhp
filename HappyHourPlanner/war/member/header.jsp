@@ -11,7 +11,6 @@
 		// in this case, do a sign out.
 		request.getSession().invalidate();
 	    Util.removeSessionCookie(response);
-	    pageContext.forward("/");
 	}
 %>
 

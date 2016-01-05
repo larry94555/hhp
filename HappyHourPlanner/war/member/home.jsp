@@ -36,7 +36,7 @@
 	</head>
 	<body class="landing">
 	
-		<jsp:include page="header.jsp" flush="true" />
+		<jsp:include page="header.jsp" /> 
 
 		<!-- Banner -->
 			<section id="banner">

@@ -41,6 +41,7 @@ public class InviteHandlerServlet extends HttpServlet {
 		    	final String groupName = req.getParameter("groupName");
 		    	final String[] toList = _gson.fromJson(req.getParameter("toList"),String[].class);
 		    	final String text = req.getParameter("text").trim();
+		    	final String html = req.getParameter("html").trim();
 		    	final int groupId = Integer.parseInt(req.getParameter("groupId"));
 		    	final String subject = req.getParameter("subject").trim();
 		    	final int inviteInstanceId = Integer.parseInt(req.getParameter("inviteInstanceId"));
@@ -55,7 +56,7 @@ public class InviteHandlerServlet extends HttpServlet {
 		    		
 		    		
 		    		// send out to each person (who has not already received)
-		    		sentList = ContactHandler.sendToNewUsersOnly(user,text,subject,inviteInstanceId,toList);
+		    		sentList = ContactHandler.sendToNewUsersOnly(user,text,html,subject,inviteInstanceId,toList);
 		    		
 		    	}
 	    		

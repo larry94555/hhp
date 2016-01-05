@@ -85,6 +85,7 @@ public class ContactHandler {
 	public static List<String> sendToNewUsersOnly(
 			final User user,
 			final String text,
+			final String html,
 			final String subject,
 			final int inviteInstanceId,
 			final String[] toList) throws AddressException, IOException, MessagingException {
@@ -113,7 +114,7 @@ public class ContactHandler {
 							"larry.freeman@gmail.com",
 							subject, 
 							text, 
-							text, 
+							html, 
 							propertyMap);
 					
 					contact.addInviteInstanceId(inviteInstanceId);

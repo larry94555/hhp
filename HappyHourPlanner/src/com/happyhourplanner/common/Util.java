@@ -54,12 +54,12 @@ public class Util {
 		if (date != null) {
 			Date currDate = new Date();
 			if (currDate.getTime() - date.getTime() < 30*60*1000) {
-				_log.info("diff = " + (currDate.getTime() - date.getTime()));
+				//_log.info("diff = " + (currDate.getTime() - date.getTime()));
 				return true;
 			}
 		}
 		else {
-			_log.info("date was null");
+			//_log.info("date was null");
 		}
 		
 		return false;
@@ -97,9 +97,9 @@ public class Util {
 	    Cookie[] cookies = request.getCookies();
 	    if (cookies != null) {
 	    	HttpSession session = request.getSession();
-	    	_log.info("Found " + cookies.length + " cookie(s).");
+	    	//_log.info("Found " + cookies.length + " cookie(s).");
 	        for (Cookie cookie : cookies) {
-	        	_log.info("cookie: " + cookie.getName() + ", value = " + cookie.getValue() + ", name = " + name + ", session = " + session.getId());
+	        	//_log.info("cookie: " + cookie.getName() + ", value = " + cookie.getValue() + ", name = " + name + ", session = " + session.getId());
 	            if (name.equals(cookie.getName())) {
 	                return cookie.getValue();
 	            }
@@ -124,10 +124,10 @@ public class Util {
 	public static void updateSessionIfCookie(final HttpServletRequest request) {
 		// if session exists, return session.
 		String sessionIdStr = getCookieValue(request,Constant.COOKIE_NAME);
-		_log.info("updateSessionIfCookie: sessionIdStr = " + sessionIdStr);
+		//_log.info("updateSessionIfCookie: sessionIdStr = " + sessionIdStr);
 		Map sessionAttributes = SavedSessionHandler.getSessionAttributes(sessionIdStr);
 		if (!sessionAttributes.isEmpty()) {
-			_log.info("oldSession Username: " +  sessionAttributes.get(Constant.USERNAME));
+			//_log.info("oldSession Username: " +  sessionAttributes.get(Constant.USERNAME));
 			updateCurrentSession(request.getSession(),sessionAttributes);
 		}
 	}
@@ -139,7 +139,7 @@ public class Util {
 	    Cookie cookie = new Cookie(name, value);
 	    cookie.setPath("/");
 	    cookie.setMaxAge(maxAge);
-	    _log.info("adding cookie with name: " + name + ", value = " + value);
+	    //_log.info("adding cookie with name: " + name + ", value = " + value);
 	    response.addCookie(cookie);
 	}
 	
@@ -159,13 +159,11 @@ public class Util {
 			) throws IOException {
 
 		final String username=(String)session.getAttribute(Constant.USERNAME);
-		_log.info("saveSessionAsCookie: username = " + username);
+		//_log.info("saveSessionAsCookie: username = " + username);
 		// only save if there is a user context
 		if (username!=null) {
 			// save session
-			_log.info("Before SavedSessionHandler.saveSession");
 			final String sessionIdStr = SavedSessionHandler.saveSession(session,username);
-			_log.info("After SavedSessionHandler.saveSession: sessionIdStr = " + sessionIdStr);
 			PrintWriter out = response.getWriter();
 			ResponseBean.println(out,action,sessionIdStr);
 			//addCookie(response,Constant.COOKIE_NAME,sessionIdStr,Constant.COOKIE_MAX_AGE);

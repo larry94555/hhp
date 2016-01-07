@@ -22,7 +22,7 @@ public class LogInServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	try {
 		
-		_log.info("Entering LogInServlet: " + req.getSession().getAttribute("username"));
+		//_log.info("Entering LogInServlet: " + req.getSession().getAttribute("username"));
 		
 		resp.setContentType("application/json");
 
@@ -34,21 +34,21 @@ public class LogInServlet extends HttpServlet {
 	    // check if email exists
 	    if (UserAccountHandler.exists(username)) {
 	    	
-	    	_log.info("UserAccountHandler exists");
+	    	//_log.info("UserAccountHandler exists");
 	    	
 	    	User user = UserAccountHandler.find(username);
 	    	if (user.isDisabled()) {
-	    		_log.info(Constant.ACCOUNT_DISABLED);
+	    		//_log.info(Constant.ACCOUNT_DISABLED);
 	    		ResponseBean.println(out, Constant.ACCOUNT_DISABLED);
 	    	}
 	    	else if (!user.checkPassword(password)) {
-	    		_log.info(Constant.ACCOUNT_EXISTS);
+	    		//_log.info(Constant.ACCOUNT_EXISTS);
 	    		ResponseBean.println(out, Constant.ACCOUNT_EXISTS);
 	    	}
 	    	else if (!user.isVerified()) {
 	    		req.getSession().setAttribute("username",username);
-	    		_log.info(Constant.NEED_TO_VERIFY);
-	    		Util.saveSessionAsCookie(req.getSession(),resp,Constant.NEED_TO_VERIFY);
+	    		//_log.info(Constant.NEED_TO_VERIFY);
+	    		Util.saveSessionAsCookie(req.getSession(),resp,Constant.ACTION_LOGIN);
 
 	    	}
 	    	else if (UserAccountHandler.login(username,password)) {

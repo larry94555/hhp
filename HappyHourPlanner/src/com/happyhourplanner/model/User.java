@@ -104,11 +104,11 @@ public class User {
 	public Preferences getPreferences() { 
 	
 		if (prefs == null) {
-			_log.info("Preferences is null: " + DEFAULT_PREFS.debug());
+			//_log.info("Preferences is null: " + DEFAULT_PREFS.debug());
 			return DEFAULT_PREFS;
 		}
 		else {
-			_log.info("Preferences is not null: " + prefs.debug());
+			//_log.info("Preferences is not null: " + prefs.debug());
 			return this.prefs;
 		}
 	}

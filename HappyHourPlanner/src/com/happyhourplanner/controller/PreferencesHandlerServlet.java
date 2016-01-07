@@ -60,7 +60,7 @@ public class PreferencesHandlerServlet extends HttpServlet {
 		    		_log.info("*** prefs is null");
 		    	}
 		    	else {
-		    		_log.info(prefs.debug());
+		    		//_log.info(prefs.debug());
 		    	}
 		    	UserAccountHandler.updatePreferences(user,placeMarkerMap,prefs);
 		    	

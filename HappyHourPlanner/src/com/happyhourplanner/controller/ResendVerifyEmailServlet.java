@@ -29,7 +29,7 @@ public static final Logger _log = Logger.getLogger(ResendVerifyEmailServlet.clas
 
 	    String username = req.getParameter("username");
 	    
-	    _log.info("ResendVerifyEmailServlet: username = " + username);
+	    //_log.info("ResendVerifyEmailServlet: username = " + username);
 	    
 	    PrintWriter out = resp.getWriter();
 	    
@@ -37,10 +37,15 @@ public static final Logger _log = Logger.getLogger(ResendVerifyEmailServlet.clas
 	    
 	    propertyMap.put(Constant.ACTIVATION_KEY,UserAccountHandler.getActivationKey(username));
 	    
+	    
 	    User user = UserAccountHandler.find(username);
 	    
 	    final String html_file_path = (user.emailTextOnly()) ? null : Constant.VERIFY_EMAIL_HTML_FILE;
 	    
+	    final String parts[] = username.split("@");
+	    
+	    propertyMap.put(Constant.NAME_PROPERTY_KEY,parts[0]);
+	    propertyMap.put(Constant.EMAIL_PROPERTY_KEY,username);
 	    
 	 // send out email
     	try {
@@ -54,7 +59,7 @@ public static final Logger _log = Logger.getLogger(ResendVerifyEmailServlet.clas
 					propertyMap);
 			
 			Date currDate = new Date();
-			_log.info("resend servlet: currDate = " + currDate.getTime());
+			//_log.info("resend servlet: currDate = " + currDate.getTime());
 			req.getSession().setAttribute("verify_resend",currDate);
 			
 			

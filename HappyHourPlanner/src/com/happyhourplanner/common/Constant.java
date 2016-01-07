@@ -36,6 +36,9 @@ public class Constant {
 	public static final int ACTIVATION_KEY_LENGTH = 40;
 	public static final int INVITATION_KEY_LENGTH = 40;
 	
+	public static final String NAME_PROPERTY_KEY = "name";
+	public static final String EMAIL_PROPERTY_KEY = "emailAddress";
+	
 	public static final String PASSWORD_RESET_KEY = "passwordResetKey";
 	public static final int PASSWORD_RESET_KEY_LENGTH = 40;
 	
@@ -52,7 +55,7 @@ public class Constant {
 	public static final String JUST_ACTIVATED = "justActiviated";
 	public static final String PASSWORD_RESENT = "passwordResent";
 	
-	public static final String VERIFY_EMAIL_HTML_FILE = "/WEB-INF/resources/testEmail.html";
+	public static final String VERIFY_EMAIL_HTML_FILE = "/WEB-INF/resources/testVerifyEmail.html";
 	//public static final String VERIFY_EMAIL_HTML_FILE = "/WEB-INF/resources/verifyEmail.html";
 	public static final String RESET_PASSWORD_EMAIL_HTML_FILE = "/WEB-INF/resources/resetPasswordEmail.html";
 	

@@ -33,7 +33,7 @@ public class SignUpServlet extends HttpServlet {
 	    String password = req.getParameter("pwd");
 	    String password2 = req.getParameter("pwd2");
 	    
-	    _log.info("Entering SignUpServlet: username = " + username);
+	    //_log.info("Entering SignUpServlet: username = " + username);
 	    
 	    final User user = UserAccountHandler.find(username);
 	    
@@ -48,7 +48,7 @@ public class SignUpServlet extends HttpServlet {
 	    }
 	    else if (user != null) {
 	    	
-	    	_log.info("UserAccountHandler.exists");
+	    	//_log.info("UserAccountHandler.exists");
 	    	
 	    	if (user.isDisabled()) {
 	    		ResponseBean.println(out, Constant.ACCOUNT_DISABLED);

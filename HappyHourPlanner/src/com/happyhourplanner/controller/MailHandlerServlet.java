@@ -35,29 +35,29 @@ public class MailHandlerServlet extends HttpServlet {
 			
 			//Extract out the important fields from the Mime Message
 			String subject = message.getSubject();
-			_log.info("Got an email. Subject = " + subject);
+			//_log.info("Got an email. Subject = " + subject);
 			String contentType = message.getContentType(); 
 	
-			_log.info("Email Content Type : " + contentType);
+			//_log.info("Email Content Type : " + contentType);
 	
 			//Parse out the Multiparts
 			//Perform business logic based on the email
 	
 			Address[] replyTo = message.getReplyTo();
 	
-			_log.info("replyto: count: " + replyTo.length);
+			//_log.info("replyto: count: " + replyTo.length);
 	
-			_log.info("replyto: " + replyTo[0]);
+			//_log.info("replyto: " + replyTo[0]);
 	
 			Address[] from = message.getFrom();
 	
-			_log.info("from: count: " + from.length);
+			//_log.info("from: count: " + from.length);
 	
-			_log.info("from: " + from[0]);
+			//_log.info("from: " + from[0]);
 	
 			Address sender = message.getSender();
 	
-			_log.info("sender: " + sender);
+			//_log.info("sender: " + sender);
 	
 			printParts(message);
 			

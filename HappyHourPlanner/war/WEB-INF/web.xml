@@ -24,6 +24,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/preferences</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>letsencrypthandler</servlet-name>
+		<servlet-class>com.happyhourplanner.controller.LetsEncryptHandlerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>letsencrypthandler</servlet-name>
+		<url-pattern>/.well-known/acme-challenge/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>invitehandler</servlet-name>
 		<servlet-class>com.happyhourplanner.controller.InviteHandlerServlet</servlet-class>
 	</servlet>

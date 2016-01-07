@@ -56,6 +56,14 @@ $(document).ready(function() {
 		
 		
 		signout.done(function(msg) {
+			
+			// clear out form
+			$('#username').val('');
+			$('#password').val('');
+			$('#password2').val('');
+			
+			
+			
 			location.reload();
 		});	
 		

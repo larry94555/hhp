@@ -285,7 +285,7 @@ $(function() {
 	function getDefaultLocationBasedOnIpAddress() {
 		
 		var getLocation = $.ajax({
-			url: "http://freegeoip.net/json/",
+			url: "http://freegeoip.net/json/", // error #1
 			type: "GET",
 			data: {},
 			dataType: "json"
@@ -321,32 +321,32 @@ $(function() {
 
 	function showPosition(position) {
 		
-        var getAddressFromLatitudeLongitude = $.ajax({
-        	url: "http://pelias.mapzen.com/v1/reverse?api_key=search-h-wI3wM&point.lat=" + position.coords.latitude + 
-        	"&point.lon=" + position.coords.longitude+"&size=1",
-    		type: "GET",
-    		data: {},
-    		dataType: "json"
-        });
-        getAddressFromLatitudeLongitude.done(function(data){
-        	// get the label
-        	value = data.features[0].properties.label;
-        	var value2 = data.features[0].properties.locality+", " + data.features[0].properties.region_a;
-        	$('#detected-location').html(value2);
-        	$('#detected-longitude').val(position.coords.longitude);
-			$('#detected-latitude').val(position.coords.latitude);
-			fillPlaces();
-        	
-        });
-        getAddressFromLatitudeLongitude.fail(function(qXHR,textStatus) {
-        	getDefaultLocationBasedOnIpAddress();
-        });
+//        var getAddressFromLatitudeLongitude = $.ajax({
+//        	url: "http://pelias.mapzen.com/v1/reverse?api_key=search-h-wI3wM&point.lat=" + position.coords.latitude + 
+//        	"&point.lon=" + position.coords.longitude+"&size=1", // error 2
+//    		type: "GET",
+//    		data: {},
+//    		dataType: "json"
+//        });
+//        getAddressFromLatitudeLongitude.done(function(data){
+//        	// get the label
+//        	value = data.features[0].properties.label;
+//        	var value2 = data.features[0].properties.locality+", " + data.features[0].properties.region_a;
+//        	$('#detected-location').html(value2);
+//        	$('#detected-longitude').val(position.coords.longitude);
+//			$('#detected-latitude').val(position.coords.latitude);
+//			fillPlaces();
+//        	
+//        });
+//        getAddressFromLatitudeLongitude.fail(function(qXHR,textStatus) {
+//        	//getDefaultLocationBasedOnIpAddress();
+//        });
         
 	}
 	
 	function showError(error) {
 		
-		getDefaultLocationBasedOnIpAddress();
+		//getDefaultLocationBasedOnIpAddress();
 		
 	    switch(error.code) {
 	        case error.PERMISSION_DENIED:
@@ -372,7 +372,7 @@ $(function() {
 	        navigator.geolocation.getCurrentPosition(showPosition,showError);
 	        
 	    } else { 
-	        getDefaultLocationBasedOnIpAddress();
+	        //getDefaultLocationBasedOnIpAddress();
 	    }
 	}
 
@@ -385,11 +385,12 @@ $(function() {
 });
 
 $(function () {
+	
     $("#wizard").steps({
         headerTag: "h2",
         bodyTag: "section",
         enableKeyNavigation: false,
-        startIndex: $('#main-current-state').val(),
+        startIndex: parseInt($('#main-current-state').val()),
         enablePagination: false,
         transitionEffect: "slideLeft",
         stepsOrientation: "vertical"

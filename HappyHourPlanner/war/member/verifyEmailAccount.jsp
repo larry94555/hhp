@@ -10,6 +10,9 @@
 	final User user = Util.checkForUser(request,response);
 	
 	final String status = (String)session.getAttribute(Constant.STATUS);
+	
+	Util.log("status = " + status + ", currentState = " + user.getCurrentState());
+	
 %>
                 
                 <% if (user.isVerified()) { %>

@@ -80,6 +80,11 @@ public class SignUpServlet extends HttpServlet {
 	    	final Map<String,String> propertyMap = new HashMap<String,String>();
 	    	propertyMap.put(Constant.ACTIVATION_KEY,UserAccountHandler.getActivationKey(username));
 	    	
+	    	final String parts[] = username.split("@");
+		    
+		    propertyMap.put(Constant.NAME_PROPERTY_KEY,parts[0]);
+		    propertyMap.put(Constant.EMAIL_PROPERTY_KEY,username);
+	    	
 	    	// send out email
 	    	Mailer.mail(
 	    			getServletContext(),

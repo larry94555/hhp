@@ -176,8 +176,7 @@ function analyzeData(wizard, options, state)
         }
     }
 
-    //state.currentIndex = startIndex;
-    state.currentIndex = 0;
+    state.currentIndex = startIndex;
 
     stepTitles.each(function (index)
     {
@@ -1957,7 +1956,10 @@ var defaults = $.fn.steps.defaults = {
      * @default function (event) { }
      * @for defaults
      **/
-    onInit: function (event, currentIndex) { },
+    onInit: function (event, currentIndex) {
+    	var anchor = getStepAnchor($(this), 0);
+    	anchor.click();
+    },
 
     /**
      * Contains all labels. 

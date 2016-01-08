@@ -46,7 +46,7 @@ public class Constant {
 	public static final String VERIFY_EMAIL_SUBJECT = "[Happy Hour Planner] Please confirm your email address";
 	public static final String RESET_PASSWORD_EMAIL_SUBJECT = "[Happy Hour Planner] A request was made to reset your password";
 	
-	public static final String VERIFY_EMAIL_TEXT_FILE = "/WEB-INF/resources/verifyEmail.txt";
+	public static final String VERIFY_EMAIL_TEXT_FILE = "/WEB-INF/resources/testVerifyEmail.txt";
 	public static final String RESET_PASSWORD_EMAIL_TEXT_FILE = "/WEB-INF/resources/resetPasswordEmail.txt";
 	
 	public static final String STATUS = "currentStatus";

@@ -176,7 +176,8 @@ function analyzeData(wizard, options, state)
         }
     }
 
-    state.currentIndex = startIndex;
+    //state.currentIndex = startIndex;
+    state.currentIndex = 0;
 
     stepTitles.each(function (index)
     {

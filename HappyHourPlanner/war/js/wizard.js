@@ -380,11 +380,14 @@ $(function() {
 	// no default location set, try to figure out.
 	//getDefaultLocation();
 	$('#detected-location').html('checking...');
+	
 
 	
 });
 
 $(function () {
+	
+	var firstTime=true;
 	
     $("#wizard").steps({
         headerTag: "h2",
@@ -393,7 +396,16 @@ $(function () {
         startIndex: parseInt($('#main-current-state').val()),
         enablePagination: false,
         transitionEffect: "slideLeft",
-        stepsOrientation: "vertical"
+        stepsOrientation: "vertical",
+        onStepChanging: function (event, currentIndex, newIndex) {
+        	if (newIndex == 1 && firstTime == true) {
+        		firstTime=false;
+        		getDefaultLocation();
+        		
+        	}
+        	return true;
+        }
+        	
     });
  
     $('#slider').sliderNav({height:'500'});
@@ -406,6 +418,8 @@ $(function () {
 	if ($('#main-current-state').val() > 1) {
 		$('#contact-continue').css('visibility','visible');
 	}
+	
+	// handle event where preferences tab is selected for the first time
 	
 });
 

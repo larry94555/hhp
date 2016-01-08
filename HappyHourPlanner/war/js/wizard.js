@@ -378,7 +378,7 @@ $(function() {
 
 	
 	// no default location set, try to figure out.
-	getDefaultLocation();
+	//getDefaultLocation();
 	$('#detected-location').html('checking...');
 
 	
@@ -395,16 +395,18 @@ $(function () {
         transitionEffect: "slideLeft",
         stepsOrientation: "vertical"
     });
+ 
     $('#slider').sliderNav({height:'500'});
     $('#mainTable').editableTableWidget().contactInput().find('td:first').focus();
 		$('#mainTable td').on('mouseover', function() {
 		if ($.trim($(this).text()).length===0 && $(this).prop('tabindex')===0) $(this).focus();
 	});
 
-		window.prettyPrint && prettyPrint();
-		if ($('#main-current-state').val() > 1) {
-			$('#contact-continue').css('visibility','visible');
-		}
+	window.prettyPrint && prettyPrint();
+	if ($('#main-current-state').val() > 1) {
+		$('#contact-continue').css('visibility','visible');
+	}
+	
 });
 
 

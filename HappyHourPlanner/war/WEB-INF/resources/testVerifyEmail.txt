@@ -1,0 +1,18 @@
+Welcome to HappyHourPlanner.Com
+
+
+Hi ${name}!
+
+To activate your HappyHourPlanner account, we need you to verify your email address (${emailAddress}).
+
+This will let you use the HappyHourPlanner basic services to organize fun Happy Hour get-togethers.
+
+You can activate your account by clicking the following url:
+
+	http://happyhourplanner.com/activate/${activationKey}
+
+or by replying to this email.
+
+
+
+If you did not sign up for http://happyhourplanner.com, please ignore this email.

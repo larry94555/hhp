@@ -398,7 +398,7 @@ $(function () {
         transitionEffect: "slideLeft",
         stepsOrientation: "vertical",
         onStepChanging: function (event, currentIndex, newIndex) {
-        	if (newIndex == 1 && firstTime == true) {
+        	if (newIndex == 1 && firstTime == true && $('#main-current-state').val() >= 1) {
         		firstTime=false;
         		getDefaultLocation();
         		

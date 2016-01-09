@@ -22,7 +22,7 @@ $(function() {
 		 return false;
 	  });
 	  
-	  $('body').on('click','a#stepOne-continue', function() {
+	  $('body').on('click','a.stepOne-continue', function() {
 		  
 		  $('#wizard-t-1').click();
 		  

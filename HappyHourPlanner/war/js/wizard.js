@@ -319,29 +319,46 @@ $(function() {
 	}
 	
 
+
+	
+
+	
+	
+	// no default location set, try to figure out.
+	//getDefaultLocation();
+	$('#detected-location').html('checking...');
+	
+
+	
+});
+
+$(function () {
+	
+	var firstTime=true;
+	
 	function showPosition(position) {
 		
-//        var getAddressFromLatitudeLongitude = $.ajax({
-//        	url: "http://pelias.mapzen.com/v1/reverse?api_key=search-h-wI3wM&point.lat=" + position.coords.latitude + 
-//        	"&point.lon=" + position.coords.longitude+"&size=1", // error 2
-//    		type: "GET",
-//    		data: {},
-//    		dataType: "json"
-//        });
-//        getAddressFromLatitudeLongitude.done(function(data){
-//        	// get the label
-//        	value = data.features[0].properties.label;
-//        	var value2 = data.features[0].properties.locality+", " + data.features[0].properties.region_a;
-//        	$('#detected-location').html(value2);
-//        	$('#detected-longitude').val(position.coords.longitude);
+//      var getAddressFromLatitudeLongitude = $.ajax({
+//      	url: "http://pelias.mapzen.com/v1/reverse?api_key=search-h-wI3wM&point.lat=" + position.coords.latitude + 
+//      	"&point.lon=" + position.coords.longitude+"&size=1", // error 2
+//  		type: "GET",
+//  		data: {},
+//  		dataType: "json"
+//      });
+//      getAddressFromLatitudeLongitude.done(function(data){
+//      	// get the label
+//      	value = data.features[0].properties.label;
+//      	var value2 = data.features[0].properties.locality+", " + data.features[0].properties.region_a;
+//      	$('#detected-location').html(value2);
+//      	$('#detected-longitude').val(position.coords.longitude);
 //			$('#detected-latitude').val(position.coords.latitude);
 //			fillPlaces();
-//        	
-//        });
-//        getAddressFromLatitudeLongitude.fail(function(qXHR,textStatus) {
-//        	//getDefaultLocationBasedOnIpAddress();
-//        });
-        
+//      	
+//      });
+//      getAddressFromLatitudeLongitude.fail(function(qXHR,textStatus) {
+//      	//getDefaultLocationBasedOnIpAddress();
+//      });
+      
 	}
 	
 	function showError(error) {
@@ -375,19 +392,6 @@ $(function() {
 	        //getDefaultLocationBasedOnIpAddress();
 	    }
 	}
-
-	
-	// no default location set, try to figure out.
-	//getDefaultLocation();
-	$('#detected-location').html('checking...');
-	
-
-	
-});
-
-$(function () {
-	
-	var firstTime=true;
 	
     $("#wizard").steps({
         headerTag: "h2",

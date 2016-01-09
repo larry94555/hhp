@@ -20,9 +20,7 @@
   
 <div id='select-container'>
 
-<a href="#" id="accept-preferences" class="special button">Continue</a>
-
-<div id="preferences-title">What are your preferences?</div>
+<div id="preferences-title">Please set your preferences</div>
 
 <%
 
@@ -88,16 +86,9 @@
 
 <a href="http://yelp.com" title="list powered by yelp"><img id='yelp-image' src="/images/yelp_powered_btn_dark.png"></a>
 
-<div id='select-container2'>
+<a href="#" id="accept-preferences" class="special button">Continue</a>
 
-<br/><label for="pref-list">Disallow:</label><br />
-
-<!--<select id="my-select2" name="character" multiple="multiple">
-<option disabled="disabled">Loading...</option>
-</select> -->
-
-</div>
-</div>
+</div>    
     
     </div>
 </div>

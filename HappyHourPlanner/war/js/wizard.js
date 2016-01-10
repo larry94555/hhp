@@ -184,7 +184,7 @@ $(function () {
 	function getDefaultLocationBasedOnIpAddress() {
 		
 		var getLocation = $.ajax({
-			url: "http://freegeoip.net/json/", // error #1
+			url: "https://freegeoip.net/json/", 
 			type: "GET",
 			data: {},
 			dataType: "json"
@@ -339,8 +339,8 @@ $(function () {
 	function showPosition(position) {
 		
       var getAddressFromLatitudeLongitude = $.ajax({
-      	url: "http://pelias.mapzen.com/v1/reverse?api_key=search-h-wI3wM&point.lat=" + position.coords.latitude + 
-      	"&point.lon=" + position.coords.longitude+"&size=1", // error 2
+      	url: "https://pelias.mapzen.com/v1/reverse?api_key=search-h-wI3wM&point.lat=" + position.coords.latitude + 
+      	"&point.lon=" + position.coords.longitude+"&size=1",
   		type: "GET",
   		data: {},
   		dataType: "json"

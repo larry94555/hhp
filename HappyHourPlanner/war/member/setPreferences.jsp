@@ -20,7 +20,7 @@
   
 <div id='select-container'>
 
-<div id="preferences-title">Please set your preferences</div>
+<div id="preferences-title">Set Preferences</div>
 
 <%
 
@@ -79,14 +79,15 @@
 <div id='container'> 
 <label for="pref-list">Places:</label><br /> 
 
-<select id="my-select" name="character" multiple="multiple"> 
-<option disabled="disabled">Loading...</option>
+<select id="place-list-select" name="character" multiple="multiple"> 
 </select>
-</div>
 
 <a href="http://yelp.com" title="list powered by yelp"><img id='yelp-image' src="/images/yelp_powered_btn_dark.png"></a>
+</div>
 
+<div id="preferences-continue-button">
 <a href="#" id="accept-preferences" class="special button">Continue</a>
+</div>
 
 </div>    
     

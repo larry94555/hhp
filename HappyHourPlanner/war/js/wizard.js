@@ -115,9 +115,109 @@ $('body').on('click','a.contact-list-entry',function(e) {
 	return false;
 })
 
-$(function() {
-
+$(function () {
+	
+	var firstTime=true;
+	
 	var reloadNeeded=false;
+	
+	var changeStartIndex=null;
+	
+	function handleChangeToPreferences() {
+		
+		// make an ajax call to update preferences
+		var settings = getSettings();
+		var placeMarkers = [];
+		
+		$('.pref-setting-business-id').each(function() {
+			placeMarkers.push({
+				id:$(this).attr("id"),
+				url:$(this).attr("data-url"),
+				address:$(this).attr("data-address"),
+				name:$(this).text()
+			});
+		});
+		
+		var updatePreferences = $.ajax({
+        	url: "/preferences",
+    		type: "POST",
+    		data: { 
+    			settings: JSON.stringify(settings),
+    			placeMarkers: JSON.stringify(placeMarkers)
+			},
+    		dataType: "json"
+        });
+		
+		updatePreferences.done(function(data) {
+		});
+		
+		updatePreferences.fail(function(qXHR,textStatus) {
+			
+		});		
+	}
+	
+	$('body').on('change','input.place-search-option',handleChangeToSearchOptions);
+	
+	$('body').on('change','input.pref-setting',handleChangeToPreferences);	
+	
+	$('body').on('click','a#accept-preferences', function() {
+	
+		handleChangeToPreferences();
+		
+		if ($('#wizard').data('options').startIndex == 1) {
+			// update wizard
+			//alert("startIndex  = " + $("#wizard").data("options").startIndex);
+			
+			//$("#wizard").data("options").startIndex = 2;
+			//alert("startIndex  = " + $("#wizard").data("options").startIndex);
+			
+			//alert("changing value!");
+			$("#wizard").steps("next");
+			
+		}
+		else {
+		//alert("before click");
+			$('#wizard-t-2').click();
+		}
+	});
+	
+	function getDefaultLocationBasedOnIpAddress() {
+		
+		var getLocation = $.ajax({
+			url: "http://freegeoip.net/json/", // error #1
+			type: "GET",
+			data: {},
+			dataType: "json"
+		});
+		getLocation.done(function(data) {
+			
+			//var value = "ip: " + data.ip + ", country code: " + data.country_code + ", country: " + data.country_name + ", region code: " 
+			//+ data.region_code + ", region: " + data.region_name + ", city: " + data.city + ", zip: " + data.zip_code + ", tz: " + data.time_zone
+			//+ ", latitude: " + data.latitude + ", longitude: " + data.longitude + ", metro code: " + data.metro_code;
+			//$('#def-lookup-location').html(value)
+			
+			
+			$('#detected-location').html(data.city+','+ data.region_code);
+			$('#detected-longitude').val(data.longitude);
+			$('#detected-latitude').val(data.latitude);
+			
+			fillPlaces();
+			
+			//defaultLocation = value;
+			
+		});
+		
+		getLocation.fail(function(jqXHR,textStatus) {
+			
+			// figure out why it fails.
+			//alert("jqXHR = " + jqXHR + ", textStatus = " + textStatus);
+			
+			
+			
+		});
+	}
+	
+	$('#detected-location').html('checking...');
 	
 	function getSettings() {
 		
@@ -154,6 +254,16 @@ $(function() {
 			availability: availability,
 			minAvailable: minAvailable
 		};
+	}
+	
+
+	
+	function handleChangeToSearchOptions() {
+		if (reloadNeeded) {
+			reloadNeeded=false;
+			
+			fillPlaces(true);
+		}
 	}
 	
 	function fillPlaces(reset) {
@@ -207,8 +317,8 @@ $(function() {
 		
 		getPlaceList.done(function(data){
 			
-			$('#my-select').html(data.html);
-			$('#my-select').searchableOptionList(
+			$('#place-list-select').html(data.html);
+			$('#place-list-select').searchableOptionList(
 				{
 					maxHeight: '250px',
 					events: {
@@ -217,15 +327,6 @@ $(function() {
 				});
 			
 			reloadNeeded=true;
-			
-			// catch when search data changes
-			
-			// may consider adding this later.
-			// update offset
-			//$('#place-search-offset').val((parseInt(offset)+20));
-			//$('body').on('click','a.click-more',function(e) {
-			//	// get more
-			//});
     
 		});		
 		
@@ -235,135 +336,34 @@ $(function() {
 		
 	}
 	
-	function handleChangeToSearchOptions() {
-		if (reloadNeeded) {
-			reloadNeeded=false;
-			
-			fillPlaces(true);
-		}
-	}
-	
-	function handleChangeToPreferences(handleFunction) {
-		
-		// make an ajax call to update preferences
-		var settings = getSettings();
-		var placeMarkers = [];
-		
-		$('.pref-setting-business-id').each(function() {
-			//businessIdList.push($(this).attr("id"));
-			placeMarkers.push({
-				id:$(this).attr("id"),
-				url:$(this).attr("data-url"),
-				address:$(this).attr("data-address"),
-				name:$(this).text()
-			});
-		});
-		
-		var updatePreferences = $.ajax({
-        	url: "/preferences",
-    		type: "POST",
-    		data: { 
-    			settings: JSON.stringify(settings),
-    			placeMarkers: JSON.stringify(placeMarkers)
-			},
-    		dataType: "json"
-        });
-		
-		updatePreferences.done(function(data) {
-			//handleFunction();
-		});
-		
-		updatePreferences.fail(function(qXHR,textStatus) {
-			
-		});		
-	}
-	
-	$('body').on('change','input.place-search-option',handleChangeToSearchOptions);
-	
-	$('body').on('change','input.pref-setting',handleChangeToPreferences);	
-	
-	function getDefaultLocationBasedOnIpAddress() {
-		
-		var getLocation = $.ajax({
-			url: "http://freegeoip.net/json/", // error #1
-			type: "GET",
-			data: {},
-			dataType: "json"
-		});
-		getLocation.done(function(data) {
-			
-			//var value = "ip: " + data.ip + ", country code: " + data.country_code + ", country: " + data.country_name + ", region code: " 
-			//+ data.region_code + ", region: " + data.region_name + ", city: " + data.city + ", zip: " + data.zip_code + ", tz: " + data.time_zone
-			//+ ", latitude: " + data.latitude + ", longitude: " + data.longitude + ", metro code: " + data.metro_code;
-			//$('#def-lookup-location').html(value)
-			
-			
-			$('#detected-location').html(data.city+','+ data.region_code);
-			$('#detected-longitude').val(data.longitude);
-			$('#detected-latitude').val(data.latitude);
-			
-			fillPlaces();
-			
-			//defaultLocation = value;
-			
-		});
-		
-		getLocation.fail(function(jqXHR,textStatus) {
-			
-			// figure out why it fails.
-			//alert("jqXHR = " + jqXHR + ", textStatus = " + textStatus);
-			
-			
-			
-		});
-	}
-	
-
-
-	
-
-	
-	
-	// no default location set, try to figure out.
-	//getDefaultLocation();
-	$('#detected-location').html('checking...');
-	
-
-	
-});
-
-$(function () {
-	
-	var firstTime=true;
-	
 	function showPosition(position) {
 		
-//      var getAddressFromLatitudeLongitude = $.ajax({
-//      	url: "http://pelias.mapzen.com/v1/reverse?api_key=search-h-wI3wM&point.lat=" + position.coords.latitude + 
-//      	"&point.lon=" + position.coords.longitude+"&size=1", // error 2
-//  		type: "GET",
-//  		data: {},
-//  		dataType: "json"
-//      });
-//      getAddressFromLatitudeLongitude.done(function(data){
-//      	// get the label
-//      	value = data.features[0].properties.label;
-//      	var value2 = data.features[0].properties.locality+", " + data.features[0].properties.region_a;
-//      	$('#detected-location').html(value2);
-//      	$('#detected-longitude').val(position.coords.longitude);
-//			$('#detected-latitude').val(position.coords.latitude);
-//			fillPlaces();
-//      	
-//      });
-//      getAddressFromLatitudeLongitude.fail(function(qXHR,textStatus) {
-//      	//getDefaultLocationBasedOnIpAddress();
-//      });
+      var getAddressFromLatitudeLongitude = $.ajax({
+      	url: "http://pelias.mapzen.com/v1/reverse?api_key=search-h-wI3wM&point.lat=" + position.coords.latitude + 
+      	"&point.lon=" + position.coords.longitude+"&size=1", // error 2
+  		type: "GET",
+  		data: {},
+  		dataType: "json"
+      });
+      getAddressFromLatitudeLongitude.done(function(data){
+      	// get the label
+      	value = data.features[0].properties.label;
+      	var value2 = data.features[0].properties.locality+", " + data.features[0].properties.region_a;
+      	$('#detected-location').html(value2);
+      	$('#detected-longitude').val(position.coords.longitude);
+			$('#detected-latitude').val(position.coords.latitude);
+			fillPlaces();
+      	
+      });
+      getAddressFromLatitudeLongitude.fail(function(qXHR,textStatus) {
+      	getDefaultLocationBasedOnIpAddress();
+      });
       
 	}
 	
 	function showError(error) {
 		
-		//getDefaultLocationBasedOnIpAddress();
+		getDefaultLocationBasedOnIpAddress();
 		
 	    switch(error.code) {
 	        case error.PERMISSION_DENIED:
@@ -389,7 +389,7 @@ $(function () {
 	        navigator.geolocation.getCurrentPosition(showPosition,showError);
 	        
 	    } else { 
-	        //getDefaultLocationBasedOnIpAddress();
+	        getDefaultLocationBasedOnIpAddress();
 	    }
 	}
 	
@@ -402,6 +402,7 @@ $(function () {
         transitionEffect: "slideLeft",
         stepsOrientation: "vertical",
         onStepChanging: function (event, currentIndex, newIndex) {
+        	
         	if (newIndex == 1 && firstTime == true && $('#main-current-state').val() >= 1) {
         		firstTime=false;
         		getDefaultLocation();

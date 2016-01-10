@@ -31,17 +31,7 @@ $(function() {
 	  $('body').on('click','a#stepTwo-continue', function() {
 		  $('#wizard-t-2').click();
 	  });
-	  
-	  $('body').on('click','a#accept-preferences', function() {
-		  if (parseInt($('#main-current-state').val()) < 3) {
-			  handleChangeToPreferences(function(){
-				  window.reload();
-			  });
-		  }
-		  else {
-			  $('#wizard-t-2').click();
-		  }
-	  });
+	
 
 	  $('.close').on('click', function() {
 	    deselect($('#contact'));

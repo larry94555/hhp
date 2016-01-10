@@ -123,12 +123,11 @@
         				<span>Current State</span>
         				<select id="edit-table-current-state" name="user-current-state">
         					<option value="0">verify email</option>
-        					<option value="1">contact list</option>
-        					<option value="2">preferences</option>
-        					<option value="3">invite</option>
-        					<option value="4">status</option>
-        					<option value="5">date</option>
-        					<option value="6">undefined</option>
+        					<option value="1">preferences</option>
+        					<option value="2">invite</option>
+        					<option value="3">status</option>
+        					<option value="4">date</option>
+        					<option value="5">undefined</option>
         				</select>
         			</label>
         			<label class="user-email-text-only" id="user-email-text-only-label">

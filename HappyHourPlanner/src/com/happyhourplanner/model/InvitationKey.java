@@ -20,7 +20,7 @@ public static final Logger _log = Logger.getLogger(InvitationKey.class.getName()
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key key;
 	
-	private String username;  // username of the person sending the invite
+	private String userName;  // username of the person sending the invite
 	private String email; // email address of person receiving invite
 	private int invitationInstanceId; // instance of the invite (since invitations repeat)
 	
@@ -29,8 +29,8 @@ public static final Logger _log = Logger.getLogger(InvitationKey.class.getName()
 	public InvitationKey() {
 	}
 	
-	public InvitationKey(final String username, final String email, final int invitationInstanceId) {
-		this.username = username;
+	public InvitationKey(final String userName, final String email, final int invitationInstanceId) {
+		this.userName = userName;
 		this.email = email;
 		this.invitationInstanceId = invitationInstanceId;
 		this.invitationKey = Util.generateInvitationKey();
@@ -41,13 +41,13 @@ public static final Logger _log = Logger.getLogger(InvitationKey.class.getName()
 		return invitationKey;
 	}
 	
-	public String getUserName() { return username; }
+	public String getUserName() { return userName; }
 	
 	public String getEmail() { return email; }
 	
 	public int getInvitationInstanceId() { return invitationInstanceId; }
 	
-	public void setUserName(final String username) { this.username = username; }
+	public void setUserName(final String userName) { this.userName = userName; }
 	
 	public void setEmail(final String email) { this.email = email; }
 	

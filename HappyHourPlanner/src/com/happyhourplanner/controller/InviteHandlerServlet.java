@@ -32,6 +32,14 @@ public class InviteHandlerServlet extends HttpServlet {
 		    
 		    PrintWriter out = resp.getWriter();
 		    final String username = (String) req.getSession().getAttribute(Constant.USERNAME);
+		    if (username == null) {
+		    	ResponseBean.println(out, Constant.NEED_LOGIN);
+		    	out.close();
+		    	return;
+		    }
+		    
+		    _log.info("username = " + username);
+		    
 		    final User user = UserAccountHandler.validateUser(username,out);
 		    
 		    
@@ -52,7 +60,7 @@ public class InviteHandlerServlet extends HttpServlet {
 		    	UserAccountHandler.updateInvite(user,groupName,subject,toList,text,groupId,getServletContext());
 		    	ContactHandler.addContactList(user, toList);
 		    	
-		    	if (sendStatus.equals("email")) {
+		    	if (sendStatus.equals("email") && toList.length > 0) {
 		    		
 		    		
 		    		// send out to each person (who has not already received)

@@ -93,13 +93,17 @@ public class ContactHandler {
 		List<String> list = new ArrayList<String>();
 		
 		final Map<String,String> propertyMap = new HashMap<String,String>();
+		
+		_log.info("Count = " + toList.length);
     	
 		
 		for (String email : toList) {
 			
+			_log.info("Sending out email = " + email);
+			
 			Contact contact = find(user,email);
-			if (contact != null) {
-				if (!contact.hasInviteInstanceId(inviteInstanceId)) {
+			//if (contact != null) {
+				//if (!contact.hasInviteInstanceId(inviteInstanceId)) {
 					
 					propertyMap.put(Constant.INVITATION_KEY,getInvitationKey(
 							user,
@@ -117,10 +121,12 @@ public class ContactHandler {
 							html, 
 							propertyMap);
 					
-					contact.addInviteInstanceId(inviteInstanceId);
+					_log.info("Sending it out");
+					
+					//contact.addInviteInstanceId(inviteInstanceId);
 					list.add(email);
-				}
-			}
+				//}
+			//}
 			
 		}
 		

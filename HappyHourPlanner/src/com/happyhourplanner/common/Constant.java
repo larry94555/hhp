@@ -100,6 +100,8 @@ public class Constant {
 	
 	public static final String CHANGES_SAVED = "Changes saved.";
 	
+	public static final String NEED_LOGIN = "Need to login";
+	
 	// contacts stored as <email>@@<name>
 	public static final int NAME_PART=1;
 	public static final int EMAIL_PART=0;

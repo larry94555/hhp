@@ -8,6 +8,21 @@ $(function() {
 	// call ajax value to update the invitation details.
 	// title, contact list, and invite text.
 	var handleInviteChange = function() {
+		
+		if ($.trim($('#invite-to-field').val()).length <= 2) {
+			// add disabled if not already there
+			if (!$('#action-send-invite').hasClass("disabled")) {
+				$('#action-send-invite').addClass("disabled");
+				
+			}
+		}
+		else {
+			// remove disabled if there
+			if ($('#action-send-invite').hasClass("disabled")) {
+				$('#action-send-invite').removeClass("disabled");
+			}
+		}
+		
 		var updateInvite = $.ajax({
         	url: "/invite",
     		type: "POST",
@@ -25,6 +40,10 @@ $(function() {
         });
 		
 		updateInvite.done(function(data) {
+			if (data.msg === "Need to login") {
+				
+				location.reload();
+			}
 		});
 		
 		updateInvite.fail(function(jqXHR,textStatus) {
@@ -54,6 +73,30 @@ $(function() {
         });
 		
 		sendInvite.done(function(data) {
+						
+			if (data.msg === "Need to login") {
+
+				location.reload();
+			}
+			else {
+				// iterate through and set the email as sent (data.list)
+				if (data.list) {
+					data.list.forEach(function(item) {
+						
+						//alert("item = " + item);
+						
+						var id = "#id-"+item.toLowerCase().replace(/[@\.]/g,"_spcl_");
+						if (!$(id).parent().hasClass("invite-sent")) {
+							$(id).parent().addClass("invite-sent");
+						}
+						
+						//alert("item = " + item);
+						//$('#id-'+item.toLowerCase().replace(/[@\.]/g,"_spcl_")).parent().addClass('invite-sent');
+						//alert("text = " + $('#id-'+item.toLowerCase().replace(/[@\.]/g, "_spcl_")).text())
+						//alert("String = " + "#id-" + item.toLowerCase().replace(/@/g,"_at_"));
+					});
+				}
+			}
 		});
 		
 		sendInvite.fail(function(jqXHR,textStatus) {

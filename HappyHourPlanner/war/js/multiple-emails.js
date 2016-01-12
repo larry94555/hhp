@@ -33,7 +33,7 @@
 
 			if ($(this).val() != '' && IsJsonString($(this).val())) {
 				$.each(jQuery.parseJSON($(this).val()), function( index, val ) {
-					$list.append($('<li class="multiple_emails-email"><span class="email_name" data-email="' + val.toLowerCase() + '">' + val + '</span></li>')
+					$list.append($('<li class="multiple_emails-email"><span class="email_name" id="'+'id-'+ val.toLowerCase().replace(/[@\.]/g, "_spcl_") + '" data-email="' + val.toLowerCase() + '">' + val + '</span></li>')
 					  .prepend($(deleteIconHTML)
 						   .click(function(e) { $(this).parent().remove(); refresh_emails(); e.preventDefault(); })
 					  )
@@ -116,7 +116,7 @@
 						}
 					}
 					else if (pattern.test(arr[i]) == true) {
-						$list.append($('<li class="multiple_emails-email"><span class="email_name" data-email="' + arr[i].toLowerCase() + '">' + arr[i] + '</span></li>')
+						$list.append($('<li class="multiple_emails-email"><span class="email_name" id="id-'+ arr[i].toLowerCase().replace(/[@\.]/g,'_spcl_') + '" data-email="' + arr[i].toLowerCase() + '">' + arr[i] + '</span></li>')
 							  .prepend($(deleteIconHTML)
 								   .click(function(e) { $(this).parent().remove(); refresh_emails(); e.preventDefault(); })
 							  )

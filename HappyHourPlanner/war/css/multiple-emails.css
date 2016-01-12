@@ -29,6 +29,11 @@
 	padding-left: 0; 
 }
 
+.multiple_emails-email.invite-sent {
+	background: #BDFCC9;
+	
+}
+
 .multiple_emails-email { 
 	margin: 3px 5px 3px 5px; 
 	padding: 3px 5px 3px 5px; 

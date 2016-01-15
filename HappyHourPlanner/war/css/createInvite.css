@@ -11,6 +11,14 @@
 	font-family:Arial, Helvetica, sans-serif;
 }
 
+.invite-status-text {
+	font-size: 10px;
+	color: red;
+	vertical-align: text-top;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 #create-invite-container p span {
 	color: #346a2e;
 	font-size: 13px;

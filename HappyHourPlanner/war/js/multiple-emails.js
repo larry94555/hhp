@@ -33,11 +33,26 @@
 
 			if ($(this).val() != '' && IsJsonString($(this).val())) {
 				$.each(jQuery.parseJSON($(this).val()), function( index, val ) {
-					$list.append($('<li class="multiple_emails-email"><span class="email_name" id="'+'id-'+ val.toLowerCase().replace(/[@\.]/g, "_spcl_") + '" data-email="' + val.toLowerCase() + '">' + val + '</span></li>')
-					  .prepend($(deleteIconHTML)
-						   .click(function(e) { $(this).parent().remove(); refresh_emails(); e.preventDefault(); })
-					  )
-					);
+					
+					var statusNum = $("#status-"+val.toLowerCase().replace(/[@\.]/g,'_spcl_')).val();
+					var statusTextHtml = "<span class='invite-status-text'>sent</span>";
+					var statusClass="";
+					switch(statusNum) {
+					case '1': statusClass=" invite-sent"; break;
+					}
+					
+					if (statusNum === "1") {
+						$list.append($('<li class="multiple_emails-email'+statusClass+'"><span class="email_name" id="'+'id-'+ val.toLowerCase().replace(/[@\.]/g, "_spcl_") + '" data-email="' + val.toLowerCase() + '">' + val + '</span></li>')
+								  .prepend($(statusTextHtml))
+								);
+					}
+					else {
+						$list.append($('<li class="multiple_emails-email'+statusClass+'"><span class="email_name" id="'+'id-'+ val.toLowerCase().replace(/[@\.]/g, "_spcl_") + '" data-email="' + val.toLowerCase() + '">' + val + '</span></li>')
+						  .prepend($(deleteIconHTML)
+							   .click(function(e) { $(this).parent().remove(); refresh_emails(); e.preventDefault(); })
+						  )
+						);
+					}
 				});
 			}
 						
@@ -116,7 +131,13 @@
 						}
 					}
 					else if (pattern.test(arr[i]) == true) {
-						$list.append($('<li class="multiple_emails-email"><span class="email_name" id="id-'+ arr[i].toLowerCase().replace(/[@\.]/g,'_spcl_') + '" data-email="' + arr[i].toLowerCase() + '">' + arr[i] + '</span></li>')
+						//var statusNum = $("status-"+arr[i].toLowerCase().replace(/[@\.]/g,'_spcl_')).val();
+						var statusClass="";
+						//alert("statusNum = " + statusNum);
+						//switch(statusNum) {
+						//case '1': statusClass=" invite-sent"; break;
+						//}
+						$list.append($('<li class="multiple_emails-email"><span class="email_name'+statusClass+'" id="id-'+ arr[i].toLowerCase().replace(/[@\.]/g,'_spcl_') + '" data-email="' + arr[i].toLowerCase() + '">' + arr[i] + '</span></li>')
 							  .prepend($(deleteIconHTML)
 								   .click(function(e) { $(this).parent().remove(); refresh_emails(); e.preventDefault(); })
 							  )

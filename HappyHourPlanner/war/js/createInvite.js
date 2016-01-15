@@ -88,6 +88,15 @@ $(function() {
 						var id = "#id-"+item.toLowerCase().replace(/[@\.]/g,"_spcl_");
 						if (!$(id).parent().hasClass("invite-sent")) {
 							$(id).parent().addClass("invite-sent");
+							
+							//$(id).text($(id).text()+" (status: sent)");
+							var statusMsgHtml = "<span class='invite-status-text'>sent</span>";
+							
+							$(statusMsgHtml).insertBefore(id);
+							
+							$(id).parent().find("a").css("display","none");
+							
+							
 						}
 						
 						//alert("item = " + item);

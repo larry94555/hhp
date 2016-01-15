@@ -22,7 +22,7 @@ public class ContactHandler {
 	
 	private static final Logger _log = Logger.getLogger(UserAccountHandler.class.getName());
 	
-	public static Contact find(final User user, final String email) {
+	public static Contact find(final User user, final String email, final boolean create) {
 		
 		Query query = EM.get().createQuery("SELECT c FROM Contact c WHERE c.userName = :userName and c.email = :email");
 		query.setParameter("userName", user.getUserName());
@@ -31,7 +31,15 @@ public class ContactHandler {
 		query.setMaxResults(2);
 				
 		if (query.getResultList().isEmpty()) {
-			return null;
+			if (create) {
+				Contact contact=new Contact(email,user.getUserName());
+				EM.get().persist(contact);
+				EM.commit();
+				return contact;
+			}
+			else {
+				return null;
+			}
 		}
 		else {
 			return (Contact)query.getResultList().get(0);
@@ -61,25 +69,25 @@ public class ContactHandler {
 		}
 	}
 	
+	public static List<InvitationKey> getInvitationKeysAsList(final User user, final List<String> invitees,
+			final int invitationInstanceId) {
+		List<InvitationKey> list = new ArrayList<InvitationKey>();
+		
+		for (final String invitee : invitees) {
+			list.add(find(user,invitee,invitationInstanceId));
+		}
+		
+		return list;
+	}
+	
 	public static void remove(final User user, final String email) {
 		if (user != null) {
-			Contact contact = find(user,email);
+			Contact contact = find(user,email,false);
 			if (contact != null) {
 				EM.get().remove(contact);
 				EM.commit();
 			}
 		}
-	}
-	
-	public static String getInvitationKey(
-			final User user,
-			final Contact contact,
-			final String email,
-			final int inviteInstanceId) {
-		
-		// check if invitation key exists
-		InvitationKey invitationKey = find(user,email,inviteInstanceId);
-		return invitationKey.getInvitationKey();
 	}
 	
 	public static List<String> sendToNewUsersOnly(
@@ -94,22 +102,18 @@ public class ContactHandler {
 		
 		final Map<String,String> propertyMap = new HashMap<String,String>();
 		
-		_log.info("Count = " + toList.length);
+		//_log.info("Count = " + toList.length);
     	
 		
 		for (String email : toList) {
 			
-			_log.info("Sending out email = " + email);
+			//_log.info("Sending out email = " + email);
 			
-			Contact contact = find(user,email);
-			//if (contact != null) {
-				//if (!contact.hasInviteInstanceId(inviteInstanceId)) {
+			InvitationKey invitationKey = find(user,email,inviteInstanceId);
+			if (invitationKey != null) {
+				if (invitationKey.getState() == Constant.STATE_INVITE_UNSENT) {
 					
-					propertyMap.put(Constant.INVITATION_KEY,getInvitationKey(
-							user,
-							contact,
-							email,
-							inviteInstanceId));
+					propertyMap.put(Constant.INVITATION_KEY,invitationKey.getInvitationKey());
 					
 					// send Invite
 					Mailer.mail(
@@ -123,10 +127,14 @@ public class ContactHandler {
 					
 					_log.info("Sending it out");
 					
-					//contact.addInviteInstanceId(inviteInstanceId);
+					invitationKey.setState(Constant.STATE_INVITE_SENT);
+					//EM.get().persist(invitationKey);
+					EM.commit();
+			
+					
 					list.add(email);
-				//}
-			//}
+				}
+			}
 			
 		}
 		
@@ -159,15 +167,13 @@ public class ContactHandler {
 		
 		if (user != null) {
 			for (Contact contact : contacts) {
-				if (find(user,contact.getEmail()) == null) {
+				if (find(user,contact.getEmail(),false) == null) {
 					//_log.info("contact does not yet exist!");
 					contact.setUser(user);
 					EM.get().persist(contact);
 					EM.commit();
 				}
-				else {
-					//_log.info("contact exists");
-				}
+
 			}
 	
 		}
@@ -177,12 +183,7 @@ public class ContactHandler {
 	public static void addContactList(final User user,final String[] emails) {
 		if (user != null) {
 			for (String email : emails) {
-				Contact contact = find(user,email);
-				if (contact == null) {
-					contact = new Contact(email);
-					EM.get().persist(contact);
-					EM.commit();
-				}
+				Contact contact = find(user,email,true);
 			}
 		}
 	}

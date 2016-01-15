@@ -35,6 +35,11 @@ public class Util {
 		_log.info(message);
 	}
 	
+	public static String convertEmailToId(final String email) {
+		///[@\.]/g, "_spcl_"
+		return email.toLowerCase().replaceAll("[@\\.]", "_spcl_");
+	}
+	
 	
 	public static List<String> getAlphabet() {
 		return Collections.unmodifiableList(Arrays.asList("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V",

@@ -122,4 +122,15 @@ public class Constant {
 	public static final int STATE_CONTACT_LIST_NUM = 3;
 	public static final int STATE_STATUS_NUM = 4;
 	public static final int STATE_DATE_SET_NUM = 5;
+	
+	// invitation states
+	public static final int STATE_INVITE_UNSENT = 0;
+	public static final int STATE_INVITE_SENT = 1;
+	public static final int STATE_INVITE_CLICK = 2;
+	public static final int STATE_INVITE_VOTE = 3;
+	public static final int STATE_INVITE_SEND_RESULT = 4;
+	public static final int STATE_INVITE_RSVP_ATTEND = 5;
+	public static final int STATE_INVITE_RSVP_MAYBE = 6;
+	public static final int STATE_INVITE_RSVP_UNAVAILABLE = 7;
+	public static final int STATE_INVITE_PAST = 8;
 }

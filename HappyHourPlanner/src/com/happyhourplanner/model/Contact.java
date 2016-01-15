@@ -28,10 +28,6 @@ public class Contact {
 	
 	private String name;
 	
-	@ElementCollection
-	private Set<Integer> alreadySent;
-	
-	
 	public Contact(final String email, final String name) {
 		this.email = email;
 		this.name = name;
@@ -40,14 +36,12 @@ public class Contact {
 	public Contact() {
 		this.email = "";
 		this.name = "";
-		this.alreadySent = new HashSet<Integer>();
 	}
 	
 	public Contact(final String email) {
 		this.email = email;
 		String[] parts = email.split("@");
 		this.name = parts[0];
-		this.alreadySent = new HashSet<Integer>();
 	}
 	
 	public String getUserName() { return userName; }
@@ -55,29 +49,7 @@ public class Contact {
 	public String getEmail() { return email; }
 	public Key getKey() { return key; }
 	
-	public boolean hasInviteInstanceId(final int inviteInstanceId) {
-		return alreadySent.contains(inviteInstanceId);
-	}
-	
-	public void addInviteInstanceId(final int inviteInstanceId) {
-		alreadySent.add(inviteInstanceId);
-	}
-	
-	public Set<Integer> getAlreadySent() {
-		return alreadySent;
-	}
-	
-	public void setAlreadySent(Set<Integer> alreadySent) {
-		if (this.alreadySent == null) {
-			this.alreadySent = new HashSet<Integer>();
-		}
-		else {
-			this.alreadySent.clear();
-		}
-		this.alreadySent.addAll(alreadySent);
-	}
-	
-	
+
 	public void setUser(final User user) {
 		this.userName = user.getUserName();
 	}

@@ -139,8 +139,6 @@ public class Invite {
 	public void setText(final String text) { this.text = text; }
 	
 	public void setHtml(final String html) { this.html = html; }
-
-	
-	
+		
 
 }

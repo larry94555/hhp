@@ -216,6 +216,14 @@ public class Util {
 		
 		return builder.toString();
 	}
+	
+	public static String addClickLink(final String text) {
+		
+		StringBuilder builder = new StringBuilder(text);
+		builder.append("\n").append(Constant.CLICK_LINK_BELOW);
+		
+		return builder.toString();
+	}
 
 
 

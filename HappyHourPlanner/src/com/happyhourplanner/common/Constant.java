@@ -35,6 +35,7 @@ public class Constant {
 	public static final String INVITATION_KEY = "invitationKey";
 	public static final int ACTIVATION_KEY_LENGTH = 40;
 	public static final int INVITATION_KEY_LENGTH = 40;
+	public static final String CLICK_LINK_BELOW = "Just click the link below and vote:\r\nhttp://happyhourplanner.com/invite/${invitationKey}";
 	
 	public static final String NAME_PROPERTY_KEY = "name";
 	public static final String EMAIL_PROPERTY_KEY = "emailAddress";

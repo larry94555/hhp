@@ -114,6 +114,8 @@ public class ContactHandler {
 				if (invitationKey.getState() == Constant.STATE_INVITE_UNSENT) {
 					
 					propertyMap.put(Constant.INVITATION_KEY,invitationKey.getInvitationKey());
+					String[] parts = email.split("@");
+					propertyMap.put(Constant.NAME_PROPERTY_KEY, parts[0]);
 					
 					// send Invite
 					Mailer.mail(
@@ -121,11 +123,20 @@ public class ContactHandler {
 							Constant.FROM_NAME, 
 							"larry.freeman@gmail.com",
 							subject, 
-							text, 
+							Util.addClickLink(text), 
 							html, 
 							propertyMap);
 					
 					_log.info("Sending it out");
+					
+//					Mailer.mail(
+//							Constant.FROM_ADDRESS, 
+//							Constant.FROM_NAME, 
+//							"noone@nowhere.com",
+//							subject, 
+//							text, 
+//							html, 
+//							propertyMap);
 					
 					invitationKey.setState(Constant.STATE_INVITE_SENT);
 					//EM.get().persist(invitationKey);

@@ -15,7 +15,7 @@ public class Constant {
 	public static final String DEFAULT_GROUP_NAME = "Group 1";
 	public static final String DEFAULT_SUBJECT = "Would folks be up for a Happy Hour?";
 	public static final String DEFAULT_INVITE_TEXT_FILE = "/WEB-INF/resources/defaultInvite.txt";
-	public static final String DEFAULT_INVITE_HTML_FILE = "/WEB-INF/resources/defaultInvite.html";
+	public static final String DEFAULT_INVITE_HTML_FILE = "/WEB-INF/resources/defaultInvitev2.html";
 	
 	// HTML
 	public static final String CHECKED = "checked=\"checked\"";
@@ -36,8 +36,12 @@ public class Constant {
 	public static final int ACTIVATION_KEY_LENGTH = 40;
 	public static final int INVITATION_KEY_LENGTH = 40;
 	public static final String CLICK_LINK_BELOW = "Just click the link below and vote:\r\nhttp://happyhourplanner.com/invite/${invitationKey}";
+	public static final String GREETINGS_ABOVE = "Hi ${name},\n\n";
+	public static final String NO_SIGN_UP_NECESSARY = "You won't need to sign up on the web site to act on this invite.";
 	
 	public static final String NAME_PROPERTY_KEY = "name";
+	public static final String TEXT_PROPERTY_KEY = "text";
+	public static final String ORGANIZER_PROPERTY_KEY = "organizer";
 	public static final String EMAIL_PROPERTY_KEY = "emailAddress";
 	
 	public static final String PASSWORD_RESET_KEY = "passwordResetKey";

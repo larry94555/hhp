@@ -83,6 +83,7 @@ public class Util {
 		}
 		
 		if (username != null) {
+			
 			final User user = UserAccountHandler.find(username);
 			if (user == null) {
 				// in this case, do a sign out.
@@ -219,8 +220,12 @@ public class Util {
 	
 	public static String addClickLink(final String text) {
 		
-		StringBuilder builder = new StringBuilder(text);
-		builder.append("\n").append(Constant.CLICK_LINK_BELOW);
+		StringBuilder builder = new StringBuilder(Constant.GREETINGS_ABOVE);
+		builder.append(text).append("\n\n").append(Constant.CLICK_LINK_BELOW)
+			.append("\n\n")
+			.append("----------------------------------------------------------\n\n")
+			.append(Constant.NO_SIGN_UP_NECESSARY);
+		
 		
 		return builder.toString();
 	}

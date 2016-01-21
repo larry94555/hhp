@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.happyhourplanner.common.Constant;
 import com.happyhourplanner.model.EM;
 import com.happyhourplanner.model.SavedSession;
+import com.happyhourplanner.model.User;
 
 public class SavedSessionHandler {
 	
@@ -42,6 +43,13 @@ public class SavedSessionHandler {
 		
 			
 		return Constant.EMPTY_MAP;
+	}
+	
+	public static void removeAllSavedSessions(final String username) {
+		Query query = EM.get().createQuery("DELETE FROM SavedSession s WHERE s.userName =  :userName");
+		query.setParameter("userName",username);
+		query.executeUpdate();
+		//EM.commit();
 	}
 	
 	public static String saveSession(final HttpSession session,final String username) {

@@ -18,18 +18,18 @@ import javax.servlet.http.HttpSession;
 public class SavedSession {
 	
 	@Id
-	private String username;
+	private String userName;
 	private String sessionId;
 	@ElementCollection
 	private Map<String,String> sessionAttributes;	
 	
-	public SavedSession(final HttpSession session, final String username) {		
+	public SavedSession(final HttpSession session, final String userName) {		
 		//this.session=session;
 		sessionAttributes = new HashMap<String,String>();
 		setSessionAttributes(session);
 		
 		
-		this.username=username;
+		this.userName=userName;
 		//byte[] salt = Passwords.getNextSalt();
 		//sessionId = Passwords.asciiHash(username.toCharArray(),salt);
 		this.sessionId = (new Date()).getTime()+"_"+ session.getId();

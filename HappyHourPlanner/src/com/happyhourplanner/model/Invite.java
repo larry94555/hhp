@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.servlet.ServletContext;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Text;
 import com.happyhourplanner.common.Constant;
 import com.happyhourplanner.controller.FileRetriever;
 
@@ -26,7 +27,7 @@ public class Invite {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key key;
 	
-	private String username;  // user
+	private String userName;  // user
 	private String groupName;
 	private int groupId;
 	
@@ -34,8 +35,8 @@ public class Invite {
 	
 	private int inviteInstanceId; // generated new for each invite instance
 	
-	private String text;
-	private String html;
+	private Text text;
+	private Text html;
 
 	@ElementCollection
 	private List<String> invitees; // string specifying contact
@@ -56,12 +57,12 @@ public class Invite {
 			final int inviteInstanceId
 			) throws IOException {
 		
-		this.username = username;
+		this.userName = username;
 		this.groupName = groupName;
 		this.subject = subject;
 		
-		this.text = text;
-		this.html = html;
+		this.text = new Text(text);
+		this.html = new Text(html);
 		this.groupId = groupId;
 		
 		if (invitees != null && this.invitees != null) {
@@ -75,7 +76,7 @@ public class Invite {
 		
 	}
 	
-	public String getUsername() { return username; }
+	public String getUsername() { return userName; }
 	
 	public String getGroupName() { return groupName; }
 	
@@ -92,7 +93,10 @@ public class Invite {
 	
 	public List<String> getInvitees() {
 		List<String> copyInvitees = new ArrayList<String>();
-		copyInvitees.addAll(invitees);
+		
+		if (invitees != null && !invitees.isEmpty()) {
+			copyInvitees.addAll(invitees);
+		}
 		return copyInvitees;
 	}
 	
@@ -115,13 +119,13 @@ public class Invite {
 		return builder.toString();
 	}
 	
-	public String getText() { return text; }
+	public String getText() { return text.getValue(); }
 	
-	public String getHtml() { return html; }
+	public String getHtml() { return html.getValue(); }
 	
 	public int getGroupId() { return groupId; }
 	
-	public void setUsername(final String username) { this.username = username; }
+	public void setUsername(final String userName) { this.userName = userName; }
 	
 	public void setGroupName(final String groupName) { this.groupName = groupName; }
 	
@@ -136,9 +140,9 @@ public class Invite {
 	
 	public void setInviteInstanceId(final int inviteInstanceId) { this.inviteInstanceId = inviteInstanceId; }
 	
-	public void setText(final String text) { this.text = text; }
+	public void setText(final String text) { this.text = new Text(text); }
 	
-	public void setHtml(final String html) { this.html = html; }
+	public void setHtml(final String html) { this.html = new Text(html); }
 		
 
 }

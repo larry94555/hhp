@@ -48,8 +48,19 @@ public class UpdateUserServlet extends HttpServlet {
 	    	
 	    	_log.info("attempting to delete");
 	    	
-	    	
+	    	// remove data from other tables
+	    	// Contact
+	    	// Invite
+	    	// SavedSession
+	    	// InvitationKey
 	    	EM.get().remove(user);
+	    	ContactHandler.removeAllContactsForUser(username);
+	    	_log.info("Invites");
+	    	ContactHandler.removeAllInvitesForUser(username);
+	    	_log.info("InvitationKeys");
+	    	ContactHandler.removeAllInvitationKeys(username);
+	    	_log.info("savedSession");
+	    	SavedSessionHandler.removeAllSavedSessions(username);
 	    	EM.commit();
 	    	out.println("deleted");
 	    	out.close();
@@ -118,7 +129,7 @@ public class UpdateUserServlet extends HttpServlet {
 	
 	}
 	catch (Exception ex) {
-		_log.log(Level.WARNING, "Failure in checking user : " +
+		_log.log(Level.WARNING, "Failure in updating user : " +
 	ex.getMessage());
 	 }
 	}

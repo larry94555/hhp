@@ -67,7 +67,7 @@ public class UserAccountHandler {
 		throws IOException {
 		
 		Query query = EM.get().createQuery(
-				"SELECT i FROM Invite i WHERE i.username = :username AND i.groupId = :groupId");
+				"SELECT i FROM Invite i WHERE i.userName = :username AND i.groupId = :groupId");
 		query.setParameter("username", username);
 		query.setParameter("groupId", groupId);
 		query.setFirstResult(0);
@@ -76,7 +76,7 @@ public class UserAccountHandler {
 		// if none found, then create one
 		if (query.getResultList().isEmpty()) {
 			// create first invite
-			Invite invite = createFirstInvite(username,servletContext);
+			Invite invite = createInvite(username,groupId,1,servletContext);
 			persist(invite);
 			return invite;
 			
@@ -172,7 +172,7 @@ public class UserAccountHandler {
 		return null;
 	}
 	
-	public static Invite createFirstInvite(final String username,final ServletContext servletContext) 
+	public static Invite createInvite(final String username,final int groupId,final int inviteInstanceId,final ServletContext servletContext) 
 		throws IOException {
 		// create first invite
 		return new Invite(
@@ -182,8 +182,8 @@ public class UserAccountHandler {
 				null,
 				FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_TEXT_FILE),
 				FileRetriever.getContent(servletContext, Constant.DEFAULT_INVITE_HTML_FILE),
-				1,
-				1
+				groupId,
+				inviteInstanceId
 		);
 	}
 	
@@ -202,9 +202,6 @@ public class UserAccountHandler {
 				user.setCurrentState(Constant.STATE_PREFERENCES_NUM);
 				persist(user);
 			
-				persist(createFirstInvite(user.getUserName(),servletContext));
-
-				
 			}
 
 		}

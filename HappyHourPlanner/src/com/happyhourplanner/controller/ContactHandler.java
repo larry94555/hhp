@@ -47,6 +47,27 @@ public class ContactHandler {
 		
 	}
 	
+	public static void removeAllContactsForUser(final String username) {
+		Query query = EM.get().createQuery("DELETE FROM Contact c WHERE c.userName =  :userName");
+		query.setParameter("userName",username);
+		query.executeUpdate();
+		//EM.commit();
+	}
+	
+	public static void removeAllInvitesForUser(final String username) {
+		Query query = EM.get().createQuery("DELETE FROM Invite i WHERE i.userName =  :userName");
+		query.setParameter("userName",username);
+		query.executeUpdate();
+		//EM.commit();
+	}
+	
+	public static void removeAllInvitationKeys(final String username) {
+		Query query = EM.get().createQuery("DELETE FROM InvitationKey i WHERE i.userName =  :userName");
+		query.setParameter("userName",username);
+		query.executeUpdate();
+		//EM.commit();
+	}
+	
 	public static InvitationKey find(final User user, final String email, final int invitationInstanceId) {
 		Query query = EM.get().createQuery("SELECT i FROM InvitationKey i WHERE i.userName = :userName and i.email = :email and i.invitationInstanceId = :invitationInstanceId");
 		query.setParameter("userName", user.getUserName());
@@ -90,6 +111,8 @@ public class ContactHandler {
 		}
 	}
 	
+	
+	
 	public static List<String> sendToNewUsersOnly(
 			final User user,
 			final String text,
@@ -116,6 +139,9 @@ public class ContactHandler {
 					propertyMap.put(Constant.INVITATION_KEY,invitationKey.getInvitationKey());
 					String[] parts = email.split("@");
 					propertyMap.put(Constant.NAME_PROPERTY_KEY, parts[0]);
+					propertyMap.put(Constant.TEXT_PROPERTY_KEY,text);
+					propertyMap.put(Constant.ORGANIZER_PROPERTY_KEY, user.getUserName());
+			
 					
 					// send Invite
 					Mailer.mail(
@@ -139,7 +165,7 @@ public class ContactHandler {
 //							propertyMap);
 					
 					invitationKey.setState(Constant.STATE_INVITE_SENT);
-					//EM.get().persist(invitationKey);
+					EM.get().persist(invitationKey);
 					EM.commit();
 			
 					

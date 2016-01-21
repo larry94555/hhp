@@ -1,9 +1,5 @@
-Hi ${name},
-
 I thought that it would be fun to plan a happy hour. 
 
-I'm using HappyHourPlanner.com to organize this.
-
-You won't need to sign up on the web site.  
+I'm using HappyHourPlanner.com to organize this.  It will allow you to select the days that work best for you.
 
 When enough people have agreed on a date, an email will go out.

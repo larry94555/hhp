@@ -70,7 +70,7 @@ $(document).ready(function() {
 	$('#the-button-text').click(function() {
 		
 		if ($('#edit-table-delete').val() === "yes") {
-			if (confirm("Delete user?") === false) {
+			if (confirm("Delete user: " + $('#edit-table-username').text() + "?") === false) {
 				return false;
 			}
 		}

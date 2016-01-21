@@ -9,9 +9,9 @@
 	// check for cookie
 	final User user = Util.checkForUser(request,response);
 	
-	final String status = (String)session.getAttribute(Constant.STATUS);
+	Util.log("User = " + user);
 	
-	Util.log("status = " + status + ", currentState = " + user.getCurrentState());
+	final String status = (String)session.getAttribute(Constant.STATUS);
 	
 %>
                 
@@ -21,7 +21,7 @@
                 	<p>Thanks for verifying your email.  Welcome to Happy Hour Planner!</p>
                 	<p>Click <a href="#" class="stepOne-continue">here</a> to continue.</p>
                 	
-                <% } else if (status==null && user.isVerified()) { %>
+                <% } else if (status==null && user != null && user.isVerified()) { %>
                 
                 	<p>Your account has been activated.</p>
                 	<p>Click <a class="stepOne-continue" href="#">here</a> to continue.</p>	

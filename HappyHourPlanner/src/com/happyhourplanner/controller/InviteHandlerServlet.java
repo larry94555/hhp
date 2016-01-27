@@ -56,15 +56,14 @@ public class InviteHandlerServlet extends HttpServlet {
 		    	final String sendStatus = req.getParameter("send");
 		    	List<String> sentList = null;
 		    	
-		    	//UserAccountHandler.updatePreferences(user,placeMarkerMap,prefs);
 		    	UserAccountHandler.updateInvite(user,groupName,subject,toList,text,groupId,getServletContext());
-		    	ContactHandler.addContactList(user, toList);
+		    	//ContactHandler.addContactList(user, toList);
 		    	
 		    	if (sendStatus.equals("email") && toList.length > 0) {
 		    		
 		    		
 		    		// send out to each person (who has not already received)
-		    		sentList = ContactHandler.sendToNewUsersOnly(user,text,html,subject,inviteInstanceId,toList);
+		    		//sentList = ContactHandler.sendToNewUsersOnly(user,text,html,subject,inviteInstanceId,toList);
 		    		
 		    	}
 	    		

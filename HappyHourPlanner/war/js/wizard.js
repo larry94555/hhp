@@ -327,6 +327,7 @@ $(function () {
 				});
 			
 			reloadNeeded=true;
+			$('#placeListLoadingIndicator').css("display","none");
     
 		});		
 		

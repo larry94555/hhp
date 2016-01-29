@@ -2,17 +2,72 @@
 
 $(function() {
 	
+	var previousValue = $.trim($('#invite-to-field').val());
+	
 	//To render the input device to multiple email input using BootStrap icon
 	$('#invite-to-field').multiple_emails({position: "bottom"});
+	
+	var getDiff = function(currentValue,previousValue) {
+		if (currentValue.length >= previousValue.length) {
+			return "";
+		}
+		else {
+			var currentList = currentValue.split(/[,\]]/);
+			var previousList = previousValue.split(/[,\]]/);
+			for (var i in previousList) {
+				if (currentList[i] !== previousList[i]) {
+					return previousList[i];
+				}
+			}
+			return "";
+		}
+	}
 	
 	// call ajax value to update the invitation details.
 	// title, contact list, and invite text.
 	var handleInviteChange = function() {
 		
-		if ($.trim($('#invite-to-field').val()).length <= 2) {
+		
+		// NOTE: To Do: only send the element that changes.
+		
+		//alert("Previous: " + previousValue);
+		//alert("Current: " + $.trim($('#invite-to-field').val()));
+		var currentValue = $.trim($('#invite-to-field').val());
+		
+		if (currentValue.length < previousValue.length) {
+			//alert("Removed: " + getDiff(currentValue,previousValue));
+			
+			var removeInvitationKey = $.ajax({
+				url: "/invite",
+	    		type: "POST",
+	    		data: { 
+	    			toList: getDiff(currentValue,previousValue),
+	    			groupId: $('#invite-group-id').val(),
+	    			inviteInstanceId: $('#invite-instance-id').val(),
+	    			send: "remove"
+				},
+	    		dataType: "json"
+			});
+			
+			removeInvitationKey.done(function(data) {
+				if (data.msg === "Need to login") {
+					
+					location.reload();
+				}
+			});
+			
+			removeInvitationKey.fail(function(jqXHR,textStatus) {
+			});
+			
+			
+		}
+		previousValue = currentValue;
+		
+		if (currentValue.length <= 2) {
 			// add disabled if not already there
 			if (!$('#action-send-invite').hasClass("disabled")) {
 				$('#action-send-invite').addClass("disabled");
+				
 				
 			}
 		}

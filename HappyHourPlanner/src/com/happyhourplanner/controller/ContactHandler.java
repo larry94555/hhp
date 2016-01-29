@@ -33,8 +33,8 @@ public class ContactHandler {
 		if (query.getResultList().isEmpty()) {
 			if (create) {
 				Contact contact=new Contact(email,user.getUserName());
-				EM.get().persist(contact);
-				EM.commit();
+				//EM.get().persist(contact);
+				//EM.commit();
 				return contact;
 			}
 			else {
@@ -68,6 +68,21 @@ public class ContactHandler {
 		//EM.commit();
 	}
 	
+	public static void removeInvitationKeys(final String username,
+			final int inviteInstanceId,
+			final String[] toList) {
+		
+		Query query = EM.get().createQuery("DELETE FROM InvitationKey i WHERE i.userName = :userName" +
+					" and inviteInstanceId = :inviteInstanceId " +
+					" and email = :email");
+		query.setParameter("userName",username);
+		query.setParameter("inviteInstanceId",inviteInstanceId);
+		for (String email : toList) {
+			query.setParameter("email",email);
+			query.executeUpdate();
+		}
+	}
+	
 	public static InvitationKey find(final User user, final String email, final int invitationInstanceId) {
 		Query query = EM.get().createQuery("SELECT i FROM InvitationKey i WHERE i.userName = :userName and i.email = :email and i.invitationInstanceId = :invitationInstanceId");
 		query.setParameter("userName", user.getUserName());
@@ -80,8 +95,8 @@ public class ContactHandler {
 			
 			// Create new invitation key
 			InvitationKey invitationKey = new InvitationKey(user.getUserName(),email,invitationInstanceId);
-			EM.get().persist(invitationKey);
-			EM.commit();
+			//EM.get().persist(invitationKey);
+			//EM.commit();
 			return invitationKey;
 			
 		}
@@ -171,6 +186,10 @@ public class ContactHandler {
 					
 					list.add(email);
 				}
+			}
+			
+			else {
+				_log.info("invitationKey is null");
 			}
 			
 		}

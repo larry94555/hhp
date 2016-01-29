@@ -2,6 +2,7 @@ package com.happyhourplanner.model;
 
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 import com.happyhourplanner.common.Constant;
@@ -11,6 +12,8 @@ public class ResponseBean {
 	
 	//private final static Gson _gson = Util.getGson();
 	private final static Gson _gson = new Gson();
+	
+	public static final Logger _log = Logger.getLogger(ResponseBean.class.getName());
 	
 	private final String msg;
 	private final String sessionId; 
@@ -57,6 +60,7 @@ public class ResponseBean {
 	}
 	
 	public static void println(PrintWriter out,String msg,String sessionId,List<String> list) {
+		//_log.info("println for ResponseBean with list");
 		ResponseBean rb = new ResponseBean(msg,sessionId,list);
 		out.println(rb.getJson());
 	}

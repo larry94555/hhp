@@ -38,7 +38,7 @@ public class InviteHandlerServlet extends HttpServlet {
 		    	return;
 		    }
 		    
-		    _log.info("username = " + username);
+		    //_log.info("username = " + username);
 		    
 		    final User user = UserAccountHandler.validateUser(username,out);
 		    
@@ -56,14 +56,24 @@ public class InviteHandlerServlet extends HttpServlet {
 		    	final String sendStatus = req.getParameter("send");
 		    	List<String> sentList = null;
 		    	
+		    	if (sendStatus.equalsIgnoreCase("remove") && toList.length > 0) {
+		    		// remove each item from 
+		    		ContactHandler.removeInvitationKeys(username,inviteInstanceId,toList);
+		    		ResponseBean.println(out,Constant.EMAIL_REMOVED);
+		    		out.close();
+		    		return;
+		    	}
+		    	
 		    	UserAccountHandler.updateInvite(user,groupName,subject,toList,text,groupId,getServletContext());
 		    	//ContactHandler.addContactList(user, toList);
 		    	
 		    	if (sendStatus.equals("email") && toList.length > 0) {
 		    		
+		    		//_log.info("Going to sendToNewUsersOnly");;
+		    		
 		    		
 		    		// send out to each person (who has not already received)
-		    		//sentList = ContactHandler.sendToNewUsersOnly(user,text,html,subject,inviteInstanceId,toList);
+		    		sentList = ContactHandler.sendToNewUsersOnly(user,text,html,subject,inviteInstanceId,toList);
 		    		
 		    	}
 	    		

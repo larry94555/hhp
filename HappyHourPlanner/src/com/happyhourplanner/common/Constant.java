@@ -107,6 +107,8 @@ public class Constant {
 	
 	public static final String NEED_LOGIN = "Need to login";
 	
+	public static final String EMAIL_REMOVED = "Email removed";
+	
 	// contacts stored as <email>@@<name>
 	public static final int NAME_PART=1;
 	public static final int EMAIL_PART=0;

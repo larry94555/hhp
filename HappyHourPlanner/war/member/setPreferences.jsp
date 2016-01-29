@@ -79,6 +79,7 @@
 <div id='container'> 
 <label for="pref-list">Places:</label><br /> 
 
+<div class="loadingText" id="placeListLoadingIndicator">Loading...</div>
 <select id="place-list-select" name="character" multiple="multiple"> 
 </select>
 

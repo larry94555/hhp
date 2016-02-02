@@ -29,6 +29,8 @@ $(function() {
 		
 		
 		// NOTE: To Do: only send the element that changes.
+		// NOTE:  This functionality is unnecessary.  Don't save in InvitationKey until the email sends (then, we only need to remove failed emails).
+		
 		
 		//alert("Previous: " + previousValue);
 		//alert("Current: " + $.trim($('#invite-to-field').val()));

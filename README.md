@@ -8,7 +8,7 @@ up of a regular happy hour schedule.  It leverages the Yelp API to make suggesti
 ## Motivation
 
 Happy Hour planning is usually done through emails or through a calendar application.  Emails take too much time.  A calendar application
-doesn't allow collaborative planning specific to a Happy Hour.
+doesn't allow collaborative planning specific to a Happy Hour.  Happy Hour Planner (hhp) simplifies this planning.
 
 ## Installation
 
